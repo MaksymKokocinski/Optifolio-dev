@@ -141,10 +141,9 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'makstestowymail@gmail.com'
 EMAIL_HOST_PASSWORD = 'gy40@w-=#y%g9^#qj)k@8ul5po-t$+f*n62%4t8c1*i7sw-5im'
 
-
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# śSTATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
