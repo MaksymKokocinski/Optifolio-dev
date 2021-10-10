@@ -123,7 +123,7 @@ def summaryPage(request):
     
 
     profit_earned = visdata.aggregate(Sum(('course')))
-    profit_sum = ("%.3f" % profit_earned['course__sum'])
+    profit_sum = (profit_earned['course__sum'])
     
     
     context = {'comp_number': comp_number, 'shares_num':shares_num_sum, 'profit_earned': profit_sum,}
