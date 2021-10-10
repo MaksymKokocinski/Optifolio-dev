@@ -39,52 +39,5 @@
       </ul>
     </div>
   </nav>
-  <div class="container-fluid">
-      <span class="float-right" style="padding-top:30px;padding-left:5px;padding-right:70px;"><a href="{% url 'logout' %}" style="text-decoration:none;color:black;">Logout</a></span>
-    <span class="float-right" style="color:black;padding-top:30px;">Hello, {{request.user}}</span>
-  </div>
-
-  {% block content %}
-<br>
-<div class="container-fluid" style="margin-top:150px;position:fixed;margin-left:260px;">
-<table  class="table table-bordered" style="max-width:800px;">
-    <thead class="thead-light">
-      <tr class="d-flex">
-        <th class="text-center" style="width:5%;">Id</th>
-        <th class="col text-center">Nazwa</th>
-        <th class="col text-center">Data</th>
-        <th class="col text-center">Godzina</th>
-        <th class="col text-center">Liczba akcji</th>
-        <th class="col text-center">Kwota</th>
-        <th class="col text-center">Opłata</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for temp in visdata %}
-      <tr>
-        <td>{{ temp.visdata_id }}</td>
-        <th scope="row">{{ temp.title }}</th>
-        <td>{{ temp.date }}</td>
-        <td>{{ temp.hour }}</td>
-        <td>{{ temp.shares_number }}</td>
-        <td>{{ temp.course }}</td>
-        <td>{{ temp.fare }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-  </div>
-{% endblock %}
-
-<div class="container" style="position:fixed;margin-left:1300px;margin-top:500px;">
-<div>
-<img id="image" src="../static/images/graf.PNG" style="width:200px">
 </div>
-<div style="margin-top:150px;">
-<left>
-<button class="wykres szarak" onclick="document.getElementById('image').src='../static/images/graf.PNG'">Sektory</button>
-<button class="wykres szarak" onclick="document.getElementById('image').src='../static/images/cat6.jpg'">Firmy</button>
-<button class="wykres szarak" onclick="document.getElementById('image').src='../static/images/graf.PNG'">Coś tam</button>
-</div>
-</div>
-  </html>
+</html>
