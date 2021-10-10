@@ -16,16 +16,19 @@
         </tr>
       </thead>
       <tbody>
+        {if visdata != null}
         {% for temp in visdata %}
-        <tr>
-          <th class=" text-center">{{ temp.title }}</th>
-          <td class=" text-center">{{ temp.date }}</td>
-          <td class=" text-center">{{ temp.hour }}</td>
-          <td class=" text-center">{{ temp.shares_number }}</td>
-          <td class=" text-center">{{ temp.course }}</td>
-          <td class=" text-center">{{ temp.fare }}</td>
-        </tr>
-        {% endfor %}
+          <tr>
+            <th class=" text-center">{{ temp.title }}</th>
+            <td class=" text-center">{{ temp.date }}</td>
+            <td class=" text-center">{{ temp.hour }}</td>
+            <td class=" text-center">{{ temp.shares_number }}</td>
+            <td class=" text-center">{{ temp.course }}</td>
+            <td class=" text-center">{{ temp.fare }}</td>
+          </tr>
+          {% endfor %}
+        {% else %}
+        {% endif %}
       </tbody>
     </table>
     </div>
