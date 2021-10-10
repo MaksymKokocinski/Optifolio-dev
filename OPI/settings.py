@@ -27,7 +27,8 @@ SECRET_KEY = '&&p&$w(voob=$+udci17a4as(^+3taa=l^nwl6w3c^*@@oq&tn'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['optifolio-dev.herokuapp.com','127.0.0.1']
+ALLOWED_HOSTS = ['optifolio-dev.herokuapp.com','127.0.0.1'
+                'optifolio-dev.herokuapp.com/visualisationpage']
 
 
 # Application definition
