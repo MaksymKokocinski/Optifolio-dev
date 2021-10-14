@@ -11,11 +11,12 @@
 <link rel="stylesheet" type="text/css" href="..\static\css\main.css">
 <link href="https://fonts.googleapis.com/css?family=Mulish&display=swap" rel="stylesheet" />
 </head>
+
 <body class="home">
 {% block content %}
 <nav class="navbar navbar-expand-sm navbar-light sticky-top">
 <div class="container-fluid">
-    <a class="navbar-brand" href="#" style="margin-left:4%;"><div class="napis">Optifolio</div></a>
+    <a class="navbar-brand" href="#" style="margin-left:4%;"></a>
     <div id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
@@ -23,10 +24,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'register' %}"><div class="przycisk" style="padding-top:11px;padding-left:65px;">Zarejestruj się</div></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'visualisationpage' %}"><div class="przycisk" style="padding-top:11px;padding-left:31px;">Przykładowa strona</div></a>
-            </li>            
+            </li>          
         </ul>
 
     </div>
@@ -35,15 +33,18 @@
 
 <div class="container-fluid justify-content-center">
     <div class="row justify-content-center" style="width:100%;">
-        <div class="col-3 opis">Większość osób inwestujących na giełdzie monitoruje i prowadzi swój portfel inwestycyjny w Excelu, wpisując dane ręcznie. Każdą analizę, czy też obliczenie zysków i strat muszą obliczać samodzielnie. Czynności te są żmudne, powtarzalne i zajmują wiele czasu, który dla osób inwestujących jest tak samo ważny, jak zarobione pieniądze.<br><br>
+        <div class="col-4 opis justify" style="padding-left:70px;">
+        <div class="napis">Optifolio</div>
+        <br>
+        <p class="text-justify">Większość osób inwestujących na giełdzie monitoruje i prowadzi swój portfel inwestycyjny w Excelu, wpisując dane ręcznie. Każdą analizę, czy też obliczenie zysków i strat muszą obliczać samodzielnie. Czynności te są żmudne, powtarzalne i zajmują wiele czasu, który dla osób inwestujących jest tak samo ważny, jak zarobione pieniądze.<br><br>
 Naszym pomysłem jest dostarczenie systemu, który zautomatyzuje i ułatwi to użytkownikowi. W przejrzysty sposób pokaże, jakie akcje posiada w swoim portfelu, oraz jak zmieniała się jego zawartość, na przestrzeni czasu. <br><br>
 Zoptymalizuje skład portfolia  i zasugeruje inne akcje, w które warto zainwestować. Określi jakich zysków użytkownik może oczekiwać po stworzeniu zdywersyfikowanego portfela.<br><br>
 
- Grupą docelową projektu są osoby inwestujące na giełdzie, szukające narzędzia pozwalającego, na automatyczne przeprowadzenie obliczeń i wizualizację danych.
+ Grupą docelową projektu są osoby inwestujące na giełdzie, szukające narzędzia pozwalającego, na automatyczne przeprowadzenie obliczeń i wizualizację danych.</p>
         </div>
 
-        <div class="col-8" align="right">
-            <img src = "../static/images/example.png" style="height:580px; width:900px;">
+        <div class="col-8" align="center" style="margin-top:130px;">
+           <a href="{% url 'visualisationpage' %}"> <img src = "../static/images/example.png" style="height:480px; width:800px;"></a>
             </div>
     </div>
  </div>

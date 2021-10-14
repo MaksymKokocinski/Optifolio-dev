@@ -121,7 +121,6 @@ a{
  }
 
  .kontener{
-     margin-top: 12%;
      background-color: white;
      height: 487px;
     width: 960px;
@@ -129,7 +128,6 @@ a{
     border-top-right-radius: 30px;
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
-    margin-left: 485px;
  }
 
  .inputy{

@@ -8,14 +8,10 @@
     <link rel="stylesheet" type="text/css" href="..\static\css\main.css">
     <link href="https://fonts.googleapis.com/css?family=Mulish&display=swap" rel="stylesheet" />
     
-    <style>
-     body {background-color: gray;}
-    </style>
-    
     </head>
     <body class="log">
     {% csrf_token %}
-    <div class="kontener">
+    <div class="kontener top-50 start-50 translate-middle">
     <button type="button" class="close" aria-label="Close" style="margin-right:30px;margin-top:20px;">
         <span aria-hidden="true"><a href="{% url 'homepage' %}" style="text-decoration:none;">&times;</a></span>
      </button>
@@ -43,7 +39,7 @@
             <!-- form-group// -->   
             {% for message in messages %}
                 {% csrf_token %}
-               {{message}}
+              <section style="position:absolute;"> {{message}}</section>
             {% endfor %}
             <div class="form-group">
                 <button type="submit" class="zaloguj"> Zaloguj się  </button>
