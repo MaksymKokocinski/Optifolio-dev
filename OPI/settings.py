@@ -77,11 +77,13 @@ WSGI_APPLICATION = 'OPI.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'deb5kg4tj671jt',    
+        'USER': 'ktqwaxbenfihlt',
+        'PASSWORD': '9fa8640c12a95a7bb6792308bfac36a8ff0c62b60d9ec144d425681f3e621d79',
+        'HOST' : 'ec2-54-195-246-55.eu-west-1.compute.amazonaws.com',
+        'PORT' : '5432', 
+}}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
