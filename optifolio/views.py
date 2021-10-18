@@ -110,6 +110,12 @@ def visualisationPage(request):
 
     return render(request, 'optifolio/visualisationpage.html', {'visdata':visdata})
 
+@unauthenticated_user
+def infoPage(request):
+    context = {}
+
+    return render(request, 'optifolio/infopage.html',context)
+
 
 
 @unauthenticated_user
