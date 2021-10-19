@@ -15,7 +15,7 @@ urlpatterns = [
     path('', views.adminpage, name="adminpage"),
     path('customer/<str:pk>/', views.customer, name='customer'),
     
-    path('userpage/', views.userPage, name='user-page'), 
+    path('userpage/', views.userPage, name='userpage'), 
     path('account/', views.accountSettings, name ='account'),
  
 

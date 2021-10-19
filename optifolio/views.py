@@ -55,17 +55,15 @@ def logoutUser(request):
     return redirect('homepage')
 
 
-#@login_required(login_url='login')
-#@allowed_users(allowed_roles=['customer'])
-@unauthenticated_user
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['customer'])
 def userPage(request):
 
     context = {}
     return render(request, 'optifolio/userpage.html', context)
 
-#@login_required(login_url='login')
-#@allowed_users(allowed_roles=['customer'])
-@unauthenticated_user
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['customer'])
 def accountSettings(request):
     customer = request.user.customer
     form = CustomerForm(instance=customer)
@@ -87,18 +85,16 @@ def homepage(request):
     return render(request, 'optifolio/homepage.html', context)
 
 
-#@login_required(login_url='homepage')
-#@admin_only
-@unauthenticated_user
+@login_required(login_url='homepage')
+@admin_only
 def adminpage(request):
     
     context = {}
     return render(request, 'optifolio/adminpage.html', context)
 
 
-#@login_required(login_url='login')
-#@allowed_users(allowed_roles=['admin'])
-@unauthenticated_user
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def customer(request, pk):
     customer = Customer.objects.get(id = pk)
 
