@@ -79,6 +79,10 @@ body{
   font-size: 24px;
   color:white;
 }
+.przyciskportf:hover
+{
+    color:lightgray;
+}
 
 .przyciskportf1 {
   width: 282px;
