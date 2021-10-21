@@ -1,58 +1,82 @@
 {% extends 'optifolio/main.html' %}
 {% block content  %}
 <br>
-
-<div class="container container-max-width-md" style="margin-top:150px;">
-<div class="row">
-    <div class="">
-        <div class="col-md">
-            <div class="card text-center text-black mb-3" id="shares-num">
-                <div class="card-header">
-                    <h5 class="">Liczba akcji</h5>
-                </div>
-                <div class="">
-                    <h4 class="card-title">akcje<!--{{shares_num}}--></h3>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col">
-        <div class="col-md">
-            <div class="card text-center text-black mb-3 float-left" id="profit-earned">
-                <div class="card-header">
-                    <h5 class="card-title">Zysk</h5>
-                </div>
-                <div class="card-body">
-                    <h3 class="card-title">zyski<!--{{profit_earned}}--></h3>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col float-left">
-        <div class="col-md">
-            <div class="card text-center text-black float-left mb-3" id="comp-number">
-                <div class="card-header">
-                    <h5 class="card-title">Liczba firm</h5>
-                </div>
-                <div class="card-body">
-                    <h3 class="card-title">firmy<!--{{comp_number}}--></h3>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col">
-        <div class="col-md float-left">
-            <div class="card text-center text-black float-left mb-3" id="smth-4">
-                <div class="card-header">
-                    <h5 class="card-title">Dane 4</h5>
-                </div>
-                <div class="card-body">
-                    <h3 class="card-title">dene<!--{{smth_4}}--></h3>
-                </div>
-            </div>
-        </div>
+<div class="container" style="margin-left:230px;">
+    <div class="container-fluid">
+        <p class="text-md-left" style="font-size:36px;font-weight:bold;">Twoje portfolia</p>
     </div>
 </div>
+<div class="container" style="margin-left:230px;">
+    <nav class="navbar navbar-expand-sm">
+        <div class="container-fluid">
+            <div id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><div class="przyciskportf d-flex justify-content-center align-items-center">Aktualne</div></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><div class="przyciskportf1 d-flex justify-content-center align-items-center">Historyczne</div></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><div class="przyciskportf1 d-flex justify-content-center align-items-center">Przykładowe</div></a>
+                    </li>             
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+</div>
+<div class="container container-max-width-md" style="margin-left:230px;">
+    <div class="row">
+        <div class="">
+            <div class="col-md">
+                <div class="card text-center text-black mb-3" id="shares-num">
+                    <div class="card-header">
+                        <h5 class="">Liczba akcji</h5>
+                    </div>
+                    <div class="">
+                        <h4 class="card-title">akcje<!--{{shares_num}}--></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="col-md">
+                <div class="card text-center text-black mb-3 float-left" id="profit-earned">
+                    <div class="card-header">
+                        <h5 class="card-title">Zysk</h5>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">zyski<!--{{profit_earned}}--></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col float-left">
+            <div class="col-md">
+                <div class="card text-center text-black float-left mb-3" id="comp-number">
+                    <div class="card-header">
+                        <h5 class="card-title">Liczba firm</h5>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">firmy<!--{{comp_number}}--></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="col-md float-left">
+                <div class="card text-center text-black float-left mb-3" id="smth-4">
+                    <div class="card-header">
+                        <h5 class="card-title">Dane 4</h5>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">dene<!--{{smth_4}}--></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 
