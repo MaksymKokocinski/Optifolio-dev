@@ -1,7 +1,13 @@
-.navbar{
-    padding: .8rem;
-    background-color: white;
+.modal{
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  border: 1px solid black;
+  border-radius: 10px;
 }
+
+
 
 body{
     font-family: Mulish;
@@ -62,10 +68,47 @@ body{
     margin-top: 20px;
     margin-right: 5px;
     color:white;
-
 }
 
 .przycisk:hover
+{
+    color:lightgray;
+}
+
+.przyciskportf {
+  width: 282px;
+  height: 62px;
+  background: rgba(76,164,86,1);
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  font-family: Mulish;
+  font-weight: Bold;
+  font-size: 24px;
+  color:white;
+}
+.przyciskportf:hover
+{
+    color:lightgray;
+}
+
+.przyciskportf1 {
+  width: 282px;
+  height: 62px;
+  background:white;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  font-family: Mulish;
+  font-weight: Bold;
+  font-size: 24px;
+  color:rgba(76,164,86,1);
+  border:solid 1px lightgray;
+}
+
+.przyciskportf1:hover
 {
     color:lightgray;
 }
@@ -86,9 +129,6 @@ a{
     font-size: 18px;
  }
 
-.container{
-  width: 100%;
-}
 
 .row {
   width: 100%;
@@ -136,15 +176,15 @@ a{
  }
 
  .kontener2{
-    margin-top: 135px;
-    background-color: white;
-    height: 700px;
+ 
+   background-color: white;
+   height: 700px;
    width: 960px;
    border-top-left-radius: 30px;
    border-top-right-radius: 30px;
    border-bottom-left-radius: 30px;
    border-bottom-right-radius: 30px;
-   margin-left: 485px;
+
 
  }
  

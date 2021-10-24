@@ -16,6 +16,7 @@ import django_heroku
 import dj_database_url
 import os
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -27,9 +28,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '&&p&$w(voob=$+udci17a4as(^+3taa=l^nwl6w3c^*@@oq&tn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['optifolio-dev.herokuapp.com','127.0.0.1']
+ALLOWED_HOSTS = ['optifolio-dev.herokuapp.com','127.0.0.1','[*]']
 
 
 # Application definition
@@ -82,8 +83,13 @@ WSGI_APPLICATION = 'OPI.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'deb5kg4tj671jt',
+        'USER':'ktqwaxbenfihlt',
+        'PASSWORD':'9fa8640c12a95a7bb6792308bfac36a8ff0c62b60d9ec144d425681f3e621d79',
+        'HOST':'ec2-54-195-246-55.eu-west-1.compute.amazonaws.com',
+        'PORT':'5432',
+
     }
 }
 
@@ -132,7 +138,7 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
-
+django_heroku.settings(locals())
 
 #SMTP Configuration
 

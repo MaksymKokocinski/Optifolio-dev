@@ -11,43 +11,45 @@
     </head>
     <body class="log">
     {% csrf_token %}
-    <div class="kontener top-50 start-50 translate-middle">
-    <button type="button" class="close" aria-label="Close" style="margin-right:30px;margin-top:20px;">
-        <span aria-hidden="true"><a href="{% url 'homepage' %}" style="text-decoration:none;">&times;</a></span>
-     </button>
-    <article class="card-body mx-auto" style="max-width: 400px;">
+    <div class="d-flex justify-content-center align-items-center" style="height:100%;">
+        <div class="kontener">
+        <button type="button" class="close" aria-label="Close" style="margin-right:30px;margin-top:20px;">
+            <span aria-hidden="true"><a href="{% url 'homepage' %}" style="text-decoration:none;">&times;</a></span>
+        </button>
+        <article class="card-body mx-auto" style="max-width: 400px;">
 
-        <h4 class="card-title mt-3 text-center" style="font-family:Mulish;font-weight:bold;font-size:36px;">Zaloguj</h4>
-        <form method="POST" action="">
-            {% csrf_token %}
-            <div class="inputy">
-            
-            <span>Nazwa użytkownika:</span>
-            <div class="form-group input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-                </div>
-                <input name="username" class="form-control" placeholder="Full name" type="text">
-            </div><br>
-            <span>Hasło:</span>
-            <div class="form-group input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-                </div>
-                <input name="password" class="form-control" placeholder="Create password" type="password">
-            </div> </div>
-            <!-- form-group// -->   
-            {% for message in messages %}
+            <h4 class="card-title mt-3 text-center" style="font-family:Mulish;font-weight:bold;font-size:36px;">Zaloguj</h4>
+            <form method="POST" action="">
                 {% csrf_token %}
-              <section style="position:absolute;"> {{message}}</section>
-            {% endfor %}
-            <div class="form-group">
-                <button type="submit" class="zaloguj"> Zaloguj się  </button>
-            </div> <!-- form-group// -->      
-            <p class="text-center" style="position:static;margin-top:110px;"><span class="szarak">Nie masz jeszcze konta? </span><a href="{% url 'register' %}">Zarejestruj się</a> </p>                                                                 
-            <p class="text-center" style="position:static;"><span class="szarak">Zapomniałeś hasła? </span><a href="{% url 'reset_password' %}">Zresetuj hasło</a> </p>    
-        </form>
-    </article>
+                <div class="inputy">
+                
+                <span>Nazwa użytkownika:</span>
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                    </div>
+                    <input name="username" class="form-control" placeholder="Full name" type="text">
+                </div><br>
+                <span>Hasło:</span>
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                    </div>
+                    <input name="password" class="form-control" placeholder="Create password" type="password">
+                </div> </div>
+                <!-- form-group// -->   
+                {% for message in messages %}
+                    {% csrf_token %}
+                <section style="position:absolute;"> {{message}}</section>
+                {% endfor %}
+                <div class="form-group">
+                    <button type="submit" class="zaloguj"> Zaloguj się  </button>
+                </div> <!-- form-group// -->      
+                <p class="text-center" style="position:static;margin-top:110px;"><span class="szarak">Nie masz jeszcze konta? </span><a href="{% url 'register' %}">Zarejestruj się</a> </p>                                                                 
+                <p class="text-center" style="position:static;"><span class="szarak">Zapomniałeś hasła? </span><a href="{% url 'reset_password' %}">Zresetuj hasło</a> </p>    
+            </form>
+        </article>
+        </div>
     </div>
   
     

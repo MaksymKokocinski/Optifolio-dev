@@ -17,58 +17,58 @@
 </head>
 <body class="log">
 
+<div class="d-flex justify-content-center align-items-center" style="height:100%;">
+    <div class="kontener2">
+        <button type="button" class="close" aria-label="Close" style="margin-right:30px;margin-top:20px;">
+            <span aria-hidden="true"><a href="{% url 'homepage' %}" style="text-decoration:none;">&times;</a></span>
+        </button>
+    <article class="card-body mx-auto" style="max-width: 400px;">
+        <h4 class="card-title mt-3 text-center" style="font-family:Mulish;font-weight:bold;font-size:36px;">Stwórz konto</h4>
+        
+        <form method="POST" action="">
+            {% csrf_token %}
+        <div class="inp"> <span>Nazwa użytkownika:</span>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-user"></i></span>
+                </div>
+                {{form.username}}
+            </div> <!-- form-group// -->
+            <br>
+            <span>Adres e-mail:</span>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                </div>
+                {{form.email}}
+            </div> <!-- form-group// -->
+            <span class="szarak" style="font-size:13px; margin-top:-13px;position:absolute;">Nikomu nie udostępniamy Twojego adresu email</span>
+            <br>
+            <span>Hasło:</span>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                </div>
+                {{form.password1}}
+            </div> <!-- form-group// -->
+            <br>
+            <span>Potwierdź Hasło:</span>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                </div>
+                {{form.password2}}
+            </div> <!-- form-group// -->                                      
+            <div class="form-group">
+                <button type="submit" class="rej"> Zarejestruj się </button>
+            </div> <!-- form-group// -->      
+            <p>{{form.errors}}</p>
 
-<div class="kontener2">
-    <button type="button" class="close" aria-label="Close" style="margin-right:30px;margin-top:20px;">
-        <span aria-hidden="true"><a href="{% url 'homepage' %}" style="text-decoration:none;">&times;</a></span>
-     </button>
-<article class="card-body mx-auto" style="max-width: 400px;">
-	<h4 class="card-title mt-3 text-center" style="font-family:Mulish;font-weight:bold;font-size:36px;">Stwórz konto</h4>
-	
-	<form method="POST" action="">
-        {% csrf_token %}
-       <div class="inp"> <span>Nazwa użytkownika:</span>
-        <div class="form-group input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text"> <i class="fa fa-user"></i></span>
-            </div>
-            {{form.username}}
-        </div> <!-- form-group// -->
-        <br>
-        <span>Adres e-mail:</span>
-        <div class="form-group input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
-            </div>
-            {{form.email}}
-        </div> <!-- form-group// -->
-        <span class="szarak" style="font-size:13px; margin-top:-13px;position:absolute;">Nikomu nie udostępniamy Twojego adresu email</span>
-        <br>
-        <span>Hasło:</span>
-        <div class="form-group input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-            </div>
-            {{form.password1}}
-        </div> <!-- form-group// -->
-        <br>
-        <span>Potwierdź Hasło:</span>
-        <div class="form-group input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-            </div>
-            {{form.password2}}
-        </div> <!-- form-group// -->                                      
-        <div class="form-group">
-            <button type="submit" class="rej"> Zarejestruj się </button>
-        </div> <!-- form-group// -->      
-        <p>{{form.errors}}</p>
-
-        <p class="text-center"><span class="szarak">Masz konto?</span> <a href="{% url 'login' %}">Zaloguj się</a> </p>                                                                 
-    </form>
-</article>
-</div> <!-- card.// -->
-
+            <p class="text-center"><span class="szarak">Masz konto?</span> <a href="{% url 'login' %}">Zaloguj się</a> </p>                                                                 
+        </form>
+    </article>
+    </div> <!-- card.// -->
+</div>
 
 
 <script>
