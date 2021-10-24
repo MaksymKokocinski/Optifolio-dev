@@ -35,14 +35,16 @@
         </tr>
       </thead>
       <tbody>
-          <tr>
-            <th class=" text-center">1</th>
-            <td class=" text-center">2</td>
-            <td class=" text-center">3</td>
-            <td class=" text-center">4</td>
-            <td class=" text-center">5</td>
-            <td class=" text-center">6</td>
-          </tr>
+        {% for temp in visdata %}
+        <tr>
+          <th class=" text-center">{{ temp.title }}</th>
+          <td class=" text-center">{{ temp.date }}</td>
+          <td class=" text-center">{{ temp.hour }}</td>
+          <td class=" text-center">{{ temp.shares_number }}</td>
+          <td class=" text-center">{{ temp.course }}</td>
+          <td class=" text-center">{{ temp.fare }}</td>
+        </tr>
+        {% endfor %}
       </tbody>
     </table>
     </div>

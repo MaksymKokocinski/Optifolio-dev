@@ -13,7 +13,7 @@ from .forms import CreateUserForm, CustomerForm
 from .decorators import unauthenticated_user,allowed_users,admin_only
 
 
-from django.db.models import Count, Sum
+from django.db.models import Count, Sum, F
 
 #from . import csv_reader
 
@@ -115,7 +115,7 @@ def visualisationPage(request):
 @unauthenticated_user
 def summaryPage(request):
     visdata = VisData.objects.all()
-    
+    #print(visdata)
     comp_number = visdata.count()
 
     shares_num = visdata.aggregate(Sum(('shares_number')))
@@ -124,9 +124,23 @@ def summaryPage(request):
 
     profit_earned = visdata.aggregate(Sum(('course')))
     profit_sum = (profit_earned['course__sum'])
+
+    fare_paid = visdata.aggregate(Sum(('fare')))
+    fare_sum = (fare_paid['fare__sum'])
     
-    
-    context = {'comp_number': comp_number, 'shares_num':shares_num_sum, 'profit_earned': profit_sum,}
+    mod_date = visdata.order_by('-date').first().date
+    #print(mod_date)
+    to_buy = visdata.filter(buy_sell='+').count()
+    to_sell = visdata.filter(buy_sell='-').count()
+    print(to_buy,to_sell)
+
+    print(visdata.get('shares_num'))
+
+    #problem jest przy mnozeniu akcji tak zeby pomnozylo przez odpowiednie, ale to powinno być tu a nie w modelu
+    #model jest od wpisywania danych, nie od sumowania.
+
+    #shares_buy = visdata.filter('buy_sell'=='+').count()
+    context = {'comp_number': comp_number, 'shares_num':shares_num_sum, 'profit_earned': profit_sum, 'fare_sum':fare_sum,'mod_date':mod_date}
     return render(request, 'optifolio/summary.html',context)
 
 

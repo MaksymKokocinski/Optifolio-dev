@@ -24,15 +24,7 @@ class VisData(models.Model):
     shares_number = models.DecimalField(decimal_places=0,default=0,max_digits=999,null=True,blank=True)
     course = models.DecimalField(decimal_places=2,default=0,max_digits=999,null=True,blank=True)
     fare = models.DecimalField(decimal_places=2,default=0,max_digits=999,null=True,blank=True)
-    
+
 
     def __str__(self):
         return self.title
-
-
-class Summary(models.Model):
-    print('summary of visdatas')
-    #buy_sell musi zliczać '+'
-    #shares_number musi zliczać
-    #cours musi zliczać
-    #fare musi zliczać
