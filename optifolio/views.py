@@ -122,25 +122,38 @@ def summaryPage(request):
     shares_num_sum = (shares_num['shares_number__sum'])
     
 
-    profit_earned = visdata.aggregate(Sum(('course')))
-    profit_sum = (profit_earned['course__sum'])
+    #profit_earned = visdata.aggregate(Sum(('course')))
+    #profit_sum = (profit_earned['course__sum'])
 
     fare_paid = visdata.aggregate(Sum(('fare')))
     fare_sum = (fare_paid['fare__sum'])
     
     mod_date = visdata.order_by('-date').first().date
-    #print(mod_date)
+    
     to_buy = visdata.filter(buy_sell='+').count()
     to_sell = visdata.filter(buy_sell='-').count()
-    print(to_buy,to_sell)
+    #print(to_buy,to_sell)
 
-    print(visdata.get('shares_num'))
+    
 
-    #problem jest przy mnozeniu akcji tak zeby pomnozylo przez odpowiednie, ale to powinno być tu a nie w modelu
-    #model jest od wpisywania danych, nie od sumowania.
+    if comp_number > 0:
+        to_buy_percentage = to_buy / comp_number
+        to_buy_percentage = to_buy_percentage * 100
+        to_buy_percentage = str(to_buy_percentage) + '%'
+ 
 
-    #shares_buy = visdata.filter('buy_sell'=='+').count()
-    context = {'comp_number': comp_number, 'shares_num':shares_num_sum, 'profit_earned': profit_sum, 'fare_sum':fare_sum,'mod_date':mod_date}
+    aggregated_data = VisData.objects.annotate(
+       intermid_result=F('course') - F('fare')
+    ).annotate(
+       record_total=F('shares_number') * F('intermid_result')
+    ).aggregate(
+       total=Sum('record_total')
+    )
+    profit_earned = aggregated_data['total']
+    #print(profit_earned)
+
+    context = {'comp_number': comp_number, 'shares_num':shares_num_sum,'to_buy_percentage':to_buy_percentage,
+     'profit_earned': profit_earned, 'fare_sum':fare_sum,'mod_date':mod_date}
     return render(request, 'optifolio/summary.html',context)
 
 
