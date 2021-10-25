@@ -130,3 +130,4 @@ dmypy.json
 
 
 .env
+OPI/staticfiles/.DS_Store
