@@ -54,66 +54,29 @@
     </div>
   </div>
 </div>
-<div class="container container-max-width-md" style="margin-left:230px;">
-    <div class="row">
-        <div class="">
-            <div class="col-md">
-                <div class="card text-center text-black mb-3" id="shares-num">
-                    <div class="card-header">
-                        <h5 class="">Liczba akcji</h5>
-                    </div>
-                    <div class="">
-                        <h4 class="card-title">{{shares_num}}</h3>
-                    </div>
-                </div>
-            </div>
+<div class="container " style="margin-left:230px;">
+    <div class="kafelek justify-content-center align-items-center">
+        <div class="grafika"> </div>
+        <div class="sumnapis d-flex justify-content-center align-items-center mt-3">Portfolio nr. 1</div>
+        <div class="cztery containfer-fluid mt-3">
+        <table class="d-flex justify-content-center align-items-center">
+            <tr>
+               <td class="p-3"> <div class="kaf d-flex justify-content-center align-items-center">{{shares_num}} <br>Liczba akcji </div></td>
+               <td class="p-3"> <div class="kaf d-flex justify-content-center align-items-center">{{profit_earned}}<br> Zysk </div></td>
+            </tr>
+            <tr>
+               <td class="p-3"> <div class="kaf d-flex justify-content-center align-items-center">{{comp_number}} <br>Liczba firm </div></td>
+               <td class="p-3"> <div class="kaf d-flex justify-content-center align-items-center">{{to_buy_percentage}} <br>Na buy </div></td>
+            </tr>
+        </table>
         </div>
-        <div class="col">
-            <div class="col-md">
-                <div class="card text-center text-black mb-3 float-left" id="profit-earned">
-                    <div class="card-header">
-                        <h5 class="card-title">Zysk</h5>
-                    </div>
-                    <div class="card-body">
-                        <h3 class="card-title">{{profit_earned}}</h3>
-                    </div>
-                </div>
-            </div>
+        <div class="d-flex justify-content-center align-items-center mt-3">
+            <div class="navbutthead mr-4 d-flex justify-content-center align-items-center">Optymalizuj</div>
+            <div class="navbutt mr-4 d-flex justify-content-center align-items-center">Edytuj</div>
+            <div class="navbutt d-flex justify-content-center align-items-center">Usuń</div>
         </div>
-        <div class="col float-left">
-            <div class="col-md">
-                <div class="card text-center text-black float-left mb-3" id="comp-number">
-                    <div class="card-header">
-                        <h5 class="card-title">Liczba firm</h5>
-                    </div>
-                    <div class="card-body">
-                        <h3 class="card-title">{{comp_number}}</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="col-md float-left">
-                <div class="card text-center text-black float-left mb-3" id="smth-4">
-                    <div class="card-header">
-                        <h5 class="card-title">Na buy</h5>
-                    </div>
-                    <div class="card-body">
-                        <h3 class="card-title">{{to_buy_percentage}}</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md float-left">
-        <div class="card-header">
-            <h5 class="card-title">Data ostatniej modyfikacji</h5>
-        </div>
-        <div class="card-body">
-            <h3 class="card-title">{{mod_date}}</h3>
-        </div>
-        </div>
+        <div class="summfoot d-flex justify-content-center align-items-center">Ostatnia aktualizacja {{mod_date}}</div>
     </div>
-
 </div>
 
 
