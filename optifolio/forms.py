@@ -25,6 +25,12 @@ class VisForm(ModelForm):
         fields = '__all__'
         exclude = ['user_name']
 
+class AddSharesForm(ModelForm):
+    class Meta:
+        model = VisData
+        fields = '__all__'
+        #exclude = ['user_name']
+
 
 
 
