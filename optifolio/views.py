@@ -105,9 +105,12 @@ def customer(request, pk):
 
 @unauthenticated_user
 def visualisationPage(request):
-    form = AddSharesForm
+    form = AddSharesForm()
     if request.method == 'POST':
         print("Printing POST: ", request.POST)
+        form = AddSharesForm(request.POST)
+        if form.is_valid():
+            form.save()
 
     context = {'form': form}
     #visdata = VisData.objects.all()
