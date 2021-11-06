@@ -35,11 +35,12 @@
         <li class="active">
           <a class="nav-link sideprzycisk d-flex align-items-center" href="{% url 'infopage' %}">Info</a>
         </li>
-
+        {% if request.user.is_authenticated %}
         <li class="active">
           <a class="nav-link sideprzycisk d-flex align-items-center" href="{% url 'account' %}">Ustawienia</a>
         </li>
-
+        {% else %}
+        {% endif %}
 
       </ul>
     </div>

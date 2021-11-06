@@ -88,4 +88,5 @@ ax.pie(nested_data_in, radius=1-size, colors=inner_colors, startangle=0, normali
 ax.set(aspect="equal", title='podział portfela na sektory i firmy')
 plt.show()
 
+'''
 
