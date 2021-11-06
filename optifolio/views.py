@@ -111,9 +111,8 @@ def visualisationPage(request):
         form = AddSharesForm(request.POST)
         if form.is_valid():
             form.save()
-
-    context = {'form': form}
-    #visdata = VisData.objects.all()
+    visdata = VisData.objects.all()
+    context = {'form': form, 'visdata':visdata}
     #return render(request, 'optifolio/visualisationpage.html', {'visdata':visdata})
     return render(request, 'optifolio/visualisationpage.html', context)
 
