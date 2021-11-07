@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 
 from .models import *
-from .forms import CreateUserForm, CustomerForm
+from .forms import CreateUserForm, CustomerForm, AddSharesForm
 from .decorators import unauthenticated_user,allowed_users,admin_only
 
 
@@ -106,12 +106,20 @@ def customer(request, pk):
 #@login_required(login_url='login')
 #@allowed_users(allowed_roles=['customer'])
 def visualisationPage(request):
+    form = AddSharesForm()
+    if request.method == 'POST':
+        print("Printing POST: ", request.POST)
+        form = AddSharesForm(request.POST)
+        if form.is_valid():
+            form.save()
+    
     #for user restriction 
     #visdata = request.user.customer.visdata_set.all()
-    #shows all data
+    #shows all data    
     visdata = VisData.objects.all()
-
-    return render(request, 'optifolio/visualisationpage.html', {'visdata':visdata})
+    context = {'form': form, 'visdata':visdata}
+    #return render(request, 'optifolio/visualisationpage.html', {'visdata':visdata})
+    return render(request, 'optifolio/visualisationpage.html', context)
 
 @unauthenticated_user
 def infoPage(request):
