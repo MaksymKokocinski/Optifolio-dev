@@ -32,6 +32,7 @@
   font-size: 18px;
   font-weight: bold;
   border-radius: 20px;
+  border:solid 1px lightgray;
 }
 
 .sumnapis{
@@ -45,17 +46,28 @@
   min-height: 700px;
   max-height: 700px;
   border-radius: 15px;
-  background-color: gray;
+  background-color: white;
+}
+
+.dane{
+  color:black;
+  font-size: 28px;
 }
 .grafika
 {
   min-width: 480px;
   max-width: 480px;
-  background-color: red;
+  background-color: gray;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   min-height: 270px;
   max-height: 270px;
+}
+
+.shadow{
+  background-color: gray;
+  border-radius: 10px;
+
 }
 
 .kaf{
@@ -68,7 +80,7 @@
 }
 body{
     font-family: Mulish;
-    background-color:#F8F8FB;
+    background-color:#EDEDF6;
     overflow-x: hidden;
 
 }
