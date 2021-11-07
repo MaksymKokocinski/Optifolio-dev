@@ -156,7 +156,8 @@ def summaryPage(request):
     to_buy_percentage = 0
     if comp_number > 0:
         to_buy_percentage = to_buy / comp_number
-        to_buy_percentage = to_buy_percentage * 100
+        to_buy_percentage = (to_buy_percentage) * 100
+        to_buy_percentage = format(to_buy_percentage, ".0f")
         to_buy_percentage = str(to_buy_percentage) + '%'
     #for customer restriction delete object and change VisData to visdata
     aggregated_data = VisData.objects.annotate(
