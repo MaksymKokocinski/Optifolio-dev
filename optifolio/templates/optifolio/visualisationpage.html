@@ -127,6 +127,10 @@
     // setup 
     const data = {
       //tutaj moze petle do tego zrobic na dlugosc visdata
+        for (i=0;i<visdata;i++){
+          labels+=title[i];
+          data+=shares_number[i];
+        }
           labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],// tutaj wlozyc title
           datasets: [{
             label: 'Shares number',
