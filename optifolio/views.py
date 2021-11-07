@@ -102,8 +102,9 @@ def customer(request, pk):
     return render(request, 'optifolio/customer.html',context)
 
 ##################################
-
 @unauthenticated_user
+#@login_required(login_url='login')
+#@allowed_users(allowed_roles=['customer'])
 def visualisationPage(request):
     form = AddSharesForm()
     if request.method == 'POST':
@@ -111,6 +112,10 @@ def visualisationPage(request):
         form = AddSharesForm(request.POST)
         if form.is_valid():
             form.save()
+    
+    #for user restriction 
+    #visdata = request.user.customer.visdata_set.all()
+    #shows all data    
     visdata = VisData.objects.all()
     context = {'form': form, 'visdata':visdata}
     #return render(request, 'optifolio/visualisationpage.html', {'visdata':visdata})
@@ -124,8 +129,13 @@ def infoPage(request):
 
 
 
+#@login_required(login_url='login')
+#@allowed_users(allowed_roles=['customer'])
 @unauthenticated_user
 def summaryPage(request):
+    #for user restriction 
+    #visdata = request.user.customer.visdata_set.all()
+    #shows all data
     visdata = VisData.objects.all()
     comp_number = visdata.count()
 
@@ -148,7 +158,7 @@ def summaryPage(request):
         to_buy_percentage = to_buy / comp_number
         to_buy_percentage = to_buy_percentage * 100
         to_buy_percentage = str(to_buy_percentage) + '%'
- 
+    #for customer restriction delete object and change VisData to visdata
     aggregated_data = VisData.objects.annotate(
        intermid_result=F('course') - F('fare')
     ).annotate(
