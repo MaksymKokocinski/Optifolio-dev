@@ -102,9 +102,9 @@ def customer(request, pk):
     return render(request, 'optifolio/customer.html',context)
 
 ##################################
-
-@login_required(login_url='login')
-@allowed_users(allowed_roles=['customer'])
+@unauthenticated_user
+#@login_required(login_url='login')
+#@allowed_users(allowed_roles=['customer'])
 def visualisationPage(request):
     #for user restriction 
     #visdata = request.user.customer.visdata_set.all()
@@ -121,8 +121,9 @@ def infoPage(request):
 
 
 
-@login_required(login_url='login')
-@allowed_users(allowed_roles=['customer'])
+#@login_required(login_url='login')
+#@allowed_users(allowed_roles=['customer'])
+@unauthenticated_user
 def summaryPage(request):
     #for user restriction 
     #visdata = request.user.customer.visdata_set.all()
