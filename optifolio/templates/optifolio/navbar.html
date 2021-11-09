@@ -24,22 +24,23 @@
     <div class="sidebar-header"><img src = "{% static 'images/logo_P1OydgH.png'%}"><span class="opt">Optifolio</span></div>
     <div id="navbarNav">
       <ul class="list-unstyled components">
+        {% if request.user.is_authenticated %}
         <li class="active">
           <a class="nav-link sideprzycisk d-flex align-items-center" href="{% url 'summary' %}">Portfolia</a>
-
         </li>
         <li class="active">
           <a class="nav-link sideprzycisk d-flex align-items-center" href="{% url 'visualisationpage' %}">Wizualizacja</a>
         </li>
-        
-        <li class="active">
-          <a class="nav-link sideprzycisk d-flex align-items-center" href="{% url 'infopage' %}">Info</a>
-        </li>
-        {% if request.user.is_authenticated %}
         <li class="active">
           <a class="nav-link sideprzycisk d-flex align-items-center" href="{% url 'account' %}">Ustawienia</a>
         </li>
         {% else %}
+        <li class="active">
+          <a class="nav-link sideprzycisk d-flex align-items-center" href="{% url 'templatevisualisationpage' %}">Przykładowa wizualizacja</a>
+        </li>
+        <li class="active">
+          <a class="nav-link sideprzycisk d-flex align-items-center" href="{% url 'infopage' %}">Info</a>
+        </li>
         {% endif %}
 
       </ul>
