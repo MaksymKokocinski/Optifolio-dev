@@ -57,24 +57,14 @@
         <canvas id="myChart"></canvas>
       </div>
     </div>
-    <script>
-      for (i=0;i<visdata;i++){
-          labels2+=title[i];
-          document.write(labels2);
-          data2+=shares_number[i];
-          document.write(data2)
-          print(data2)
-        }
-    </script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
     // setup 
     const data = {
-      //tutaj moze petle do tego zrobic na dlugosc visdata
-          labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],// tutaj wlozyc title
+          labels: [{% for item in visdata %}'{{item.title}}',{%endfor%}],
           datasets: [{
             label: 'Shares number',
-            data: [18, 12, 6, 9, 12, 3, 9],//tutaj wlozyc liczbe akcji
+            data: [{% for item in visdata %}'{{item.shares_number}}',{%endfor%}],
             backgroundColor: [
               'rgba(255, 26, 104, 0.2)',
               'rgba(54, 162, 235, 0.2)',

@@ -17,7 +17,7 @@ from .decorators import unauthenticated_user,allowed_users,admin_only
 
 from django.db.models import Count, Sum, F
 
-from yahoo_fin.stock_info import get_analysts_info, get_data, get_live_price
+#from yahoo_fin.stock_info import get_analysts_info, get_data, get_live_price
 #from . import csv_reader
 
 @unauthenticated_user
