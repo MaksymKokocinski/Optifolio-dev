@@ -1,0 +1,201 @@
+{% extends 'optifolio/main.html' %} 
+
+{% load static %}
+{% block content %}
+<br>
+<div class="float-right px-5">
+<button type="button" class="btn btn-default btn-sm">
+  <a class="nav-link sideprzycisk d-flex align-items-center" href="{% url 'logout' %}">Exit</a>
+</button>
+</div>
+<div class="container" style="margin-left:230px;">
+    <div class="container-fluid">
+        <p class="text-md-left" style="font-size:36px;font-weight:bold;">Przykładowa wizualizacja portfolio</p>
+    </div>
+</div>
+
+<div id="overlay"></div>
+<div class="container" style="margin-left:250px;">
+  <table  class="table table-bordered" style="max-width:700px;">
+      <thead class="thead-light">
+        <tr>
+          <th class="text-center">Nazwa</th>
+          <th class="text-center">Data</th>
+          <th class=" text-center">Godzina</th>
+          <th class=" text-center">Liczba akcji</th>
+          <th class=" text-center">Kwota</th>
+          <th class=" text-center">Opłata</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for temp in visdata %}
+        <tr>
+          <th class=" text-center">{{ temp.title }}</th>
+          <td class=" text-center">{{ temp.date }}</td>
+          <td class=" text-center">{{ temp.hour }}</td>
+          <td class=" text-center">{{ temp.shares_number }}</td>
+          <td class=" text-center">{{ temp.course }}</td>
+          <td class=" text-center">{{ temp.fare }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    </div>
+
+    <div class="container" style="margin-left:250px;">
+      <left>
+      <button class="wykres szarak" onclick="chartType('bar')">Bar</button>
+      <button class="wykres szarak" onclick="chartType('line')">Line</button>
+      <button class="wykres szarak" onclick="chartType('doughnut')">Doughnut</button>
+      <button class="wykres szarak" onclick="chartType('pie')">Pie</button>
+      <button class="wykres szarak" onclick="chartType('polarArea')">PolarArea</button>
+    
+    </div>
+
+    <div class="chartCard"style="margin-left:250px;">
+      <div class="chartBox">
+        <canvas id="myChart"></canvas>
+      </div>
+    </div>
+    <script>
+      for (i=0;i<visdata;i++){
+          labels2+=title[i];
+          document.write(labels2);
+          data2+=shares_number[i];
+          document.write(data2)
+          print(data2)
+        }
+    </script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+    // setup 
+    const data = {
+      //tutaj moze petle do tego zrobic na dlugosc visdata
+          labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],// tutaj wlozyc title
+          datasets: [{
+            label: 'Shares number',
+            data: [18, 12, 6, 9, 12, 3, 9],//tutaj wlozyc liczbe akcji
+            backgroundColor: [
+              'rgba(255, 26, 104, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(0, 0, 0, 0.2)'
+            ],
+            borderColor: [
+              'rgba(255, 26, 104, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(0, 0, 0, 1)'
+            ],
+            borderWidth: 1
+          }]
+        };
+        
+    // config 
+    const config = {
+      type: 'line',
+      data,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    };
+        // config 
+        const config2 = {
+      type: 'bar',
+      data,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    };
+        // config 
+        const config3 = {
+      type: 'pie',
+      data,
+      options: {}
+    };
+        const config4 = {
+      type: 'doughnut',
+      data: data,
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+        }
+      },
+    };
+        const config5 = {
+      type: 'polarArea',
+      data: data,
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: 'Chart.js Polar Area Chart'
+          }
+        }
+      },
+    };
+
+    // render init block
+    let myChart = new Chart(
+      document.getElementById('myChart'),
+      config
+    );
+
+    function chartType(type){
+      myChart.destroy();
+      if (type =='line'){
+        myChart = new Chart(
+        document.getElementById('myChart'),
+        config
+        );
+      }
+      if (type =='bar'){
+        myChart = new Chart(
+        document.getElementById('myChart'),
+        config2
+        );
+      }
+      if (type =='pie'){
+        myChart = new Chart(
+        document.getElementById('myChart'),
+        config3
+        );
+      }
+      if (type =='doughnut'){
+        myChart = new Chart(
+        document.getElementById('myChart'),
+        config4
+        );
+      }
+      if (type =='polarArea'){
+        myChart = new Chart(
+        document.getElementById('myChart'),
+        config5
+        );
+      }
+    }
+    </script>
+    </div>
+
+  {% endblock %}
