@@ -452,6 +452,10 @@ a{
   {
     background-color: #9FA2B4;
   }
+
+  th,td,tr,thead{
+    background-color: white;
+  }
   
   
   /*
