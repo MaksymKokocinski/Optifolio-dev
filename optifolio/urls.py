@@ -36,4 +36,5 @@ urlpatterns = [
     path('templatevisualisationpage/', views.templatevisualisationPage, name="templatevisualisationpage"),
 
     path('infopage/', views.infoPage, name="infopage"),
+    path('yahoo/', views.yahooPage, name="yahoo")
 ]

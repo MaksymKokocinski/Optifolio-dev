@@ -1,3 +1,4 @@
+from decimal import Context
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.forms import inlineformset_factory
@@ -13,8 +14,10 @@ from .forms import CreateUserForm, CustomerForm, AddSharesForm
 from .decorators import unauthenticated_user,allowed_users,admin_only
 
 
+
 from django.db.models import Count, Sum, F
 
+from yahoo_fin.stock_info import get_analysts_info, get_data, get_live_price
 #from . import csv_reader
 
 @unauthenticated_user
@@ -165,6 +168,18 @@ def summaryPage(request):
     context = {'comp_number': comp_number, 'shares_num':shares_num_sum,'to_buy_percentage':to_buy_percentage,
      'profit_earned': profit_earned, 'fare_sum':fare_sum,'mod_date':mod_date}
     return render(request, 'optifolio/summary.html',context)
+
+@unauthenticated_user
+def yahooPage(request):
+    symbol = "GPW.WA"
+    price = get_live_price(symbol)
+    #table = get_data(symbol,start_date="06/05/2020",end_date="06/05/2021",index_as_date=False,interval="1d")
+    #table = table[['close']]
+    #html = table.to_html()
+    context = {'symbol':symbol,'price':price}
+    return render(request,'optifolio/yahoo.html', context)
+
+    
 
 
 @unauthenticated_user
