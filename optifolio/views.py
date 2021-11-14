@@ -112,13 +112,14 @@ def visualisationPage(request):
         form = AddSharesForm(request.POST)
         if form.is_valid():
             form.save()
+    else:
+            form = AddSharesForm()
     
     #for user restriction 
     #visdata = request.user.customer.visdata_set.all()
     #shows all data    
     visdata = VisData.objects.all()
     context = {'form': form, 'visdata':visdata}
-    #return render(request, 'optifolio/visualisationpage.html', {'visdata':visdata})
     return render(request, 'optifolio/visualisationpage.html', context)
 
 @unauthenticated_user
