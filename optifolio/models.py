@@ -16,7 +16,7 @@ class Customer(models.Model):
 		
 
 class VisData(models.Model):
-    BUY_SELL_CHOICES = [('B', 'Kupno'), ('S','Sprzedaz')]
+    BUY_SELL_CHOICES = [('+', 'Kupno'), ('-','Sprzedaz')]
     visdata_id = models.AutoField(primary_key=True,blank=True)
     user_name = models.ForeignKey(Customer, null=True, on_delete=models.SET_NULL,blank=True)
     title = models.CharField(max_length=200, null=True,blank=True)
@@ -31,4 +31,4 @@ class VisData(models.Model):
 
 
     def __str__(self):
-        return self.title
+        return self.title if self.title else ''
