@@ -1,6 +1,6 @@
 from decimal import Context
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.forms import inlineformset_factory
 
 from django.contrib.auth.forms import UserCreationForm
@@ -115,13 +115,15 @@ def visualisationPage(request):
         form = AddSharesForm(request.POST)
         if form.is_valid():
             form.save()
+            return redirect('visualisationpage')
+    else:
+            form = AddSharesForm()
     
     #for user restriction 
     visdata = request.user.customer.visdata_set.all()
     #shows all data    
     #visdata = VisData.objects.all()
     context = {'form': form, 'visdata':visdata}
-    #return render(request, 'optifolio/visualisationpage.html', {'visdata':visdata})
     return render(request, 'optifolio/visualisationpage.html', context)
 
 

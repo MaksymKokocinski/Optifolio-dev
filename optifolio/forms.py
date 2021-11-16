@@ -29,7 +29,28 @@ class AddSharesForm(ModelForm):
     class Meta:
         model = VisData
         fields = '__all__'
+        exclude = ['user_name']
 
+    def clean_shares_number(self):
+        data = self.cleaned_data.get('shares_number')
+        if data:
+            if  data <= 0:
+                raise forms.ValidationError('Enter a positive value')
+            return data
+
+    def clean_course(self):
+        data = self.cleaned_data.get('course')
+        if data:
+            if  data <= 0:
+                raise forms.ValidationError('Enter a positive value')
+            return data
+
+    def clean_fare(self):
+        data = self.cleaned_data.get('fare')
+        if data:
+            if  data < 0:
+                raise forms.ValidationError('Enter a non-negative value')
+            return data
 
 
 
