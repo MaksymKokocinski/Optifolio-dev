@@ -29,7 +29,7 @@ class AddSharesForm(ModelForm):
     class Meta:
         model = VisData
         fields = '__all__'
-        exclude = ['user_name']
+        #exclude = ['user_name']
 
     def clean_shares_number(self):
         data = self.cleaned_data.get('shares_number')
