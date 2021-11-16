@@ -31,6 +31,10 @@ urlpatterns = [
 
 
     path('summary/', views.summaryPage, name="summary"),
+
     path('visualisationpage/', views.visualisationPage, name="visualisationpage"),
+    path('templatevisualisationpage/', views.templatevisualisationPage, name="templatevisualisationpage"),
+
     path('infopage/', views.infoPage, name="infopage"),
+    path('yahoo/', views.yahooPage, name="yahoo")
 ]
