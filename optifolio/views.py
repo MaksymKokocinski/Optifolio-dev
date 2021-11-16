@@ -140,6 +140,7 @@ def summaryPage(request):
 
         shares_num = visdata.aggregate(Sum(('shares_number')))
         shares_num_sum = (shares_num['shares_number__sum'])
+        shares_num_sum = format(shares_num_sum, ".0f")
 
         #profit_earned = visdata.aggregate(Sum(('course')))
         #profit_sum = (profit_earned['course__sum'])
@@ -167,6 +168,7 @@ def summaryPage(request):
         total=Sum('record_total')
         )
         profit_earned = aggregated_data['total']
+        profit_earned = format(profit_earned, ".2f")
 
     else:
         shares_num_sum = 0
