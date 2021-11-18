@@ -13,8 +13,6 @@ from .models import *
 from .forms import CreateUserForm, CustomerForm, AddSharesForm
 from .decorators import unauthenticated_user,allowed_users,admin_only
 
-
-
 from django.db.models import Count, Sum, F
 
 #from yahoo_fin.stock_info import get_analysts_info, get_data, get_live_price
@@ -30,7 +28,6 @@ def registerPage(request):
             user = form.save()
             username = form.cleaned_data.get('username')
             messages.success(request,'Account was created for'+ username)
-
             return redirect('login')
 
     context = {'form': form}
@@ -48,20 +45,16 @@ def loginPage(request):
             return redirect('summary')
         else:
             messages.info(request, 'Username OR Password is incorrect')
-
     context = {}
     return render(request, 'optifolio/login.html', context)    
-
 
 def logoutUser(request):
     logout(request)
     return redirect('homepage')
 
-
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['customer'])
 def userPage(request):
-
     context = {}
     return render(request, 'optifolio/userpage.html', context)
 
@@ -79,11 +72,8 @@ def accountSettings(request):
     context = {'form':form}
     return render(request, 'optifolio/account_settings.html',context)
 
-
-
 @unauthenticated_user
 def homepage(request):
-    
     context = {}
     return render(request, 'optifolio/homepage.html', context)
 
@@ -91,7 +81,6 @@ def homepage(request):
 @login_required(login_url='homepage')
 @admin_only
 def adminpage(request):
-    
     context = {}
     return render(request, 'optifolio/adminpage.html', context)
 
@@ -104,11 +93,12 @@ def customer(request, pk):
     context = {'customer':customer,}
     return render(request, 'optifolio/customer.html',context)
 
-##################################
-
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['customer'])
 def visualisationPage(request):
+    current_user_name = request.user.customer
+    #print(current_user_name)
+
     form = AddSharesForm()
     if request.method == 'POST':
         print("Printing POST: ", request.POST)
@@ -118,19 +108,20 @@ def visualisationPage(request):
             return redirect('visualisationpage')
     else:
             form = AddSharesForm()
-    
+
     #for user restriction 
     visdata = request.user.customer.visdata_set.all()
     #shows all data    
     #visdata = VisData.objects.all()
-    context = {'form': form, 'visdata':visdata}
+    context = {'form': form, 'visdata':visdata,'current_user_name':current_user_name}
     return render(request, 'optifolio/visualisationpage.html', context)
-
-
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['customer'])
 def summaryPage(request):
+    current_user_name = request.user.customer
+    #print(current_user_name)
+
     #for user restriction 
     visdata = request.user.customer.visdata_set.all()
     #shows all data
@@ -180,7 +171,7 @@ def summaryPage(request):
         profit_earned = 0
     
     context = {'comp_number': comp_number, 'shares_num':shares_num_sum,'to_buy_percentage':to_buy_percentage,
-     'profit_earned': profit_earned, 'fare_sum':fare_sum,'mod_date':mod_date}
+     'profit_earned': profit_earned, 'fare_sum':fare_sum,'mod_date':mod_date,'current_user_name':current_user_name}
     return render(request, 'optifolio/summary.html',context)
 
 @unauthenticated_user
@@ -192,9 +183,6 @@ def yahooPage(request):
     #html = table.to_html()
     context = {'symbol':symbol,'price':price}
     return render(request,'optifolio/yahoo.html', context)
-
-    
-
 
 @unauthenticated_user
 def infoPage(request):
