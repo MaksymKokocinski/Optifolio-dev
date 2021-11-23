@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 
 from .models import *
-from .forms import CreateUserForm, CustomerForm, AddSharesForm, AddPortfolioForm
+from .forms import CreateUserForm, CustomerForm, AddSharesForm
 from .decorators import unauthenticated_user,allowed_users,admin_only
 
 from django.db.models import Count, Sum, F

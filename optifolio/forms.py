@@ -25,10 +25,10 @@ class VisForm(ModelForm):
         fields = '__all__'
         exclude = ['user_name']
 
-class AddPortfolioForm(ModelForm):
-    class Meta:
-        model = Portfolio
-        fields = '__all__'
+#class AddPortfolioForm(ModelForm):
+ #   class Meta:
+  #      model = Portfolio
+   #     fields = '__all__'
 
 class AddSharesForm(ModelForm):
     class Meta:
