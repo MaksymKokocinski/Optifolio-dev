@@ -27,7 +27,7 @@ def registerPage(request):
         if form.is_valid():
             user = form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request,'Account was created for'+ username)
+            messages.success(request,'Account was created for '+ username)
             return redirect('login')
 
     context = {'form': form}
@@ -97,14 +97,13 @@ def customer(request, pk):
 @allowed_users(allowed_roles=['customer'])
 def visualisationPage(request):
     current_user_name = request.user.customer
-    #print(current_user_name)
 
-    form = AddSharesForm()
+    form = AddSharesForm(request.POST or None)
     if request.method == 'POST':
-        print("Printing POST: ", request.POST)
-        form = AddSharesForm(request.POST)
         if form.is_valid():
-            form.save()
+            publish = form.save(commit=False)
+            publish.user_name = current_user_name #Adding username to form
+            publish.save()
             return redirect('visualisationpage')
     else:
             form = AddSharesForm()
