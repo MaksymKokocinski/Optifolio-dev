@@ -44,13 +44,6 @@
               <form action="/visualisationpage/#" method="POST">
                   {% csrf_token %}
                   {{ form.non_field_errors }}
-                  <!--<div class="form-group">-->
-                  <!--cokolwiek-->
-                  {{ form.user_name }}
-                  {{ current_user_name }}
-                      <!--<label for="">Nazwa użytkownika</label>
-                      <input type="text" name="user_name" class="form-control" placeholder="Podaj nazwę użytkownika">-->
-                  {{ form.user_name.errors }}
                   <div class="form-group">
                         <label for="{{ form.title.id_for_label }}">Nazwa spółki</label>
                         <input type="text" name="title" class="form-control" placeholder="Podaj nazwę spółki">
