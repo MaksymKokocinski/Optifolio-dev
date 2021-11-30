@@ -1,3 +1,7 @@
+button{
+  box-decoration-break: unset;
+}
+
 .modal{
   position:fixed;
   top:50%;
@@ -57,7 +61,8 @@
 {
   min-width: 480px;
   max-width: 480px;
-  background-color: gray;
+  background: rgb(57,65,65);
+  background: linear-gradient(90deg, rgba(57,65,65,1) 0%, rgba(55,60,60,1) 30%, rgba(76,164,86,1) 77%);
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   min-height: 270px;
@@ -256,6 +261,19 @@ a{
 
 
  }
+
+ .kontener3{
+ 
+  background-color: white;
+  height: 500px;
+  width: 760px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+
+
+}
  
  .opt{
   font-family: Mulish;

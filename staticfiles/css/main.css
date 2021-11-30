@@ -138,8 +138,8 @@ a{
  .kontener2{
     margin-top: 135px;
     background-color: white;
-    height: 700px;
-   width: 960px;
+    height: 600px;
+   width: 860px;
    border-top-left-radius: 30px;
    border-top-right-radius: 30px;
    border-bottom-left-radius: 30px;
@@ -147,6 +147,7 @@ a{
    margin-left: 485px;
 
  }
+
  
  .opt{
   font-family: Mulish;

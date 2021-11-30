@@ -22,11 +22,11 @@
 	}
 </style>
 <div class="d-flex justify-content-center align-items-center" style="height:100%;">
-	<div class="kontener2">
-		<button type="button" class="close" aria-label="Close" style="margin-right:30px;margin-top:20px;position:relative;">
+	<div class="kontener3 d-flex justify-content-center align-items-center">
+		<button type="button" class="close" aria-label="Close" style="top:0;">
        		<span aria-hidden="true"><a href="{% url 'adminpage' %}" style="text-decoration:none;">&times;</a></span>
     	</button>
-		<div class="d-flex justify-content-center align-items-center" style="padding-top:190px;padding-left:100px;">
+		<div class="d-flex justify-content-center align-items-center">
 			<form method="POST" action="" enctype="multipart/form-data">
 				{% csrf_token %}
 				{{form.as_p}}
