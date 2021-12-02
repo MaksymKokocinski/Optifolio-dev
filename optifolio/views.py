@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 
 from .models import *
-from .forms import CreateUserForm, CustomerForm, AddSharesForm
+from .forms import CreateUserForm, CustomerForm, AddSharesForm, AddPortfolioForm
 from .decorators import unauthenticated_user,allowed_users,admin_only
 
 from django.db.models import Count, Sum, F
@@ -109,6 +109,8 @@ def visualisationPage(request):
             form = AddSharesForm()
 
     #for user restriction 
+
+    # tutaj trzeba to uzaleznic od nr portfolio
     visdata = request.user.customer.visdata_set.all()
     #shows all data    
     #visdata = VisData.objects.all()
@@ -121,7 +123,19 @@ def summaryPage(request):
     current_user_name = request.user.customer
     #print(current_user_name)
 
+    form = AddPortfolioForm()
+    if request.method == 'POST':
+        print("Printing POST: ", request.POST)
+        form = AddPortfolioForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('summary')
+    else:
+            form = AddPortfolioForm()
+
     #for user restriction 
+
+    #uzaleznic od nr portfolio
     visdata = request.user.customer.visdata_set.all()
     #shows all data
     #visdata = VisData.objects.all()
