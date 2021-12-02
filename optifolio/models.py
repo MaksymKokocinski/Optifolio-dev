@@ -13,7 +13,7 @@ class Customer(models.Model):
 
     def __str__(self):
         return self.name
-		
+
 class Portfolio(models.Model):
     portfolio_id = models.AutoField(primary_key=True,blank=True)
     portfolio_title = models.CharField(max_length=200, null=True,blank=True)
@@ -26,7 +26,7 @@ class VisData(models.Model):
     BUY_SELL_CHOICES = [('+', 'Kupno'), ('-','Sprzedaz')]
     visdata_id = models.AutoField(primary_key=True,blank=True)
     user_name = models.ForeignKey(Customer, null=True, on_delete=models.SET_NULL,blank=True)
-    port_id = models.ForeignKey(Portfolio, null=True, on_delete=models.SET_NULL,blank=True)
+    portfolio_id = models.ForeignKey(Portfolio,default=1,on_delete=models.SET_DEFAULT,blank=True)
     title = models.CharField(max_length=200, null=True,blank=True)
     buy_sell = models.CharField(max_length=8, choices=BUY_SELL_CHOICES, null=True, blank=True)
     date = models.DateField(auto_now_add=False,null=True,editable=True,blank=True)
@@ -38,7 +38,7 @@ class VisData(models.Model):
 
     def __str__(self):
         return self.title if self.title else ''
-
+'''
 class TicName(models.Model):
     tic_id = models.AutoField(primary_key=True,blank=True)
     tic_sym = models.CharField(max_length=10,null=False,blank=False)
@@ -46,3 +46,4 @@ class TicName(models.Model):
 
     def __str__(self) :
         return self.tic_name 
+'''
