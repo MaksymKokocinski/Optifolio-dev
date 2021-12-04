@@ -121,37 +121,41 @@ def visualisationPage(request):
 @allowed_users(allowed_roles=['customer'])
 def summaryPage(request):
     current_user_name = request.user.customer
-    #print(current_user_name)
 
-    form = AddPortfolioForm()
+    form = AddPortfolioForm(request.POST or None)
     if request.method == 'POST':
-        print("Printing POST: ", request.POST)
-        form = AddPortfolioForm(request.POST)
         if form.is_valid():
-            form.save()
+            publish = form.save(commit=False)
+            publish.user_name = current_user_name #Adding username to form
+            publish.save()
             return redirect('summary')
     else:
-            form = AddPortfolioForm()
+        form = AddPortfolioForm()
 
+    all_portfolio =Portfolio.objects.all()
+    all_user_portfolio = request.user.customer.portfolio_set.all()
+    print(all_portfolio)
+    print('test2',all_user_portfolio)
+    #portfolio_title = all_user_portfolio.portfolio_title()
+    #all_portfolio_titles = request.user.customer.portfolio_title.all()
+    print(all_portfolio_titles)
     #for user restriction 
 
     #uzaleznic od nr portfolio
     visdata = request.user.customer.visdata_set.all()
     #shows all data
     #visdata = VisData.objects.all()
+
     comp_number = visdata.count()
     if comp_number > 0:
-
         shares_num = visdata.aggregate(Sum(('shares_number')))
         shares_num_sum = (shares_num['shares_number__sum'])
         shares_num_sum = format(shares_num_sum, ".0f")
-
         #profit_earned = visdata.aggregate(Sum(('course')))
         #profit_sum = (profit_earned['course__sum'])
-
         fare_paid = visdata.aggregate(Sum(('fare')))
         fare_sum = (fare_paid['fare__sum'])
-        
+
         mod_date = visdata.order_by('-date').first().date
         
         to_buy = visdata.filter(buy_sell='+').count()
@@ -183,7 +187,7 @@ def summaryPage(request):
         to_buy_percentage = 0
         profit_earned = 0
     
-    context = {'comp_number': comp_number, 'shares_num':shares_num_sum,'to_buy_percentage':to_buy_percentage,
+    context = {'form':form,'comp_number': comp_number, 'shares_num':shares_num_sum,'to_buy_percentage':to_buy_percentage,
      'profit_earned': profit_earned, 'fare_sum':fare_sum,'mod_date':mod_date,'current_user_name':current_user_name}
     return render(request, 'optifolio/summary.html',context)
 

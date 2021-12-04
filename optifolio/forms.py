@@ -29,6 +29,7 @@ class AddPortfolioForm(ModelForm):
     class Meta:
         model = Portfolio
         fields = '__all__'
+        exclude = ['user_name']
 
 class AddSharesForm(ModelForm):
     class Meta:
