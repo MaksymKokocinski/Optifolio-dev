@@ -131,16 +131,16 @@ def summaryPage(request):
             return redirect('summary')
     else:
         form = AddPortfolioForm()
-
-    all_portfolio =Portfolio.objects.all()
-    all_user_portfolio = request.user.customer.portfolio_set.all()
-    print(all_portfolio)
-    print('test2',all_user_portfolio)
+    
+    #all_portfolio =Portfolio.objects.all()
+    #all_user_portfolio = request.user.customer.portfolio_set.all()
+    #print(all_portfolio)
+    #print('test2',all_user_portfolio)
     #portfolio_title = all_user_portfolio.portfolio_title()
     #all_portfolio_titles = request.user.customer.portfolio_title.all()
-    print(all_portfolio_titles)
+    #print(all_portfolio_titles)
     #for user restriction 
-
+    
     #uzaleznic od nr portfolio
     visdata = request.user.customer.visdata_set.all()
     #shows all data
