@@ -25,11 +25,16 @@ class VisForm(ModelForm):
         fields = '__all__'
         exclude = ['user_name']
 
+class AddPortfolioForm(ModelForm):
+    class Meta:
+        model = Portfolio
+        fields = '__all__'
+        exclude = ['user_name']
+
 class AddSharesForm(ModelForm):
     class Meta:
         model = VisData
         fields = '__all__'
-        #exclude = ['user_name']
 
     def clean_shares_number(self):
         data = self.cleaned_data.get('shares_number')
