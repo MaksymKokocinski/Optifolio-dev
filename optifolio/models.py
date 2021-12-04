@@ -14,6 +14,7 @@ class Customer(models.Model):
 
     def __str__(self):
         return self.name
+
 		
 class TicName(models.Model):
     tic_sym = models.CharField(max_length=10,null=False,blank=False)
@@ -22,6 +23,17 @@ class TicName(models.Model):
     def __str__(self) :
         return self.tic_name 
 
+
+class Portfolio(models.Model):
+    portfolio_id = models.AutoField(primary_key=True,blank=True)
+    portfolio_title = models.CharField(unique=True,max_length=200, null=True,blank=True)
+    user_name = models.ForeignKey(Customer, null=True, on_delete=models.SET_NULL,blank=True)
+
+    def __str__(self):
+        return self.portfolio_title if self.portfolio_title else ''
+
+
+
 class VisData(models.Model):
     list_names = []
     for i in tickers_sp500():
@@ -29,14 +41,16 @@ class VisData(models.Model):
     BUY_SELL_CHOICES = [('+', 'Kupno'), ('-','Sprzedaz')]
     visdata_id = models.AutoField(primary_key=True,blank=True)
     user_name = models.ForeignKey(Customer, null=True, on_delete=models.SET_NULL,blank=True)
+
     TITLE_CHOICES = list_names
     title = title = models.CharField(max_length=200, null=True,blank=True)
     title2 = models.ForeignKey(TicName,max_length=200, choices = TITLE_CHOICES,on_delete=models.SET_NULL, null=True,blank=True)
+
+    portfolio_name = models.ForeignKey(Portfolio,on_delete=models.SET_NULL,blank=True, null=True)
+
     buy_sell = models.CharField(max_length=8, choices=BUY_SELL_CHOICES, null=True, blank=True)
     date = models.DateField(auto_now_add=False,null=True,editable=True,blank=True)
     hour = models.TimeField(auto_now=False, auto_now_add=False,null=True,editable=True,blank=True)
-    #nie wiem co tu jest nie tak, chcialam dodac ograniczenie wymagajace liczb dodatnich
-    #shares_number = models.DecimalField(decimal_places=8,default=0,max_digits=999, null=True,blank=True, validators=[MinValueValidator(Decimal('0.01'))])
     shares_number = models.DecimalField(decimal_places=8,default=0,max_digits=999, null=True,blank=True)
     course = models.DecimalField(decimal_places=2,default=0,max_digits=999,null=True,blank=True)
     fare = models.DecimalField(decimal_places=2,default=0,max_digits=999,null=True,blank=True)
