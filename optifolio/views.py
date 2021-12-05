@@ -191,6 +191,39 @@ def summaryPage(request):
      'profit_earned': profit_earned, 'fare_sum':fare_sum,'mod_date':mod_date,'current_user_name':current_user_name}
     return render(request, 'optifolio/summary.html',context)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['customer'])
+def visPage(request, pk):
+    #TUTAJ GDZIES DZIEDZICZY WSZYSTKO
+    
+    current_user_name = request.user.customer
+
+    visdata = request.user.customer.visdata_set.all()
+    #portfolio_pk = Portfolio.objects.get(id = pk)
+    #print('PORTFOLIO PK',portfolio_pk)
+
+    #all_portfolio =Portfolio.objects.all()
+
+        #get_portfolio_titile = request.portfolio_title
+
+        #portfolio_title = all_user_portfolio.portfolio_title()
+        #all_portfolio_titles = request.user.customer.portfolio_title.all()
+        #print(all_portfolio_titles)
+        #for user restriction 
+
+    all_user_portfolio = request.user.customer.portfolio_set.all()
+    count_portfolio = all_user_portfolio.count()
+    if count_portfolio > 0:
+        print('test2',count_portfolio,all_user_portfolio)
+        for temp in range (count_portfolio):
+            print(all_user_portfolio[temp])
+            
+    current_portfolio = Portfolio.objects.get(portfolio_id = pk)
+    print('test',current_portfolio, pk)
+
+    context = {'current_portfolio':current_portfolio, 'visdata':visdata,'current_user_name':current_user_name}
+    return render(request, 'optifolio/visualisationpage.html', context)
+
 @unauthenticated_user
 def yahooPage(request):
     symbol = "GPW.WA"

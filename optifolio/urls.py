@@ -27,6 +27,7 @@ urlpatterns = [
     path('summary/', views.summaryPage, name="summary"),
 
     path('visualisationpage/', views.visualisationPage, name="visualisationpage"),
+    path('vispage/<str:pk>/', views.visPage, name='vispage'),
     path('templatevisualisationpage/', views.templatevisualisationPage, name="templatevisualisationpage"),
 
     path('infopage/', views.infoPage, name="infopage"),
