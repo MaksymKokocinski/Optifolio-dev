@@ -117,6 +117,15 @@ def visualisationPage(request):
     context = {'form': form, 'visdata':visdata,'current_user_name':current_user_name}
     return render(request, 'optifolio/visualisationpage.html', context)
 
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['customer'])
+def updateVisData(request):
+    form = AddSharesForm()
+    context = {'form': form}
+    return render(request, 'optifolio/add_shares_form.html', context)
+
+
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['customer'])
 def summaryPage(request):
