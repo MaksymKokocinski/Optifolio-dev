@@ -27,7 +27,8 @@ urlpatterns = [
     path('summary/', views.summaryPage, name="summary"),
 
     path('visualisationpage/', views.visualisationPage, name="visualisationpage"),
-    path('update_transaction/', views.updateVisData, name="update_transaction"),
+    path('update_transaction/<str:vispk>/', views.updateVisData, name="update_transaction"),
+    path('delete_transaction/<str:vispk>/', views.deleteVisData, name="delete_transaction"),
     path('templatevisualisationpage/', views.templatevisualisationPage, name="templatevisualisationpage"),
 
     path('infopage/', views.infoPage, name="infopage"),

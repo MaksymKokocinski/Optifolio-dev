@@ -120,11 +120,29 @@ def visualisationPage(request):
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['customer'])
-def updateVisData(request):
-    form = AddSharesForm(request.POST or None)
+def updateVisData(request, vispk):
+    transaction = VisData.objects.get(visdata_id=vispk)
+    form = AddSharesForm(instance=transaction)
+
+    if request.method == 'POST':
+        form = AddSharesForm(request.POST, instance=transaction)
+        if form.is_valid():
+            form.save()
+            return redirect('visualisationpage')
 
     context = {'form': form}
-    return render(request, 'optifolio/add_shares_form.html', context)
+    return render(request, 'optifolio/update_transaction.html', context)
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['customer'])
+def deleteVisData(request, vispk):
+    transaction = VisData.objects.get(visdata_id=vispk)
+    if request.method == "POST":
+        transaction.delete()
+        return redirect('visualisationpage')
+    context = {'item': transaction}
+    return render(request, 'optifolio/delete_transaction.html', context)
 
 
 @login_required(login_url='login')

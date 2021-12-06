@@ -118,8 +118,8 @@
               <td class=" text-center">{{ temp.shares_number }}</td>
               <td class=" text-center">{{ temp.course }}</td>
               <td class=" text-center">{{ temp.fare }}</td>
-              <td><a class="btn btn-sm btn-info" href="{ % url 'update_transaction' % }">Edytuj</a></td>
-              <td><a class="btn btn-sm btn-danger" href="">Usuń</a></td>
+              <td><a class="btn btn-sm btn-info" href="{% url 'update_transaction' temp.visdata_id %}">Edytuj</a></td>
+              <td><a class="btn btn-sm btn-danger" href="{% url 'delete_transaction' temp.visdata_id %}">Usuń</a></td>
           </tr>
         {% endfor %}
       </tbody>
