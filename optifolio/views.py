@@ -121,7 +121,8 @@ def visualisationPage(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['customer'])
 def updateVisData(request):
-    form = AddSharesForm()
+    form = AddSharesForm(request.POST or None)
+
     context = {'form': form}
     return render(request, 'optifolio/add_shares_form.html', context)
 
