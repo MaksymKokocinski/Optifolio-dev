@@ -117,6 +117,55 @@ def visualisationPage(request):
     context = {'form': form, 'visdata':visdata,'current_user_name':current_user_name}
     return render(request, 'optifolio/visualisationpage.html', context)
 
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['customer'])
+def addVisData(request):
+    current_user_name = request.user.customer
+
+    form = AddSharesForm(request.POST or None)
+    if request.method == 'POST':
+        if form.is_valid():
+            publish = form.save(commit=False)
+            publish.user_name = current_user_name #Adding username to form
+            publish.save()
+            return redirect('visualisationpage')
+    else:
+            form = AddSharesForm()
+
+
+    context = {'form': form, 'current_user_name':current_user_name}
+    return render(request, 'optifolio/add_transaction.html', context)
+
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['customer'])
+def updateVisData(request, vispk):
+    transaction = VisData.objects.get(visdata_id=vispk)
+    form = AddSharesForm(instance=transaction)
+
+    if request.method == 'POST':
+        form = AddSharesForm(request.POST, instance=transaction)
+        if form.is_valid():
+            form.save()
+            return redirect('visualisationpage')
+
+    context = {'form': form}
+    return render(request, 'optifolio/update_transaction.html', context)
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['customer'])
+def deleteVisData(request, vispk):
+    transaction = VisData.objects.get(visdata_id=vispk)
+    if request.method == "POST":
+        transaction.delete()
+        return redirect('visualisationpage')
+    context = {'item': transaction}
+    return render(request, 'optifolio/delete_transaction.html', context)
+
+
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['customer'])
 def summaryPage(request):

@@ -1,9 +1,11 @@
 from django.forms import ModelForm
+from django.forms import DateInput, TimeInput
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import  User
 from django import forms
 
 from .models import *
+from django.utils.timezone import now
 
 class CustomerForm(ModelForm):
     class Meta:
@@ -35,6 +37,10 @@ class AddSharesForm(ModelForm):
     class Meta:
         model = VisData
         fields = '__all__'
+        widgets = {
+            'date': DateInput,
+            'hour': TimeInput
+        }
 
     def clean_shares_number(self):
         data = self.cleaned_data.get('shares_number')
@@ -56,7 +62,17 @@ class AddSharesForm(ModelForm):
             if  data < 0:
                 raise forms.ValidationError('Enter a non-negative value')
             return data
-
+    
+    def clean(self):
+        cleaned_data = super().clean()
+        if cleaned_data:
+            date_value = cleaned_data.get('date')
+            hour_value = cleaned_data.get('hour')
+            if date_value > now().date():
+                raise forms.ValidationError("You can't enter a future date")
+            elif date_value == now().date() and hour_value > now().time():
+                raise forms.ValidationError("You can't enter a future hour")
+            return cleaned_data
 
 
 
