@@ -1,4 +1,5 @@
 from django.forms import ModelForm
+from django.forms import DateInput, TimeInput
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import  User
 from django import forms
@@ -35,6 +36,10 @@ class AddSharesForm(ModelForm):
     class Meta:
         model = VisData
         fields = '__all__'
+        widgets = {
+            'date': DateInput,
+            'hour': TimeInput
+        }
 
     def clean_shares_number(self):
         data = self.cleaned_data.get('shares_number')
