@@ -240,6 +240,28 @@ def summaryPage(request):
      'profit_earned': profit_earned, 'fare_sum':fare_sum,'mod_date':mod_date,'current_user_name':current_user_name}
     return render(request, 'optifolio/summary.html',context)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['customer'])
+def visPage(request, pk):
+    current_user_name = request.user.customer
+    current_portfolio = Portfolio.objects.get(portfolio_id = pk)
+    visdata = current_portfolio.visdata_set.all()
+
+    form = AddSharesForm(request.POST or None)
+    if request.method == 'POST':
+        if form.is_valid():
+            publish = form.save(commit=False)
+            publish.user_name = current_user_name #Adding username to form
+            publish.save()
+            return redirect('visualisationpage')
+    else:
+            form = AddSharesForm()
+
+
+     
+    context = {'current_portfolio':current_portfolio, 'visdata':visdata,'current_user_name':current_user_name,}
+    return render(request, 'optifolio/vispage.html', context)
+
 @unauthenticated_user
 def yahooPage(request):
     symbol = "GPW.WA"
