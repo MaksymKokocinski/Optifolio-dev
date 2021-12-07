@@ -1,6 +1,7 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from . import views
+from django.conf import settings
 
 urlpatterns = [
     path('homepage/', views.homepage, name="homepage"),
@@ -25,9 +26,9 @@ urlpatterns = [
     ,name="password_reset_complete"),
 
     path('summary/', views.summaryPage, name="summary"),
+    path('vispage/<str:pk>/', views.visPage, name='vispage'),
 
     path('visualisationpage/', views.visualisationPage, name="visualisationpage"),
-    path('vispage/<str:pk>/', views.visPage, name='vispage'),
     path('templatevisualisationpage/', views.templatevisualisationPage, name="templatevisualisationpage"),
 
     path('infopage/', views.infoPage, name="infopage"),

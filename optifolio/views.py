@@ -194,11 +194,23 @@ def summaryPage(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['customer'])
 def visPage(request, pk):
-    #TUTAJ GDZIES DZIEDZICZY WSZYSTKO
-    
     current_user_name = request.user.customer
 
+    form = AddSharesForm(request.POST or None)
+    if request.method == 'POST':
+        if form.is_valid():
+            publish = form.save(commit=False)
+            publish.user_name = current_user_name #Adding username to form
+            publish.save()
+            return redirect('visualisationpage')
+    else:
+            form = AddSharesForm()
+
+    #for user restriction 
+
+    # tutaj trzeba to uzaleznic od nr portfolio
     visdata = request.user.customer.visdata_set.all()
+
     #portfolio_pk = Portfolio.objects.get(id = pk)
     #print('PORTFOLIO PK',portfolio_pk)
 
@@ -220,9 +232,10 @@ def visPage(request, pk):
             
     current_portfolio = Portfolio.objects.get(portfolio_id = pk)
     print('test',current_portfolio, pk)
-
+    print('test3',visdata)
+    
     context = {'current_portfolio':current_portfolio, 'visdata':visdata,'current_user_name':current_user_name}
-    return render(request, 'optifolio/visualisationpage.html', context)
+    return render(request, 'optifolio/vispage.html', context)
 
 @unauthenticated_user
 def yahooPage(request):

@@ -2,14 +2,271 @@
 
 {% load static %}
 {% block content %}
-<p>COKOLWIEK</p>
 <br>
 <div class="container" style="margin-left:230px;">
     <div class="container-fluid">
-        <p class="text-md-left" style="font-size:36px;font-weight:bold;">Wizualizacja portfolio z id</p>
+        <p class="text-md-left" style="font-size:36px;font-weight:bold;">Wizualizacja portfolio</p>
     </div>
 </div>
+<div class="container" style="margin-left:230px;">
+    
+        <nav class="navbar navbar-expand-sm">
+            <div class="container-fluid">
+                <div id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><button class="przyciskportf1" data-toggle="modal" data-target="#exampleModal"><div class="d-flex justify-content-center align-items-center">Dodaj transakcję</div></button></a>
+                        </li>              
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+    
 </div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Dodaj transakcję</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
 
+              <!--<form  method="post">
+            <label for="your_name">Your name: </label>
+            <input id="your_name" type="text" name="your_name" value="{{ current_name }}">
+            <input type="submit" value="OK">
+        </form>-->
 
-{% endblock %}
+              <form action="/visualisationpage/#" method="POST">
+                  {% csrf_token %}
+                  {{ form.non_field_errors }}
+                  <div class="form-group">
+                        <label for="{{ form.title.id_for_label }}">Nazwa spółki</label>
+                        <input type="text" name="title" class="form-control" placeholder="Podaj nazwę spółki">
+                        {{ form.title.errors }}
+                  </div>
+                  <div class="form-group">
+                        <label for="{{ form.buy_sell.id_for_label }}"></label>
+                        <label for="buy">Kupno</label><br>
+                        <input type="radio" id="buy" name="buy_sell" class="form-control" value="+">
+                        <label for="sell">Sprzedaz</label><br>
+                        <input type="radio" id="sell" name="buy_sell" class="form-control" value="-">
+                        {{ form.buy_sell.errors }}
+                  </div>
+                  <div class="form-group">
+                        <label for="{{ form.shares_number.id_for_label }}">Liczba akcji</label>
+                        <input type="text" name="shares_number" class="form-control">
+                        {{ form.shares_number.errors }}
+                  </div>
+                  <div class="form-group">
+                        <label for="{{ form.course.id_for_label }}">Kurs</label>
+                        <input type="text" name="course" class="form-control">
+                        {{ form.course.errors }}
+                  </div>
+                  <div class="form-group">
+                        <label for="{{ form.fare.id_for_label }}">Opłata transakcyjna</label>
+                        <input type="text" name="fare" class="form-control">
+                        {{ form.fare.errors }}
+                  </div>
+                  <div class="form-group">
+                        <label for="{{ form.date.id_for_label }}">Data</label>
+                        <input type="date" name="date" class="form-control">
+                        {{ form.date.errors }}
+                  </div>
+                  <div class="form-group">
+                        <label for="{{ form.hour.id_for_label }}">Godzina</label>
+                        <input type="time" name="hour" class="form-control">
+                        {{ form.hour.errors }}
+                  </div>
+                  <button type="submit" value="Zapisz zmiany" href="{% url 'visualisationpage' %}" class="btn btn-primary">Zapisz zmiany</button>
+              </form>
+          </div>
+          <!--Wcześniejszy wygląd przycisków
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+                <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
+            </div>-->
+
+      </div>
+  </div>
+</div>
+<div id="overlay"></div>
+<div class="container" style="margin-left:250px;">
+  <table  class="table table-bordered" style="max-width:700px;">
+      <thead>
+        <tr>
+          <th class="text-center">Nazwa</th>
+          <th class="text-center">Data</th>
+          <th class=" text-center">Godzina</th>
+          <th class=" text-center">Liczba akcji</th>
+          <th class=" text-center">Kwota</th>
+          <th class=" text-center">Opłata</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for temp in visdata %}
+        <tr>
+          <th class=" text-center">{{ temp.title }}</th>
+          <td class=" text-center">{{ temp.date }}</td>
+          <td class=" text-center">{{ temp.hour }}</td>
+          <td class=" text-center">{{ temp.shares_number }}</td>
+          <td class=" text-center">{{ temp.course }}</td>
+          <td class=" text-center">{{ temp.fare }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    </div>
+
+    <div class="container" style="margin-left:250px;">
+      <left>
+      <button class="wykres szarak" onclick="chartType('bar')">Bar</button>
+      <button class="wykres szarak" onclick="chartType('line')">Line</button>
+      <button class="wykres szarak" onclick="chartType('doughnut')">Doughnut</button>
+      <button class="wykres szarak" onclick="chartType('pie')">Pie</button>
+      <button class="wykres szarak" onclick="chartType('polarArea')">PolarArea</button>
+    
+    </div>
+
+    <div class="chartCard"style="margin-left:250px;">
+      <div class="chartBox" style="max-width:800px">
+        <canvas id="myChart" width="50" height="20"></canvas>
+      </div>
+    </div>
+
+    <script>
+
+    const data = {
+
+          labels: [{% for item in visdata %}'{{item.title}}',{%endfor%}],
+          datasets: [{
+            label: 'Shares number',
+            data: [{% for item in visdata %}'{{item.shares_number}}',{%endfor%}],
+            backgroundColor: [
+              'rgba(255, 26, 104, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(0, 0, 0, 0.2)'
+            ],
+            borderColor: [
+              'rgba(255, 26, 104, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(0, 0, 0, 1)'
+            ],
+            borderWidth: 1
+          }]
+        };
+        
+    // config 
+    const config = {
+      type: 'line',
+      data,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    };
+        // config 
+        const config2 = {
+      type: 'bar',
+      data,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    };
+        // config 
+        const config3 = {
+      type: 'pie',
+      data,
+      options: {}
+    };
+        const config4 = {
+      type: 'doughnut',
+      data: data,
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+        }
+      },
+    };
+        const config5 = {
+      type: 'polarArea',
+      data: data,
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: 'Chart.js Polar Area Chart'
+          }
+        }
+      },
+    };
+
+    // render init block
+    let myChart = new Chart(
+      document.getElementById('myChart'),
+      config
+    );
+
+    function chartType(type){
+      myChart.destroy();
+      if (type =='line'){
+        myChart = new Chart(
+        document.getElementById('myChart'),
+        config
+        );
+      }
+      if (type =='bar'){
+        myChart = new Chart(
+        document.getElementById('myChart'),
+        config2
+        );
+      }
+      if (type =='pie'){
+        myChart = new Chart(
+        document.getElementById('myChart'),
+        config3
+        );
+      }
+      if (type =='doughnut'){
+        myChart = new Chart(
+        document.getElementById('myChart'),
+        config4
+        );
+      }
+      if (type =='polarArea'){
+        myChart = new Chart(
+        document.getElementById('myChart'),
+        config5
+        );
+      }
+    }
+    </script>
+    </div>
+
+  {% endblock %}
