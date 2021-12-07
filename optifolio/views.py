@@ -121,6 +121,14 @@ def visualisationPage(request):
 @allowed_users(allowed_roles=['customer'])
 def summaryPage(request):
     current_user_name = request.user.customer
+    visdata = request.user.customer.visdata_set.all()
+    all_user_portfolio = request.user.customer.portfolio_set.all()
+
+    count_portfolio = all_user_portfolio.count()
+    if count_portfolio > 0:
+        print('test2',count_portfolio,all_user_portfolio)
+        for temp in range (count_portfolio):
+            print(all_user_portfolio[temp])
 
     form = AddPortfolioForm(request.POST or None)
     if request.method == 'POST':
@@ -142,7 +150,7 @@ def summaryPage(request):
     #for user restriction 
     
     #uzaleznic od nr portfolio
-    visdata = request.user.customer.visdata_set.all()
+    
     #shows all data
     #visdata = VisData.objects.all()
 
@@ -187,7 +195,7 @@ def summaryPage(request):
         to_buy_percentage = 0
         profit_earned = 0
     
-    context = {'form':form,'comp_number': comp_number, 'shares_num':shares_num_sum,'to_buy_percentage':to_buy_percentage,
+    context = {'form':form,'comp_number': comp_number, 'shares_num':shares_num_sum,'to_buy_percentage':to_buy_percentage, 'all_user_portfolio':all_user_portfolio,
      'profit_earned': profit_earned, 'fare_sum':fare_sum,'mod_date':mod_date,'current_user_name':current_user_name}
     return render(request, 'optifolio/summary.html',context)
 
@@ -207,7 +215,6 @@ def visPage(request, pk):
             return redirect('visualisationpage')
     else:
             form = AddSharesForm()
-
 
      
     context = {'current_portfolio':current_portfolio, 'visdata':visdata,'current_user_name':current_user_name,}
