@@ -1,14 +1,14 @@
-{% extends 'optifolio/main.html' %}
+﻿{% extends 'optifolio/main.html' %}
 {% load static %}
 {% block content %}
 
-<p>Czy chcesz usunac transakcje "{{item}}"?</p>
+<p>Czy na pewno chcesz usunąć transakcję akcji "{{item}}"?</p>
 
 <form action="{% url 'delete_transaction' item.visdata_id %}" method="POST">
-    
-    {{% csrf_token %}}
+    {% csrf_token %}
+
     <a href="{% url 'visualisationpage' %}">Nie</a>
-    <input type="submit" name="Tak"/>
+    <input type="submit" value="Tak" name="Tak" />
 
 </form>
 
