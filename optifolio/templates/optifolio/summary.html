@@ -82,5 +82,25 @@
     </div>
 </div>
 
+<br>
+<div id="overlay"></div>
+<div class="container" style="margin-left:500px;">
+  <table  class="table table-bordered" style="max-width:250px;">
+      <thead>
+        <tr>
+          <th class="text-center">Nazwa</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for temp in all_user_portfolio %}
+        <tr>
+          <th class=" text-center">{{ temp.portfolio_title }}</th>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    </div>
+
+
 
 {% endblock %}
