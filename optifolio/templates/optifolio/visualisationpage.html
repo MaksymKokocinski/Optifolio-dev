@@ -24,6 +24,11 @@
         </nav>
     
 </div>
+
+<div class="container" style="margin-left:250px;">
+    <a class="btn btn-sm btn-info" href="{% url 'add_transaction' %}">Dodaj</a>
+</div>
+
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -34,12 +39,6 @@
               </button>
           </div>
           <div class="modal-body">
-
-              <!--<form  method="post">
-            <label for="your_name">Your name: </label>
-            <input id="your_name" type="text" name="your_name" value="{{ current_name }}">
-            <input type="submit" value="OK">
-        </form>-->
 
               <form action="/visualisationpage/#" method="POST">
                   {% csrf_token %}

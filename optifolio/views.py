@@ -120,6 +120,27 @@ def visualisationPage(request):
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['customer'])
+def addVisData(request):
+    current_user_name = request.user.customer
+
+    form = AddSharesForm(request.POST or None)
+    if request.method == 'POST':
+        if form.is_valid():
+            publish = form.save(commit=False)
+            publish.user_name = current_user_name #Adding username to form
+            publish.save()
+            return redirect('visualisationpage')
+    else:
+            form = AddSharesForm()
+
+
+    context = {'form': form, 'current_user_name':current_user_name}
+    return render(request, 'optifolio/add_transaction.html', context)
+
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['customer'])
 def updateVisData(request, vispk):
     transaction = VisData.objects.get(visdata_id=vispk)
     form = AddSharesForm(instance=transaction)
