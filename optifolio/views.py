@@ -15,7 +15,7 @@ from .decorators import unauthenticated_user,allowed_users,admin_only
 
 from django.db.models import Count, Sum, F
 
-#from yahoo_fin.stock_info import get_analysts_info, get_data, get_live_price
+from yahoo_fin.stock_info import get_analysts_info, get_data, get_live_price
 #from . import csv_reader
 
 @unauthenticated_user
@@ -97,7 +97,7 @@ def customer(request, pk):
 @allowed_users(allowed_roles=['customer'])
 def visualisationPage(request):
     current_user_name = request.user.customer
-
+    
     form = AddSharesForm(request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
@@ -112,9 +112,21 @@ def visualisationPage(request):
 
     # tutaj trzeba to uzaleznic od nr portfolio
     visdata = request.user.customer.visdata_set.all()
+    count_visdata = visdata.count()
+    price = {}
+    if count_visdata > 0:
+        print("test1")
+    for temporary in range(count_visdata):
+        price[temporary]=get_live_price(str(visdata[temporary]))
+        
+
+    print(visdata)
+    #title = F('title')
+    #print(title)
+    #price = get_live_price(title)
     #shows all data    
     #visdata = VisData.objects.all()
-    context = {'form': form, 'visdata':visdata,'current_user_name':current_user_name}
+    context = {'form': form, 'visdata':visdata,'current_user_name':current_user_name, 'price':price}
     return render(request, 'optifolio/visualisationpage.html', context)
 
 @login_required(login_url='login')
@@ -138,7 +150,7 @@ def summaryPage(request):
     print('test2',all_user_portfolio)
     #portfolio_title = all_user_portfolio.portfolio_title()
     #all_portfolio_titles = request.user.customer.portfolio_title.all()
-    print(all_portfolio_titles)
+    #print(all_portfolio_titles)
     #for user restriction 
 
     #uzaleznic od nr portfolio
@@ -148,6 +160,7 @@ def summaryPage(request):
 
     comp_number = visdata.count()
     if comp_number > 0:
+        
         shares_num = visdata.aggregate(Sum(('shares_number')))
         shares_num_sum = (shares_num['shares_number__sum'])
         shares_num_sum = format(shares_num_sum, ".0f")
@@ -169,7 +182,7 @@ def summaryPage(request):
         
         #for customer restriction delete object and change VisData to visdata
         aggregated_data = visdata.annotate(
-        intermid_result=F('course') - F('fare')
+        intermid_result=F('course') - F('fare') 
         ).annotate(
         record_total=F('shares_number') * F('intermid_result')
         ).aggregate(
