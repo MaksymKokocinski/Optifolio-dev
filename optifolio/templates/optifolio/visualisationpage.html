@@ -105,6 +105,7 @@
           <th class=" text-center">Liczba akcji</th>
           <th class=" text-center">Kwota</th>
           <th class=" text-center">Opłata</th>
+          <th class=" text-center">Aktualna cena</th>
         </tr>
       </thead>
       <tbody>
@@ -116,8 +117,13 @@
           <td class=" text-center">{{ temp.shares_number }}</td>
           <td class=" text-center">{{ temp.course }}</td>
           <td class=" text-center">{{ temp.fare }}</td>
-        </tr>
+          
         {% endfor %}
+        {% for temp in price %}  
+          <td class=" text-center">{{ temp }}</td>
+        {% endfor %}
+        </tr>
+        
       </tbody>
     </table>
     </div>
