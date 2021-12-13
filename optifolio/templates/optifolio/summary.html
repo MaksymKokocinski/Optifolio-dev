@@ -62,20 +62,20 @@
 <div class="container" style="margin-left:250px;">
     <a class="btn btn-sm btn-info" href="{% url 'visualisationpage' %}">Podgląd</a>
 </div>
-
-<div class="container " style="margin-left:230px;">
-    <div class="kafelek justify-content-center align-items-center">
+{% for temp in all_user_portfolio %}
+<div class="container px-3" style="margin-left:230px;">
+    <div class="kafelek justify-content-center align-items-center float-left m-3">
         <div class="grafika"> </div>
-        <div class="sumnapis d-flex justify-content-center align-items-center mt-3">Portfolio nr. 1</div>
+        <div class="sumnapis d-flex justify-content-center align-items-center mt-3">{{ temp.portfolio_title }}</div>
         <div class="cztery containfer-fluid mt-3">
         <table class="d-flex justify-content-center align-items-center">
             <tr>
-               <td class="p-3"> <div class="shadow"><div class="kaf d-flex justify-content-center align-items-center"><p class="dane">{{shares_num}}</p> <p>Liczba akcji</p> </div></div></td>
-               <td class="p-3"> <div class="shadow"><div class="kaf d-flex justify-content-center align-items-center"><p class="dane">{{profit_earned}}</p><p> Zysk</p> </div></td>
+               <td class="p-3"> <div class="shadow"><div class="kaf d-flex justify-content-center align-items-center"><p class="dane">{{temp.shares_num}}</p> <p>Liczba akcji</p> </div></div></td>
+               <td class="p-3"> <div class="shadow"><div class="kaf d-flex justify-content-center align-items-center"><p class="dane">{{temp.profit_earned}}</p><p> Zysk</p> </div></td>
             </tr>
             <tr>
-               <td class="p-3"> <div class="shadow"><div class="kaf d-flex justify-content-center align-items-center"><p class="dane">{{comp_number}}</p> <p>Liczba firm</p> </div></div></td>
-               <td class="p-3"> <div class="shadow"><div class="kaf d-flex justify-content-center align-items-center"><p class="dane">{{to_buy_percentage}}</p><p>Na buy</p> </div></div></td>
+               <td class="p-3"> <div class="shadow"><div class="kaf d-flex justify-content-center align-items-center"><p class="dane">{{temp.comp_number}}</p> <p>Liczba firm</p> </div></div></td>
+               <td class="p-3"> <div class="shadow"><div class="kaf d-flex justify-content-center align-items-center"><p class="dane">{{temp.to_buy_percentage}}</p><p>Na buy</p> </div></div></td>
             </tr>
         </table>
         </div>
@@ -87,26 +87,6 @@
         <div class="summfoot d-flex justify-content-center align-items-center p-4">Ostatnia aktualizacja {{mod_date}}</div>
     </div>
 </div>
-
-<br>
-<div id="overlay"></div>
-<div class="container" style="margin-left:500px;">
-  <table  class="table table-bordered" style="max-width:250px;">
-      <thead>
-        <tr>
-          <th class="text-center">Nazwa</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for temp in all_user_portfolio %}
-        <tr>
-          <th class=" text-center">{{ temp.portfolio_title }}</th>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    </div>
-
-
+{% endfor %}
 
 {% endblock %}
