@@ -112,15 +112,16 @@ def visualisationPage(request):
 
     # tutaj trzeba to uzaleznic od nr portfolio
     visdata = request.user.customer.visdata_set.all()
+    print(visdata)
     count_visdata = visdata.count()
     price = {}
     if count_visdata > 0:
-        print("test1")
-    for temporary in range(count_visdata):
-        price[temporary]=get_live_price(str(visdata[temporary]))
-        
+        for temporary in range(count_visdata):
+            price[temporary]=get_live_price(str(visdata[temporary]))
+    else:
+        price = {}
 
-    print(visdata)
+    #print(visdata)
     #title = F('title')
     #print(title)
     #price = get_live_price(title)
@@ -129,10 +130,67 @@ def visualisationPage(request):
     context = {'form': form, 'visdata':visdata,'current_user_name':current_user_name, 'price':price}
     return render(request, 'optifolio/visualisationpage.html', context)
 
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['customer'])
+def addVisData(request):
+    current_user_name = request.user.customer
+
+    form = AddSharesForm(request.POST or None)
+    if request.method == 'POST':
+        if form.is_valid():
+            publish = form.save(commit=False)
+            publish.user_name = current_user_name #Adding username to form
+            publish.save()
+            return redirect('visualisationpage')
+    else:
+            form = AddSharesForm()
+
+
+    context = {'form': form, 'current_user_name':current_user_name}
+    return render(request, 'optifolio/add_transaction.html', context)
+
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['customer'])
+def updateVisData(request, vispk):
+    transaction = VisData.objects.get(visdata_id=vispk)
+    form = AddSharesForm(instance=transaction)
+
+    if request.method == 'POST':
+        form = AddSharesForm(request.POST, instance=transaction)
+        if form.is_valid():
+            form.save()
+            return redirect('visualisationpage')
+
+    context = {'form': form}
+    return render(request, 'optifolio/update_transaction.html', context)
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['customer'])
+def deleteVisData(request, vispk):
+    transaction = VisData.objects.get(visdata_id=vispk)
+    if request.method == "POST":
+        transaction.delete()
+        return redirect('visualisationpage')
+    context = {'item': transaction}
+    return render(request, 'optifolio/delete_transaction.html', context)
+
+
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['customer'])
 def summaryPage(request):
     current_user_name = request.user.customer
+    visdata = request.user.customer.visdata_set.all()
+    all_user_portfolio = request.user.customer.portfolio_set.all()
+
+    count_portfolio = all_user_portfolio.count()
+    if count_portfolio > 0:
+        print('test2',count_portfolio,all_user_portfolio)
+        for temp in range (count_portfolio):
+            print(all_user_portfolio[temp])
 
     form = AddPortfolioForm(request.POST or None)
     if request.method == 'POST':
@@ -143,18 +201,18 @@ def summaryPage(request):
             return redirect('summary')
     else:
         form = AddPortfolioForm()
-
-    all_portfolio =Portfolio.objects.all()
-    all_user_portfolio = request.user.customer.portfolio_set.all()
-    print(all_portfolio)
-    print('test2',all_user_portfolio)
+    
+    #all_portfolio =Portfolio.objects.all()
+    #all_user_portfolio = request.user.customer.portfolio_set.all()
+    #print(all_portfolio)
+    #print('test2',all_user_portfolio)
     #portfolio_title = all_user_portfolio.portfolio_title()
     #all_portfolio_titles = request.user.customer.portfolio_title.all()
     #print(all_portfolio_titles)
     #for user restriction 
-
+    
     #uzaleznic od nr portfolio
-    visdata = request.user.customer.visdata_set.all()
+    
     #shows all data
     #visdata = VisData.objects.all()
 
@@ -200,9 +258,30 @@ def summaryPage(request):
         to_buy_percentage = 0
         profit_earned = 0
     
-    context = {'form':form,'comp_number': comp_number, 'shares_num':shares_num_sum,'to_buy_percentage':to_buy_percentage,
+    context = {'form':form,'comp_number': comp_number, 'shares_num':shares_num_sum,'to_buy_percentage':to_buy_percentage, 'all_user_portfolio':all_user_portfolio,
      'profit_earned': profit_earned, 'fare_sum':fare_sum,'mod_date':mod_date,'current_user_name':current_user_name}
     return render(request, 'optifolio/summary.html',context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['customer'])
+def visPage(request, pk):
+    current_user_name = request.user.customer
+    current_portfolio = Portfolio.objects.get(portfolio_id = pk)
+    visdata = current_portfolio.visdata_set.all()
+
+    form = AddSharesForm(request.POST or None)
+    if request.method == 'POST':
+        if form.is_valid():
+            publish = form.save(commit=False)
+            publish.user_name = current_user_name #Adding username to form
+            publish.save()
+            return redirect('visualisationpage')
+    else:
+            form = AddSharesForm()
+
+     
+    context = {'current_portfolio':current_portfolio, 'visdata':visdata,'current_user_name':current_user_name,}
+    return render(request, 'optifolio/vispage.html', context)
 
 @unauthenticated_user
 def yahooPage(request):

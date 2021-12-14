@@ -2,11 +2,6 @@ button{
   box-decoration-break: unset;
 }
 
-.formdiv
-{
-  width: 150px;
-
-}
 .modal{
   position:fixed;
   top:50%;
@@ -27,11 +22,6 @@ button{
   font-weight: bold;
   border-radius: 20px;
 }
-
-.navbutthead:hover{
-  color:lightgray;
-}
-
 .summfoot{
   color:#A6ACBE;
   font-size: 18px;
@@ -47,10 +37,6 @@ button{
   font-weight: bold;
   border-radius: 20px;
   border:solid 1px lightgray;
-}
-
-.navbutt:hover{
-  color:lightgray;
 }
 
 .sumnapis{
@@ -106,7 +92,7 @@ body{
 
 
 .log{
-    background-image: url(../images/tlo.png);
+    background-image: url("../images/tlo.b1638c734791.png");
     background-repeat: space;
     background-attachment:fixed;
     background-size: cover;
@@ -115,7 +101,7 @@ body{
 }
 
 .home{
-    background-image: url(../images/tlo2.png);
+    background-image: url("../images/tlo2.dc1e59b4f790.png");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
@@ -281,19 +267,6 @@ a{
   background-color: white;
   height: 500px;
   width: 760px;
-  border-top-left-radius: 30px;
-  border-top-right-radius: 30px;
-  border-bottom-left-radius: 30px;
-  border-bottom-right-radius: 30px;
-
-
-}
-
-.kontener4{
- 
-  background-color: white;
-  height: 700px;
-  width: 450px;
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
   border-bottom-left-radius: 30px;
