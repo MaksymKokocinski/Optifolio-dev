@@ -121,6 +121,14 @@
               <td><a class="btn btn-sm btn-danger" href="{% url 'delete_transaction' temp.visdata_id %}">Usuń</a></td>
           </tr>
         {% endfor %}
+        <tr>
+          <th class=" text-center">Aktualna cena</th>
+        
+        {% for temp in price %}  
+          <td class=" text-center">{{ temp }}</td>
+         </tr>
+        </tr>
+        
       </tbody>
     </table>
     </div>
