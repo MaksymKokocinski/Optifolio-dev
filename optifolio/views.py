@@ -112,21 +112,16 @@ def visualisationPage(request):
 
     # tutaj trzeba to uzaleznic od nr portfolio
     visdata = request.user.customer.visdata_set.all()
-    print(visdata)
     count_visdata = visdata.count()
-    price = {}
+    price = []
     if count_visdata > 0:
+        
         for temporary in range(count_visdata):
-            price[temporary]=get_live_price(str(visdata[temporary]))
+            price.append(get_live_price(str(visdata[temporary])))
+            
     else:
-        price = {}
-
-    #print(visdata)
-    #title = F('title')
-    #print(title)
-    #price = get_live_price(title)
-    #shows all data    
-    #visdata = VisData.objects.all()
+        price = []
+    
     context = {'form': form, 'visdata':visdata,'current_user_name':current_user_name, 'price':price}
     return render(request, 'optifolio/visualisationpage.html', context)
 
