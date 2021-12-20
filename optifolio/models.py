@@ -17,8 +17,7 @@ class Customer(models.Model):
 
 		
 class TicName(models.Model):
-    tic_id = models.AutoField(primary_key=True,blank=True)
-    tic_sym = models.CharField(max_length=10,null=False,blank=False)
+    tic_sym = models.CharField(primary_key=True,max_length=10,null=False,blank=True)
     tic_name = models.CharField(max_length=100,null=False,blank=True)
 
     def __str__(self) :
@@ -45,7 +44,7 @@ class VisData(models.Model):
 
     TITLE_CHOICES = list_names
     title = models.CharField(max_length=200, null=True,blank=True)
-    title2 = models.ForeignKey(TicName,max_length=200, choices = TITLE_CHOICES,on_delete=models.SET_NULL, null=True,blank=True)
+    title2 = models.CharField(max_length=200, choices = TITLE_CHOICES, null=True,blank=True)
 
     portfolio_name = models.ForeignKey(Portfolio,on_delete=models.SET_NULL,blank=True, null=True)
 
