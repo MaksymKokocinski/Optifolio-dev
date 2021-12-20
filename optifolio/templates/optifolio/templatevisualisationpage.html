@@ -3,14 +3,14 @@
 {% load static %}
 {% block content %}
 <br>
-<div class="container" style="margin-left:230px;">
+<div class="container d-flex justify-content-center align-items-center" style="margin-left:230px;">
     <div class="container-fluid">
         <p class="text-md-left" style="font-size:36px;font-weight:bold;">Przykładowa wizualizacja portfolio</p>
     </div>
 </div>
 
-<div id="overlay"></div>
 <div class="container" style="margin-left:250px;">
+  <div class="table-wrapper-scroll-y my-custom-scrollbar">
   <table  class="table table-bordered" style="max-width:700px;">
       <thead class="thead-light">
         <tr>
@@ -35,6 +35,7 @@
         {% endfor %}
       </tbody>
     </table>
+  </div>
     </div>
 
     <div class="container" style="margin-left:250px;">

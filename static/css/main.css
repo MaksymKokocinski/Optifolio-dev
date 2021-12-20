@@ -500,9 +500,32 @@ a{
 
   th,td,tr,thead{
     background-color: white;
+
   }
-  
-  
+
+  .my-custom-scrollbar {
+    position: relative;
+    max-height: 400px;
+    overflow: auto;
+    }
+    .table-wrapper-scroll-y {
+    display: block;
+    }
+    
+
+      
+    .column {
+      float: left;
+      position: static;
+
+    }
+
+
+th, td {
+  text-align: left;
+  padding: 16px;
+}
+
   /*
   Extra small (xs) devices (portrait phones, less than 576px)
   No media query since this is the default in Bootstrap
