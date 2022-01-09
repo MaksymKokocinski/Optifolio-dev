@@ -112,15 +112,19 @@ def visualisationPage(request):
 
     # tutaj trzeba to uzaleznic od nr portfolio
     visdata = request.user.customer.visdata_set.all()
+    price = []
+    for v in visdata:
+        #print(v.title2)
+        price.append(get_live_price(str(v.title2)))
+
+    '''visdata = request.user.customer.visdata_set.all()
     count_visdata = visdata.count()
     price = []
     if count_visdata > 0:
-        
         for temporary in range(count_visdata):
-            price.append(get_live_price(str(visdata[temporary])))
-            
+            price.append(get_live_price(str(visdata[temporary])))            
     else:
-        price = []
+        price = []'''
     
     context = {'form': form, 'visdata':visdata,'current_user_name':current_user_name, 'price':price}
     return render(request, 'optifolio/visualisationpage.html', context)
@@ -133,7 +137,9 @@ def addVisData(request):
 
     form = AddSharesForm(request.POST or None)
     if request.method == 'POST':
+        print(form.data)
         if form.is_valid():
+            print(form.cleaned_data)
             publish = form.save(commit=False)
             publish.user_name = current_user_name #Adding username to form
             publish.save()
