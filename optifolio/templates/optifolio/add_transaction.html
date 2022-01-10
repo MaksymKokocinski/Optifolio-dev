@@ -63,10 +63,15 @@
         {{ form.hour }}
         {{ form.hour.errors }}
     </div>
+    <div class="form-group formdiv">
+        <label for="{{ form.portfolio_name.id_for_label }}">Portfolio</label>
+        {{ form.portfolio_name }}
+        {{ form.hour.portfolio_name }}
+    </div>
     <!--Wstawiłam tu pozostałe pola bo bez nich edycja nie działa poprawnie,
     ale jako ukryte, tak aby użytkownik nie mógł ich edytować.-->
     {{ form.user_name.as_hidden }}
-    {{ form.portfolio_name.as_hidden }}
+    
     <div class="d-flex justify-content-center align-items-center mt-3">
         <a class="navbutt mr-4 d-flex justify-content-center align-items-center" href="{% url 'visualisationpage' %}" style="text-decoration:none;">Anuluj</a>
         <button type="submit" value="Zapisz zmiany" href="{% url 'visualisationpage' %}" class="navbutthead mr-4 d-flex justify-content-center align-items-center">Zapisz zmiany</button>
