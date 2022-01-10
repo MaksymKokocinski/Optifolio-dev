@@ -66,14 +66,14 @@ class AddSharesForm(ModelForm):
     def clean(self):
         cleaned_data = super().clean()
         if cleaned_data:
-            date_value = cleaned_data.get('date')
-            hour_value = cleaned_data.get('hour')
-            if date_value > now().date():
-                raise forms.ValidationError("You can't enter a future date")
-            elif date_value == now().date() and hour_value > now().time():
-                raise forms.ValidationError("You can't enter a future hour")
+            if cleaned_data['date'] and  cleaned_data['hour']:
+                date_value = cleaned_data.get('date')
+                hour_value = cleaned_data.get('hour')
+                if date_value > now().date():
+                    raise forms.ValidationError("You can't enter a future date")
+                elif date_value == now().date() and hour_value > now().time():
+                    raise forms.ValidationError("You can't enter a future hour")
             return cleaned_data
-
 
 
 
