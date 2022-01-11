@@ -100,8 +100,10 @@
       <thead>
           <tr>
               <th class="text-center">Nazwa</th>
+              <th class="text-center">Symbol</th>
               <th class="text-center">Data</th>
               <th class=" text-center">Godzina</th>
+              <th class="text-center">Rodzaj</th>
               <th class=" text-center">Liczba akcji</th>
               <th class=" text-center">Kwota</th>
               <th class=" text-center">Opłata</th>
@@ -112,17 +114,19 @@
       <tbody>
             {% for temp in visdata %}
             
-        <tr>
-          
+          <tr>
+
               <th class=" text-center">{{ temp.title }}</th>
+              <th class=" text-center">{{ temp.title2 }}</th>
               <td class=" text-center">{{ temp.date }}</td>
               <td class=" text-center">{{ temp.hour }}</td>
+              <th class=" text-center">{{ temp.buy_sell }}</th>
               <td class=" text-center">{{ temp.shares_number }}</td>
               <td class=" text-center">{{ temp.course }}</td>
               <td class=" text-center">{{ temp.fare }}</td>
-              <td><a  href="{% url 'update_transaction' temp.visdata_id %}">Edytuj</a></td>
-              <td><a  href="{% url 'delete_transaction' temp.visdata_id %}">Usuń</a></td>
-            </tr>
+              <td><a href="{% url 'update_transaction' temp.visdata_id %}">Edytuj</a></td>
+              <td><a href="{% url 'delete_transaction' temp.visdata_id %}">Usuń</a></td>
+          </tr>
          {% endfor %}
       </tbody>
     </table>

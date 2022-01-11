@@ -12,6 +12,11 @@
         {{ form.title.errors }}
     </div>
     <div class="form-group">
+        <label for="{{ form.title2.id_for_label }}">Symbol spółki</label>
+        {{ form.title2 }}
+        {{ form.title2.errors }}
+    </div>
+    <div class="form-group">
         <label for="{{ form.buy_sell.id_for_label }}"></label>
         {{ form.buy_sell }}
         {{ form.buy_sell.errors }}
