@@ -112,6 +112,19 @@ def visualisationPage(request):
 
     # tutaj trzeba to uzaleznic od nr portfolio
     visdata = request.user.customer.visdata_set.all()
+
+    #tu sobie licze obecna zawartosc portfolio
+    portfolio_current_state = {}
+    for tr in visdata:
+        print(tr.title2)
+        if tr.title2 in portfolio_current_state:
+            print('jest')
+            # wtedy dodaj liczbe akcji do tych co byly wczesniej (lub odejmij jesli sell)
+        else:
+            print('niema')
+            portfolio_current_state[tr.title2] = [tr.shares_number]
+        print(portfolio_current_state)
+        
     price = []
     for v in visdata:
         #print(v.title2)
