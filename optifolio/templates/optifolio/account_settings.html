@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css?family=Mulish&display=swap" rel="stylesheet" />
     
     </head>
-    <body class="log">
+<body class="log">
 {% load static %}
 {% block content %}
 
@@ -22,18 +22,21 @@
 	}
 </style>
 <div class="d-flex justify-content-center align-items-center" style="height:100%;">
-	<div class="kontener3 d-flex justify-content-center align-items-center">
-		<button type="button" class="close" aria-label="Close" style="top:0;">
-       		<span aria-hidden="true"><a href="{% url 'adminpage' %}" style="text-decoration:none;">&times;</a></span>
-    	</button>
-		<div class="d-flex justify-content-center align-items-center">
-			<form method="POST" action="" enctype="multipart/form-data">
-				{% csrf_token %}
-				{{form.as_p}}
-		
-			<input class="zaloguj" type="submit" name="Update Information">
-			</form>
+	<div class="kontener3">
+        <button type="button" class="close" aria-label="Close" style="margin-right:30px;margin-top:20px;">
+            <span aria-hidden="true"><a href="{% url 'homepage' %}" style="text-decoration:none;">&times;</a></span>
+        </button>
+		<div class="d-flex justify-content-center align-items-center" style="height:100%;">
+				<form method="POST" action="" enctype="multipart/form-data" style="width:200px;">
+					
+					{% csrf_token %}
+					{{form.as_p}}
+					<input class="przeslij1" type="submit" name="Update Information" style="margin-top:30px;">
+				
+				</form>
+				
 		</div>
+			
 	</div>
 
 </div>

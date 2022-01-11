@@ -42,11 +42,13 @@
         </button>
       </div>
       <div class="modal-body">
-
+            
           <form action="/summary/#" method="POST">
               {% csrf_token %}
               {{ form }}
+              
               <button type="submit" value="Zapisz zmiany" href="{% url 'summary' %}" class="btn btn-primary">Zapisz zmiany</button>
+              <h0>Info: Mozna mieć maksymalnie 3 portfolia</h0>
           </form>
 
       </div>

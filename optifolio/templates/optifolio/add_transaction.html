@@ -14,73 +14,107 @@
 
 <div class="d-flex justify-content-center align-items-center" style="height:100%;">
     <div class="kontener4 d-flex justify-content-center align-items-center">
-        <button type="button" class="close" aria-label="Close" style="position:static;top:0;">
-            <span aria-hidden="true"><a href="{% url 'visualisationpage' %}" style="text-decoration:none;">&times;</a></span>
-        </button>
-    <div>
-    <div class="d-flex justify-content-center align-items-center"><h5 class="title" id="exampleModalLabel">Dodaj transakcję</h5></div>
-    <div><form action="" method="POST">
-    {% csrf_token %}
-
-    {{ form.non_field_errors }}
-    <div class="form-group formdiv">
-        <label for="{{ form.title.id_for_label }}">Nazwa spółki</label>
-        {{ form.title }}
-        {{ form.title.errors }}
-    </div>
-    <div class="form-group formdiv">
-        <label for="{{ form.title2.id_for_label }}">Symbol spółki</label>
-        {{ form.title2 }}
-        {{ form.title2.errors }}
-    </div>
-    <div class="form-group formdiv">
-        <label for="{{ form.buy_sell.id_for_label }}">Kupno/sprzedaż</label>
-        {{ form.buy_sell }}
-        {{ form.buy_sell.errors }}
-    </div>
-    <div class="form-group formdiv">
-        <label for="{{ form.shares_number.id_for_label }}">Liczba akcji</label>
-        {{ form.shares_number }}
-        {{ form.shares_number.errors }}
-    </div>
-    <div class="form-group formdiv">
-        <label for="{{ form.course.id_for_label }}">Kurs</label>
-        {{ form.course }}
-        {{ form.course.errors }}
-    </div>
-    <div class="form-group formdiv">
-        <label for="{{ form.fare.id_for_label }}">Opłata transakcyjna</label>
-        {{ form.fare }}
-        {{ form.fare.errors }}
-    </div>
-    <div class="form-group formdiv">
-        <label for="{{ form.date.id_for_label }}">Data</label>
-        {{ form.date }}
-        {{ form.date.errors }}
-    </div>
-    <div class="form-group formdiv">
-        <label for="{{ form.hour.id_for_label }}">Godzina</label>
-        {{ form.hour }}
-        {{ form.hour.errors }}
-    </div>
-    <div class="form-group formdiv">
-        <label for="{{ form.portfolio_name.id_for_label }}">Portfolio</label>
-        {{ form.portfolio_name }}
-        {{ form.hour.portfolio_name }}
-    </div>
-    <!--Wstawiłam tu pozostałe pola bo bez nich edycja nie działa poprawnie,
-    ale jako ukryte, tak aby użytkownik nie mógł ich edytować.-->
-    {{ form.user_name.as_hidden }}
     
-    <div class="d-flex justify-content-center align-items-center mt-3">
-        <a class="navbutt mr-4 d-flex justify-content-center align-items-center" href="{% url 'visualisationpage' %}" style="text-decoration:none;">Anuluj</a>
-        <button type="submit" value="Zapisz zmiany" href="{% url 'visualisationpage' %}" class="navbutthead mr-4 d-flex justify-content-center align-items-center">Zapisz zmiany</button>
+    <form action="" method="POST">
+    <div class="d-flex justify-content-center align-items-center">
+    <h5 class="sumnapis" id="exampleModalLabel">Dodaj transakcję</h5>
     </div>
-</form>
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <table>
+        <tr>
+            <td>
+                <div class="form-group formdiv">
+                    <label for="{{ form.title2.id_for_label }}">Symbol spółki</label>
+                    {{ form.title2 }}
+                    {{ form.title2.errors }}
+                </div>
+            </td>
+            <td>
+                <div class="form-group formdiv">
+                    <label for="{{ form.title.id_for_label }}">Nazwa spółki</label>
+                    {{ form.title }}
+                    {{ form.title.errors }}
+                </div>
+            </td>
+            <td>
+                <div class="form-group formdiv">
+                    <label for="{{ form.buy_sell.id_for_label }}">Kupno/sprzedaż</label>
+                    {{ form.buy_sell }}
+                    {{ form.buy_sell.errors }}
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="form-group formdiv">
+                    <label for="{{ form.shares_number.id_for_label }}">Liczba akcji</label>
+                    {{ form.shares_number }}
+                    {{ form.shares_number.errors }}
+                </div>
+            </td>
+            <td>
+                <div class="form-group formdiv">
+                    <label for="{{ form.course.id_for_label }}">Kurs</label>
+                    {{ form.course }}
+                    {{ form.course.errors }}
+                </div>
+            </td>
+            <td>
+                <div class="form-group formdiv">
+                    <label for="{{ form.fare.id_for_label }}">Opłata transakcyjna</label>
+                    {{ form.fare }}
+                    {{ form.fare.errors }}
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="form-group formdiv">
+                    <label for="{{ form.date.id_for_label }}">Data</label>
+                    {{ form.date }}
+                    {{ form.date.errors }}
+                </div>
+            </td>
+            <td>
+                <div class="form-group formdiv">
+                    <label for="{{ form.hour.id_for_label }}">Godzina</label>
+                    {{ form.hour }}
+                    {{ form.hour.errors }}
+                </div>
+            </td>
+            <td>
+                <div class="form-group formdiv">
+                    <label for="{{ form.portfolio_name.id_for_label }}">Portfolio</label>
+                    {{ form.portfolio_name }}
+                    {{ form.hour.portfolio_name }}
+                </div>
+            </td>
+        </tr>
+    </table>
+    {{ form.user_name.as_hidden }}
+    <div class="d-flex justify-content-center align-items-center mt-3">
+        <a class="anultrans mr-4 d-flex justify-content-center align-items-center" href="{% url 'visualisationpage' %}" style="text-decoration:none;">Anuluj</a>
+        <button type="submit" value="Zapisz zmiany" href="{% url 'visualisationpage' %}" class="savetransaction mr-4 d-flex justify-content-center align-items-center">Zapisz zmiany</button>
+    </div>
+        </form>
 </div>
 </div>
-</div>
-   
-</div>
+
+<script>
+
+var form_fields = document.getElementsByTagName('input')
+form_fields[1].placeholder='Nazwa własna';
+form_fields[2].placeholder='100-0.0001';
+form_fields[3].placeholder='100-0.0001';
+form_fields[4].placeholder='100-0.0001';
+form_fields[5].placeholder='rr-mm-dd';
+form_fields[6].placeholder='hh-mm-ss';
+
+
+for (var field in form_fields){	
+form_fields[field].className += ' form-control'
+}
+</script>
 
 {% endblock %}
