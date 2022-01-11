@@ -1,0 +1,15 @@
+﻿{% extends 'optifolio/main.html' %}
+{% load static %}
+{% block content %}
+
+<p>Czy na pewno chcesz usunąć portfolio "{{item}}"?</p>
+
+<form action="{% url 'delete_portfolio' item.portfolio_id %}" method="POST">
+    {% csrf_token %}
+
+    <a href="{% url 'summary' %}">Nie</a>
+    <input type="submit" value="Tak" name="Tak" />
+
+</form>
+
+{% endblock %}

@@ -26,7 +26,9 @@ urlpatterns = [
     ,name="password_reset_complete"),
 
     path('summary/', views.summaryPage, name="summary"),
-    path('vispage/<int:pk>/', views.visPage, name='vispage'),
+    path('vispage/<str:pk>/', views.visPage, name='vispage'),
+    path('delete_portfolio/<str:pk>/', views.deletePortfolio, name="delete_portfolio"),
+
 
     path('visualisationpage/', views.visualisationPage, name="visualisationpage"),
     path('add_transaction/', views.addVisData, name="add_transaction"),

@@ -266,6 +266,19 @@ def summaryPage(request):
      'profit_earned': profit_earned, 'fare_sum':fare_sum,'mod_date':mod_date,'current_user_name':current_user_name}
     return render(request, 'optifolio/summary.html',context)
 
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['customer'])
+def deletePortfolio(request, pk):
+    portfolio = Portfolio.objects.get(portfolio_id=pk)
+    if request.method == "POST":
+        portfolio.delete()
+        return redirect('summary')
+    context = {'item': portfolio}
+    return render(request, 'optifolio/delete_portfolio.html', context)
+
+
+
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['customer'])
 def visPage(request, pk):
