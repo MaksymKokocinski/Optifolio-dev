@@ -11,7 +11,7 @@ urlpatterns = [
     path('logout/', views.logoutUser, name='logout'),
     
     path('', views.adminpage, name="adminpage"),
-    path('customer/<str:pk>/', views.customer, name='customer'),
+    path('customer/<int:pk>/', views.customer, name='customer'),
     
     path('userpage/', views.userPage, name='userpage'), 
     path('account/', views.accountSettings, name ='account'),
@@ -26,12 +26,12 @@ urlpatterns = [
     ,name="password_reset_complete"),
 
     path('summary/', views.summaryPage, name="summary"),
-    path('vispage/<str:pk>/', views.visPage, name='vispage'),
+    path('vispage/<int:pk>/', views.visPage, name='vispage'),
 
     path('visualisationpage/', views.visualisationPage, name="visualisationpage"),
     path('add_transaction/', views.addVisData, name="add_transaction"),
-    path('update_transaction/<str:vispk>/', views.updateVisData, name="update_transaction"),
-    path('delete_transaction/<str:vispk>/', views.deleteVisData, name="delete_transaction"),
+    path('update_transaction/<int:vispk>/', views.updateVisData, name="update_transaction"),
+    path('delete_transaction/<int:vispk>/', views.deleteVisData, name="delete_transaction"),
     path('templatevisualisationpage/', views.templatevisualisationPage, name="templatevisualisationpage"),
 
     path('infopage/', views.infoPage, name="infopage"),
