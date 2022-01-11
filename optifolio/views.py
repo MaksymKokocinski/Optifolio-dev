@@ -189,33 +189,35 @@ def summaryPage(request):
 
     count_portfolio = all_user_portfolio.count()
     if count_portfolio > 0:
-        print('test2',count_portfolio,all_user_portfolio)
+        #print('test2',count_portfolio,all_user_portfolio)
         for temp in range (count_portfolio):
             print(all_user_portfolio[temp])
 
-    form = AddPortfolioForm(request.POST or None)
-    if request.method == 'POST':
-        if form.is_valid():
-            publish = form.save(commit=False)
-            publish.user_name = current_user_name #Adding username to form
-            publish.save()
-            return redirect('summary')
+    #Every user can have only 3 portfolios top
+    if count_portfolio < 3:
+        form = AddPortfolioForm(request.POST or None)
+        if request.method == 'POST':
+            if form.is_valid():
+                publish = form.save(commit=False)
+                publish.user_name = current_user_name #Adding username to form
+                publish.save()
+                return redirect('summary')
+        else:
+            form = AddPortfolioForm()
     else:
-        form = AddPortfolioForm()
-    
-    #all_portfolio =Portfolio.objects.all()
-    #all_user_portfolio = request.user.customer.portfolio_set.all()
-    #print(all_portfolio)
-    #print('test2',all_user_portfolio)
-    #portfolio_title = all_user_portfolio.portfolio_title()
-    #all_portfolio_titles = request.user.customer.portfolio_title.all()
-    #print(all_portfolio_titles)
-    #for user restriction 
-    
-    #uzaleznic od nr portfolio
-    
-    #shows all data
-    #visdata = VisData.objects.all()
+        form = AddPortfolioForm(request.POST or None)
+        if request.method == 'POST':
+            if form.is_valid():
+                publish = form.save(commit=False)
+                return redirect('summary')
+
+
+
+    print('visdata',visdata)
+
+    print('smth')
+
+    print('portfolio',all_user_portfolio)
 
     comp_number = visdata.count()
     if comp_number > 0:
@@ -249,6 +251,7 @@ def summaryPage(request):
         )
         profit_earned = aggregated_data['total']
         profit_earned = format(profit_earned, ".2f")
+        print('changes',shares_num_sum,fare_sum,mod_date,to_buy,to_sell,to_buy_percentage,profit_earned)
 
     else:
         shares_num_sum = 0
