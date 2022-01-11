@@ -44,7 +44,7 @@ class VisData(models.Model):
 
     TITLE_CHOICES = list_names
     title = models.CharField(max_length=200, null=True,blank=True)
-    title2 = models.CharField(max_length=200, choices = TITLE_CHOICES, null=True,blank=True)
+    title2 = models.CharField(max_length=200, choices = TITLE_CHOICES, null=True,blank=False)
 
     portfolio_name = models.ForeignKey(Portfolio,on_delete=models.SET_NULL,blank=True, null=True)
 
