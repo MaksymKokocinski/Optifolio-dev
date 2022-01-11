@@ -82,6 +82,8 @@
         <div class="d-flex justify-content-center align-items-center mt-3">
             <div class="navbutthead mr-4 d-flex justify-content-center align-items-center">Optymalizuj</div>
             <div class="navbutt mr-4 d-flex justify-content-center align-items-center">Edytuj</div>
+            <a class="btn btn-sm btn-info" href="{% url 'vispage' temp.portfolio_id %}">Podgląd</a>
+            <a href="{% url 'delete_portfolio' temp.portfolio_id %}">Usuń</a>
             <div class="navbutt d-flex justify-content-center align-items-center">Usuń</div>
         </div>
         <div class="summfoot d-flex justify-content-center align-items-center p-4">Ostatnia aktualizacja {{mod_date}}</div>
