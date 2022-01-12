@@ -14,7 +14,6 @@ class Customer(models.Model):
 
     def __str__(self):
         return self.name
-
 		
 class TicName(models.Model):
     tic_sym = models.CharField(primary_key=True,max_length=10,null=False,blank=True)
@@ -23,15 +22,19 @@ class TicName(models.Model):
     def __str__(self) :
         return self.tic_name 
 
-
 class Portfolio(models.Model):
     portfolio_id = models.AutoField(primary_key=True,blank=True)
     portfolio_title = models.CharField(unique=True,max_length=200, null=True,blank=True)
     user_name = models.ForeignKey(Customer, null=True, on_delete=models.SET_NULL,blank=True)
-
+    
+    p_shares_num_sum = models.DecimalField(decimal_places=2,default=0,max_digits=999,editable=True, null=True,blank=True)
+    p_last_mod_date = models.DateField(auto_now_add=False,null=True,editable=True,blank=True)
+    p_comp_num_sum = models.DecimalField(decimal_places=2,default=0,max_digits=999,editable=True, null=True,blank=True)
+    p_to_buy_percentage = models.CharField(max_length=200,editable=True, null=True,blank=True)
+    p_profit_earned = models.DecimalField(decimal_places=6,editable=True,default=0,max_digits=999, null=True,blank=True)
+    
     def __str__(self):
         return self.portfolio_title if self.portfolio_title else ''
-
 
 
 class VisData(models.Model):
@@ -55,6 +58,5 @@ class VisData(models.Model):
     course = models.DecimalField(decimal_places=2,default=0,max_digits=999,null=True,blank=True)
     fare = models.DecimalField(decimal_places=2,default=0,max_digits=999,null=True,blank=True)
     
-
     def __str__(self):
         return self.title if self.title else ''

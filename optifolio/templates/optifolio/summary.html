@@ -45,8 +45,13 @@
             
           <form action="/summary/#" method="POST">
               {% csrf_token %}
-              {{ form }}
-              
+              {{ form.portfolio_title }}
+              {{ form.p_shares_num_sum.as_hidden }}
+              {{ form.p_last_mod_date.as_hidden }}
+              {{ form.p_comp_num_sum.as_hidden }}
+              {{ form.p_to_buy_percentage.as_hidden }}
+              {{ form.p_profit_earned.as_hidden }}
+
               <button type="submit" value="Zapisz zmiany" href="{% url 'summary' %}" class="btn btn-primary">Zapisz zmiany</button>
               <h0>Info: Mozna mieć maksymalnie 3 portfolia</h0>
           </form>
@@ -59,7 +64,6 @@
     </div>
   </div>
 </div>
-
 <!--Roboczy przycisk przechodzenia do wizualizacji-->
 <div class="container" style="margin-left:250px;">
     <a class="btn btn-sm btn-info" href="{% url 'visualisationpage' %}">Podgląd</a>
@@ -72,12 +76,12 @@
         <div class="cztery containfer-fluid mt-3">
         <table class="d-flex justify-content-center align-items-center">
             <tr>
-               <td class="p-3"> <div class="shadow"><div class="kaf d-flex justify-content-center align-items-center"><p class="dane">{{temp.shares_num}}</p> <p>Liczba akcji</p> </div></div></td>
-               <td class="p-3"> <div class="shadow"><div class="kaf d-flex justify-content-center align-items-center"><p class="dane">{{temp.profit_earned}}</p><p> Zysk</p> </div></td>
+               <td class="p-3"> <div class="shadow"><div class="kaf d-flex justify-content-center align-items-center"><p class="dane">{{temp.p_shares_num_sum}}</p> <p>Liczba akcji</p> </div></div></td>
+               <td class="p-3"> <div class="shadow"><div class="kaf d-flex justify-content-center align-items-center"><p class="dane">{{temp.p_profit_earned}}</p><p> Zysk</p> </div></td>
             </tr>
             <tr>
-               <td class="p-3"> <div class="shadow"><div class="kaf d-flex justify-content-center align-items-center"><p class="dane">{{temp.comp_number}}</p> <p>Liczba firm</p> </div></div></td>
-               <td class="p-3"> <div class="shadow"><div class="kaf d-flex justify-content-center align-items-center"><p class="dane">{{temp.to_buy_percentage}}</p><p>Na buy</p> </div></div></td>
+               <td class="p-3"> <div class="shadow"><div class="kaf d-flex justify-content-center align-items-center"><p class="dane">{{temp.p_comp_num_sum}}</p> <p>Liczba firm</p> </div></div></td>
+               <td class="p-3"> <div class="shadow"><div class="kaf d-flex justify-content-center align-items-center"><p class="dane">{{temp.p_to_buy_percentage}}</p><p>Na buy</p> </div></div></td>
             </tr>
         </table>
         </div>
@@ -88,7 +92,7 @@
             <a href="{% url 'delete_portfolio' temp.portfolio_id %}">Usuń</a>
             <div class="navbutt d-flex justify-content-center align-items-center">Usuń</div>
         </div>
-        <div class="summfoot d-flex justify-content-center align-items-center p-4">Ostatnia aktualizacja {{mod_date}}</div>
+        <div class="summfoot d-flex justify-content-center align-items-center p-4">Ostatnia aktualizacja {{temp.p_last_mod_date}}</div>
     </div>
 </div>
 {% endfor %}

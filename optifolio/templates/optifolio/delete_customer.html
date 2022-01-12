@@ -1,0 +1,15 @@
+{% extends 'optifolio/main.html' %}
+{% load static %}
+{% block content %}
+<div class="container" style="margin-left:230px;">
+<p>Czy na pewno chcesz usunąć konto "{{item}}"?</p>
+
+<form action="{% url 'delete_customer' item.id %}" method="POST">
+    {% csrf_token %}
+
+    <a href="{% url 'summary' %}">Nie</a>
+    <input type="submit" value="Tak" name="Tak" />
+
+</form>
+</div>
+{% endblock %}
