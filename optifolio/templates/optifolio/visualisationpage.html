@@ -28,75 +28,103 @@
     <a class="btn btn-sm btn-info" href="{% url 'add_transaction' %}">Dodaj</a>
 </div>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+<div class="modal fade kontener4" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Dodaj transakcję</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-              </button>
+            <div class=" d-flex justify-content-center align-items-center">
+    
+              <form action="" method="POST">
+              <div class="d-flex justify-content-center align-items-center">
+              <h5 class="sumnapis" id="exampleModalLabel">Dodaj transakcję</h5>
+              </div>
+              {% csrf_token %}
+              {{ form.non_field_errors }}
+              <table>
+                  <tr>
+                      <td>
+                          <div class="form-group formdiv">
+                              <label for="{{ form.title2.id_for_label }}">Symbol spółki</label>
+                              {{ form.title2 }}
+                              {{ form.title2.errors }}
+                          </div>
+                      </td>
+                      <td>
+                          <div class="form-group formdiv">
+                              <label for="{{ form.title.id_for_label }}">Nazwa spółki</label>
+                              {{ form.title }}
+                              {{ form.title.errors }}
+                          </div>
+                      </td>
+                      <td>
+                          <div class="form-group formdiv">
+                              <label for="{{ form.buy_sell.id_for_label }}">Kupno/sprzedaż</label>
+                              {{ form.buy_sell }}
+                              {{ form.buy_sell.errors }}
+                          </div>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>
+                          <div class="form-group formdiv">
+                              <label for="{{ form.shares_number.id_for_label }}">Liczba akcji</label>
+                              {{ form.shares_number }}
+                              {{ form.shares_number.errors }}
+                          </div>
+                      </td>
+                      <td>
+                          <div class="form-group formdiv">
+                              <label for="{{ form.course.id_for_label }}">Kurs</label>
+                              {{ form.course }}
+                              {{ form.course.errors }}
+                          </div>
+                      </td>
+                      <td>
+                          <div class="form-group formdiv">
+                              <label for="{{ form.fare.id_for_label }}">Opłata transakcyjna</label>
+                              {{ form.fare }}
+                              {{ form.fare.errors }}
+                          </div>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>
+                          <div class="form-group formdiv">
+                              <label for="{{ form.date.id_for_label }}">Data</label>
+                              {{ form.date }}
+                              {{ form.date.errors }}
+                          </div>
+                      </td>
+                      <td>
+                          <div class="form-group formdiv">
+                              <label for="{{ form.hour.id_for_label }}">Godzina</label>
+                              {{ form.hour }}
+                              {{ form.hour.errors }}
+                          </div>
+                      </td>
+                      <td>
+                          <div class="form-group formdiv">
+                              <label for="{{ form.portfolio_name.id_for_label }}">Portfolio</label>
+                              {{ form.portfolio_name }}
+                              {{ form.hour.portfolio_name }}
+                          </div>
+                      </td>
+                  </tr>
+              </table>
+              {{ form.user_name.as_hidden }}
+              <div class="d-flex justify-content-center align-items-center mt-3">
+                  <a class="anultrans mr-4 d-flex justify-content-center align-items-center" href="{% url 'visualisationpage' %}" style="text-decoration:none;">Anuluj</a>
+                  <button type="submit" value="Zapisz zmiany" href="{% url 'visualisationpage' %}" class="savetransaction mr-4 d-flex justify-content-center align-items-center">Zapisz zmiany</button>
+              </div>
+                  </form>
           </div>
-          <div class="modal-body">
-
-              <form action="/visualisationpage/#" method="POST">
-                  {% csrf_token %}
-                  {{ form.non_field_errors }}
-                  <div class="form-group">
-                      <label for="{{ form.title.id_for_label }}">Nazwa spółki</label>
-                      <input type="text" name="title" class="form-control" placeholder="Podaj nazwę spółki">
-                      {{ form.title.errors }}
-                  </div>
-                  <div class="form-group">
-                      <label for="{{ form.buy_sell.id_for_label }}"></label>
-                      <label for="buy">Kupno</label><br>
-                      <input type="radio" id="buy" name="buy_sell" class="form-control" value="+">
-                      <label for="sell">Sprzedaz</label><br>
-                      <input type="radio" id="sell" name="buy_sell" class="form-control" value="-">
-                      {{ form.buy_sell.errors }}
-                  </div>
-                  <div class="form-group">
-                      <label for="{{ form.shares_number.id_for_label }}">Liczba akcji</label>
-                      <input type="text" name="shares_number" class="form-control">
-                      {{ form.shares_number.errors }}
-                  </div>
-                  <div class="form-group">
-                      <label for="{{ form.course.id_for_label }}">Kurs</label>
-                      <input type="text" name="course" class="form-control">
-                      {{ form.course.errors }}
-                  </div>
-                  <div class="form-group">
-                      <label for="{{ form.fare.id_for_label }}">Opłata transakcyjna</label>
-                      <input type="text" name="fare" class="form-control">
-                      {{ form.fare.errors }}
-                  </div>
-                  <div class="form-group">
-                      <label for="{{ form.date.id_for_label }}">Data</label>
-                      <input type="date" name="date" class="form-control">
-                      {{ form.date.errors }}
-                  </div>
-                  <div class="form-group">
-                      <label for="{{ form.hour.id_for_label }}">Godzina</label>
-                      <input type="time" name="hour" class="form-control">
-                      {{ form.hour.errors }}
-                  </div>
-                  <button type="submit" value="Zapisz zmiany" href="{% url 'visualisationpage' %}" class="btn btn-primary">Zapisz zmiany</button>
-              </form>
           </div>
-          <!--Wcześniejszy wygląd przycisków
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
-                <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
-            </div>-->
-
       </div>
   </div>
 </div>
 
-<div class="container" style="margin-left:250px;">
+<div class="container kafelall" style="margin-left:250px;">
   <div class="table-wrapper-scroll-y my-custom-scrollbar">
   <div class ="column">
-  <table  class="table table-bordered" ">
+  <table  class="table table-bordered" >
       <thead>
           <tr>
               <th class="text-center">Nazwa</th>
@@ -150,7 +178,7 @@
   </div>
   </div>
 </div>
-
+<div class="kafelall">
     <div class="container" style="margin-left:250px;">
       <left>
       <button class="wykres szarak" onclick="chartType('bar')">Bar</button>
@@ -296,6 +324,7 @@
       }
     }
     </script>
+  </div>
     </div>
 
   {% endblock %}
