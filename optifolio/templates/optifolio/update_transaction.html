@@ -1,7 +1,7 @@
 ﻿{% extends 'optifolio/main.html' %}
 {% load static %}
 {% block content %}
-
+<div class="container" style="margin-left:230px;">
 <form action="" method="POST">
     {% csrf_token %}
 
@@ -54,5 +54,5 @@
     <a href="{% url 'visualisationpage' %}">Anuluj</a>
     <button type="submit" value="Zapisz zmiany" href="{% url 'visualisationpage' %}" class="btn btn-primary">Zapisz zmiany</button>
 </form>
-
+</div>
 {% endblock %}
