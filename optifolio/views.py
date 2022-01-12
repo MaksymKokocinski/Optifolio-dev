@@ -291,9 +291,29 @@ def portfolioState(request, pk):
     current_user_name = request.user.customer
     current_portfolio = Portfolio.objects.get(portfolio_id = pk)
     visdata = current_portfolio.visdata_set.all()
-    print('co my tu mamy', visdata)
 
-    context = {'visdata': visdata}
+    #tu sobie licze obecna zawartosc portfolio
+    portfolio_current_state = {}
+    for tr in visdata:
+        if tr.title2 in portfolio_current_state:
+            if tr.buy_sell == '+':
+                portfolio_current_state[tr.title2] += tr.shares_number
+            elif tr.buy_sell == '-':
+                portfolio_current_state[tr.title2] -= tr.shares_number
+        else:
+            if tr.buy_sell == '+':
+                portfolio_current_state[tr.title2] = tr.shares_number
+            elif tr.buy_sell == '-':
+                portfolio_current_state[tr.title2] = -1*(tr.shares_number)
+        print(portfolio_current_state)
+
+    #jakbym chciala dorzucic obecny kurs (a chcialabym):
+    #price = []
+    #for v in visdata:
+        #print(v.title2)
+        #price.append(get_live_price(str(v.title2)))
+
+    context = {'portfolio_current_state': portfolio_current_state, 'visdata': visdata, 'current_portfolio': current_portfolio}
     return render(request, 'optifolio/portfolio_state.html', context)
     
 
@@ -303,28 +323,6 @@ def visPage(request, pk):
     current_user_name = request.user.customer
     current_portfolio = Portfolio.objects.get(portfolio_id = pk)
     visdata = current_portfolio.visdata_set.all()
-
-    print('ok jestem tu')
-    #tu sobie licze obecna zawartosc portfolio
-    portfolio_current_state = {}
-    for tr in visdata:
-        print(tr.title2)
-        if tr.title2 in portfolio_current_state:
-            print('jest')
-            print('obecna wartosc: ', tr.shares_number)
-            print('wartosc w slowniku', portfolio_current_state[tr.title2][0])
-            if tr.buy_sell == '+':
-                print('wynik ', tr.shares_number + portfolio_current_state[tr.title2][0])
-                portfolio_current_state[tr.title2][0] += tr.shares_number
-            elif tr.buy_sell == '-':
-                print('wynik ', portfolio_current_state[tr.title2][0] - tr.shares_number)
-                portfolio_current_state[tr.title2][0] -= tr.shares_number
-            print('nowy slownik', portfolio_current_state[tr.title2])
-            # wtedy dodaj liczbe akcji do tych co byly wczesniej (lub odejmij jesli sell)
-        else:
-            print('niema')
-            portfolio_current_state[tr.title2] = [tr.shares_number]
-        print(portfolio_current_state)
 
     #stary pop-up
     form = AddSharesForm(request.POST or None)
