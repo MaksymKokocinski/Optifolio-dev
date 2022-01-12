@@ -112,6 +112,20 @@ def visualisationPage(request):
 
     # tutaj trzeba to uzaleznic od nr portfolio
     visdata = request.user.customer.visdata_set.all()
+
+    #tu sobie licze obecna zawartosc portfolio
+    portfolio_current_state = {}
+    for tr in visdata:
+        print(tr.title2)
+        if tr.title2 in portfolio_current_state:
+            print('jest')
+            # wtedy dodaj liczbe akcji do tych co byly wczesniej (lub odejmij jesli sell)
+        else:
+            print('niema')
+            portfolio_current_state[tr.title2] = [tr.shares_number]
+        print(portfolio_current_state)
+
+
     price = []
     for v in visdata:
         #print(v.title2)
@@ -132,7 +146,7 @@ def visualisationPage(request):
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['customer'])
-def addVisData(request):
+def addVisData(request, pk):
     current_user_name = request.user.customer
 
     form = AddSharesForm(request.POST or None)
@@ -143,7 +157,7 @@ def addVisData(request):
             publish = form.save(commit=False)
             publish.user_name = current_user_name #Adding username to form
             publish.save()
-            return redirect('visualisationpage')
+            return redirect('vispage', pk)
     else:
             form = AddSharesForm()
 
@@ -212,13 +226,6 @@ def summaryPage(request):
                 return redirect('summary')
 
 
-
-    print('visdata',visdata)
-
-    print('smth')
-
-    print('portfolio',all_user_portfolio)
-
     comp_number = visdata.count()
     if comp_number > 0:
         
@@ -284,15 +291,17 @@ def deletePortfolio(request, pk):
 def visPage(request, pk):
     current_user_name = request.user.customer
     current_portfolio = Portfolio.objects.get(portfolio_id = pk)
+    print(current_portfolio.portfolio_id)
     visdata = current_portfolio.visdata_set.all()
 
+    #stary pop-up
     form = AddSharesForm(request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
             publish = form.save(commit=False)
             publish.user_name = current_user_name #Adding username to form
             publish.save()
-            return redirect('visualisationpage')
+            return redirect('summary')
     else:
             form = AddSharesForm()
 
