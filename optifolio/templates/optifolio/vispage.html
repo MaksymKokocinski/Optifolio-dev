@@ -2,7 +2,6 @@
 
 {% load static %}
 {% block content %}
-<br>
 <div class="container" style="margin-left:230px;">
     <div class="container-fluid">
         <p class="text-md-left" style="font-size:36px;font-weight:bold;">Wizualizacja portfolio</p>
@@ -44,42 +43,42 @@
                   {% csrf_token %}
                   {{ form.non_field_errors }}
                   <div class="form-group">
-                        <label for="{{ form.title.id_for_label }}">Nazwa spółki</label>
-                        <input type="text" name="title" class="form-control" placeholder="Podaj nazwę spółki">
-                        {{ form.title.errors }}
+                      <label for="{{ form.title.id_for_label }}">Nazwa spółki</label>
+                      <input type="text" name="title" class="form-control" placeholder="Podaj nazwę spółki">
+                      {{ form.title.errors }}
                   </div>
                   <div class="form-group">
-                        <label for="{{ form.buy_sell.id_for_label }}"></label>
-                        <label for="buy">Kupno</label><br>
-                        <input type="radio" id="buy" name="buy_sell" class="form-control" value="+">
-                        <label for="sell">Sprzedaz</label><br>
-                        <input type="radio" id="sell" name="buy_sell" class="form-control" value="-">
-                        {{ form.buy_sell.errors }}
+                      <label for="{{ form.buy_sell.id_for_label }}"></label>
+                      <label for="buy">Kupno</label><br>
+                      <input type="radio" id="buy" name="buy_sell" class="form-control" value="+">
+                      <label for="sell">Sprzedaz</label><br>
+                      <input type="radio" id="sell" name="buy_sell" class="form-control" value="-">
+                      {{ form.buy_sell.errors }}
                   </div>
                   <div class="form-group">
-                        <label for="{{ form.shares_number.id_for_label }}">Liczba akcji</label>
-                        <input type="text" name="shares_number" class="form-control">
-                        {{ form.shares_number.errors }}
+                      <label for="{{ form.shares_number.id_for_label }}">Liczba akcji</label>
+                      <input type="text" name="shares_number" class="form-control">
+                      {{ form.shares_number.errors }}
                   </div>
                   <div class="form-group">
-                        <label for="{{ form.course.id_for_label }}">Kurs</label>
-                        <input type="text" name="course" class="form-control">
-                        {{ form.course.errors }}
+                      <label for="{{ form.course.id_for_label }}">Kurs</label>
+                      <input type="text" name="course" class="form-control">
+                      {{ form.course.errors }}
                   </div>
                   <div class="form-group">
-                        <label for="{{ form.fare.id_for_label }}">Opłata transakcyjna</label>
-                        <input type="text" name="fare" class="form-control">
-                        {{ form.fare.errors }}
+                      <label for="{{ form.fare.id_for_label }}">Opłata transakcyjna</label>
+                      <input type="text" name="fare" class="form-control">
+                      {{ form.fare.errors }}
                   </div>
                   <div class="form-group">
-                        <label for="{{ form.date.id_for_label }}">Data</label>
-                        <input type="date" name="date" class="form-control">
-                        {{ form.date.errors }}
+                      <label for="{{ form.date.id_for_label }}">Data</label>
+                      <input type="date" name="date" class="form-control">
+                      {{ form.date.errors }}
                   </div>
                   <div class="form-group">
-                        <label for="{{ form.hour.id_for_label }}">Godzina</label>
-                        <input type="time" name="hour" class="form-control">
-                        {{ form.hour.errors }}
+                      <label for="{{ form.hour.id_for_label }}">Godzina</label>
+                      <input type="time" name="hour" class="form-control">
+                      {{ form.hour.errors }}
                   </div>
                   <button type="submit" value="Zapisz zmiany" href="{% url 'visualisationpage' %}" class="btn btn-primary">Zapisz zmiany</button>
               </form>
@@ -93,14 +92,18 @@
       </div>
   </div>
 </div>
-<div id="overlay"></div>
+
 <div class="container" style="margin-left:250px;">
-  <table  class="table table-bordered" style="max-width:700px;">
+  <div class="table-wrapper-scroll-y my-custom-scrollbar">
+  <div class ="column">
+  <table  class="table table-bordered" ">
       <thead>
           <tr>
               <th class="text-center">Nazwa</th>
+              <th class="text-center">Symbol</th>
               <th class="text-center">Data</th>
               <th class=" text-center">Godzina</th>
+              <th class="text-center">Rodzaj</th>
               <th class=" text-center">Liczba akcji</th>
               <th class=" text-center">Kwota</th>
               <th class=" text-center">Opłata</th>
@@ -109,21 +112,44 @@
           </tr>
       </thead>
       <tbody>
-        {% for temp in visdata %}
+            {% for temp in visdata %}
+            
           <tr>
+
               <th class=" text-center">{{ temp.title }}</th>
+              <th class=" text-center">{{ temp.title2 }}</th>
               <td class=" text-center">{{ temp.date }}</td>
               <td class=" text-center">{{ temp.hour }}</td>
+              <th class=" text-center">{{ temp.buy_sell }}</th>
               <td class=" text-center">{{ temp.shares_number }}</td>
               <td class=" text-center">{{ temp.course }}</td>
               <td class=" text-center">{{ temp.fare }}</td>
-              <td><a class="btn btn-sm btn-info" href="{% url 'update_transaction' temp.visdata_id %}">Edytuj</a></td>
-              <td><a class="btn btn-sm btn-danger" href="{% url 'delete_transaction' temp.visdata_id %}">Usuń</a></td>
+              <td><a href="{% url 'update_transaction' temp.visdata_id %}">Edytuj</a></td>
+              <td><a href="{% url 'delete_transaction' temp.visdata_id %}">Usuń</a></td>
           </tr>
-        {% endfor %}
+         {% endfor %}
       </tbody>
     </table>
-    </div>
+  </div>
+  <div class="column">
+    <table class="table table-bordered">
+      <thead>
+        <th class=" text-center">Aktualna cena</th>
+      </thead>
+      <tbody>
+      {% for temp in price %}  
+        
+        <td class=" text-center">{{ temp }}</td>
+       </tr>
+       {% endfor %}
+      </tr>
+    </tbody>
+    </table>
+
+  </div>
+  </div>
+  </div>
+</div>
 
     <div class="container" style="margin-left:250px;">
       <left>
