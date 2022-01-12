@@ -38,3 +38,4 @@ websockets==9.1
 whitenoise==5.3.0
 yahoo-fin==0.8.9.1
 zipp==3.6.0
+scipy==1.7.3

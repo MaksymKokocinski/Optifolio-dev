@@ -1,0 +1,4 @@
+nazwa;liczba_akcji;obecny kurs
+AMZN;2;3257.97
+MSFT;3;311.52
+AAPL;4;171.53

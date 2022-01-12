@@ -11,8 +11,9 @@ urlpatterns = [
     path('logout/', views.logoutUser, name='logout'),
     
     path('', views.adminpage, name="adminpage"),
-    path('customer/<int:pk>/', views.customer, name='customer'),
-    
+    path('customer/<str:pk>/', views.customer, name='customer'),
+    path('delete_customer/<str:pk>/', views.delete_customer, name='delete_customer'),
+
     path('userpage/', views.userPage, name='userpage'), 
     path('account/', views.accountSettings, name ='account'),
  
@@ -34,6 +35,7 @@ urlpatterns = [
     path('add_transaction/<str:pk>/', views.addVisData, name="add_transaction"),
     path('update_transaction/<int:vispk>/', views.updateVisData, name="update_transaction"),
     path('delete_transaction/<int:vispk>/', views.deleteVisData, name="delete_transaction"),
+
     path('templatevisualisationpage/', views.templatevisualisationPage, name="templatevisualisationpage"),
 
     path('infopage/', views.infoPage, name="infopage"),

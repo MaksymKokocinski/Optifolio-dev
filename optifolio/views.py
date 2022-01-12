@@ -68,9 +68,13 @@ def accountSettings(request):
         form = CustomerForm(request.POST, request.FILES,instance=customer)
         if form.is_valid():
             form.save()
+            return redirect('summary') 
+
 
     context = {'form':form}
     return render(request, 'optifolio/account_settings.html',context)
+
+
 
 @unauthenticated_user
 def homepage(request):
@@ -86,12 +90,34 @@ def adminpage(request):
 
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin'])
+@allowed_users(allowed_roles=['customer'])
 def customer(request, pk):
     customer = Customer.objects.get(id = pk)
+    
+    #global customer pk
+    customer_pk = int(customer.pk)
 
-    context = {'customer':customer,}
+    form = CustomerForm(instance=customer)
+
+    if request.method == 'POST':
+        form = CustomerForm(request.POST, request.FILES,instance=customer)
+        if form.is_valid():
+            form.save()
+            return redirect('summary') 
+
+    context = {'customer':customer,'form':form,'customer_pk':customer_pk}
     return render(request, 'optifolio/customer.html',context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['customer'])
+def delete_customer(request, pk):
+    customer = Customer.objects.get(id = pk)
+    if request.method == "POST":
+        customer.delete()
+        return redirect('homepage')
+
+    context = {'item': customer}
+    return render(request, 'optifolio/delete_customer.html', context)
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['customer'])
@@ -201,11 +227,12 @@ def summaryPage(request):
     visdata = request.user.customer.visdata_set.all()
     all_user_portfolio = request.user.customer.portfolio_set.all()
 
+
     count_portfolio = all_user_portfolio.count()
-    if count_portfolio > 0:
+    '''if count_portfolio > 0:
         #print('test2',count_portfolio,all_user_portfolio)
         for temp in range (count_portfolio):
-            print(all_user_portfolio[temp])
+            print(all_user_portfolio[temp])'''
 
     #Every user can have only 3 portfolios top
     if count_portfolio < 3:
@@ -224,54 +251,11 @@ def summaryPage(request):
             if form.is_valid():
                 publish = form.save(commit=False)
                 return redirect('summary')
-
-
-    comp_number = visdata.count()
-    if comp_number > 0:
-        
-        shares_num = visdata.aggregate(Sum(('shares_number')))
-        shares_num_sum = (shares_num['shares_number__sum'])
-        shares_num_sum = format(shares_num_sum, ".0f")
-        #profit_earned = visdata.aggregate(Sum(('course')))
-        #profit_sum = (profit_earned['course__sum'])
-        fare_paid = visdata.aggregate(Sum(('fare')))
-        fare_sum = (fare_paid['fare__sum'])
-
-        mod_date = visdata.order_by('-date').first().date
-        
-        to_buy = visdata.filter(buy_sell='+').count()
-        to_sell = visdata.filter(buy_sell='-').count()
-
-        to_buy_percentage = 0
-        to_buy_percentage = to_buy / comp_number
-        to_buy_percentage = (to_buy_percentage) * 100
-        to_buy_percentage = format(to_buy_percentage, ".0f")
-        to_buy_percentage = str(to_buy_percentage) + '%'
-        
-        #for customer restriction delete object and change VisData to visdata
-        aggregated_data = visdata.annotate(
-        intermid_result=F('course') - F('fare') 
-        ).annotate(
-        record_total=F('shares_number') * F('intermid_result')
-        ).aggregate(
-        total=Sum('record_total')
-        )
-        profit_earned = aggregated_data['total']
-        profit_earned = format(profit_earned, ".2f")
-        print('changes',shares_num_sum,fare_sum,mod_date,to_buy,to_sell,to_buy_percentage,profit_earned)
-
-    else:
-        shares_num_sum = 0
-        fare_sum = 0
-        mod_date = 'brak'
-        to_buy = 0
-        to_sell = 0
-        to_buy_percentage = 0
-        profit_earned = 0
+                
     
-    context = {'form':form,'comp_number': comp_number, 'shares_num':shares_num_sum,'to_buy_percentage':to_buy_percentage, 'all_user_portfolio':all_user_portfolio,
-     'profit_earned': profit_earned, 'fare_sum':fare_sum,'mod_date':mod_date,'current_user_name':current_user_name}
+    context = {'form':form,'all_user_portfolio':all_user_portfolio,}
     return render(request, 'optifolio/summary.html',context)
+
 
 
 @login_required(login_url='login')
@@ -283,6 +267,78 @@ def deletePortfolio(request, pk):
         return redirect('summary')
     context = {'item': portfolio}
     return render(request, 'optifolio/delete_portfolio.html', context)
+  
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['customer'])
+def visPage(request, pk):
+    current_user_name = request.user.customer
+    current_portfolio = Portfolio.objects.get(portfolio_id = pk)
+    visdata = current_portfolio.visdata_set.all()
+
+    form = AddSharesForm(request.POST or None)
+    if request.method == 'POST':
+        if form.is_valid():
+            publish = form.save(commit=False)
+            publish.user_name = current_user_name #Adding username to form
+            publish.save()
+            return redirect('visualisationpage')
+    else:
+            form = AddSharesForm()
+
+    price = []
+    for v in visdata:
+        price.append(get_live_price(str(v.title2)))
+
+    comp_number = visdata.count()
+    if comp_number > 0:
+        
+        shares_num = visdata.aggregate(Sum(('shares_number')))
+        shares_num_sum = (shares_num['shares_number__sum'])
+        shares_num_sum = format(shares_num_sum, ".0f")
+        fare_paid = visdata.aggregate(Sum(('fare')))
+        fare_sum = (fare_paid['fare__sum'])
+        mod_date = visdata.order_by('-date').first().date
+        to_buy = visdata.filter(buy_sell='+').count()
+        to_sell = visdata.filter(buy_sell='-').count()
+        to_buy_percentage = 0
+        to_buy_percentage = to_buy / comp_number
+        to_buy_percentage = (to_buy_percentage) * 100
+        to_buy_percentage = format(to_buy_percentage, ".0f")
+        to_buy_percentage = str(to_buy_percentage) + '%'
+        
+        aggregated_data = visdata.annotate(
+        intermid_result=F('course') - F('fare') 
+        ).annotate(
+        record_total=F('shares_number') * F('intermid_result')
+        ).aggregate(
+        total=Sum('record_total')
+        )
+        profit_earned = aggregated_data['total']
+        profit_earned = format(profit_earned, ".2f")
+        
+        current_portfolio = Portfolio.objects.get(portfolio_id = pk)
+        current_portfolio.p_shares_num_sum = shares_num_sum
+        current_portfolio.p_comp_num_sum = comp_number
+        current_portfolio.p_last_mod_date = mod_date
+        current_portfolio.p_profit_earned = profit_earned
+        current_portfolio.p_to_buy_percentage = to_buy_percentage
+        current_portfolio.save()
+
+        print('smthSssssss',current_portfolio.p_shares_num_sum,current_portfolio.p_to_buy_percentage,current_portfolio.p_comp_num_sum ,current_portfolio.p_last_mod_date,current_portfolio.p_profit_earned)
+
+    else:
+        shares_num_sum = 0
+        fare_sum = 0
+        mod_date = 'brak'
+        to_buy = 0
+        to_sell = 0
+        to_buy_percentage = 0
+        profit_earned = 0
+        
+    context = {'form':form,'comp_number': comp_number, 'shares_num':shares_num_sum,'to_buy_percentage':to_buy_percentage, 'all_user_portfolio':all_user_portfolio,
+     'profit_earned': profit_earned, 'fare_sum':fare_sum,'mod_date':mod_date,'current_user_name':current_user_name}
+    return render(request, 'optifolio/summary.html',context)
 
 
 @login_required(login_url='login')
@@ -315,7 +371,6 @@ def portfolioState(request, pk):
 
     context = {'portfolio_current_state': portfolio_current_state, 'visdata': visdata, 'current_portfolio': current_portfolio}
     return render(request, 'optifolio/portfolio_state.html', context)
-    
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['customer'])
@@ -334,9 +389,7 @@ def visPage(request, pk):
             return redirect('summary')
     else:
             form = AddSharesForm()
-
-     
-    context = {'current_portfolio':current_portfolio, 'visdata':visdata,'current_user_name':current_user_name,}
+    context = {'current_portfolio':current_portfolio, 'visdata':visdata,'current_user_name':current_user_name,'price':price,}
     return render(request, 'optifolio/vispage.html', context)
 
 @unauthenticated_user
