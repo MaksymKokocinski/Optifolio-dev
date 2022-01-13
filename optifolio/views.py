@@ -425,14 +425,14 @@ def portfolioState(request, pk):
     for tr in visdata:
         if tr.title2 in portfolio_current_state:
             if tr.buy_sell == '+':
-                portfolio_current_state[tr.title2] += tr.shares_number
+                portfolio_current_state[tr.title2] += float(tr.shares_number)
             elif tr.buy_sell == '-':
-                portfolio_current_state[tr.title2] -= tr.shares_number
+                portfolio_current_state[tr.title2] -= float(tr.shares_number)
         else:
             if tr.buy_sell == '+':
-                portfolio_current_state[tr.title2] = tr.shares_number
+                portfolio_current_state[tr.title2] = float(tr.shares_number)
             elif tr.buy_sell == '-':
-                portfolio_current_state[tr.title2] = -1*(tr.shares_number)
+                portfolio_current_state[tr.title2] = -1.0 * float(tr.shares_number)
         print(portfolio_current_state)
 
     #jakbym chciala dorzucic obecny kurs (a chcialabym):
@@ -441,8 +441,26 @@ def portfolioState(request, pk):
         #print(v.title2)
         #price.append(get_live_price(str(v.title2)))
 
+    #przesylam portfolio current state do podstronki z optymalizacja
+    request.session['portfolio_current_state'] = portfolio_current_state
+
     context = {'portfolio_current_state': portfolio_current_state, 'visdata': visdata, 'current_portfolio': current_portfolio}
     return render(request, 'optifolio/portfolio_state.html', context)
+
+
+#Zuza tu funkcja do twojej stronki
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['customer'])
+def portfolioOptimize(request, pk):
+    current_user_name = request.user.customer
+    current_portfolio = Portfolio.objects.get(portfolio_id = pk)
+    visdata = current_portfolio.visdata_set.all()
+
+    # odbieram portfolio current state z podstronki z obecnym stanem portfolio
+    portfolio_current_state = request.session.get('portfolio_current_state')
+
+    context = {'portfolio_current_state': portfolio_current_state, 'visdata': visdata, 'current_portfolio': current_portfolio}
+    return render(request, 'optifolio/optimize.html', context)
 
 
 @unauthenticated_user
