@@ -7,7 +7,7 @@
 <form action="{% url 'delete_transaction' item.visdata_id %}" method="POST">
     {% csrf_token %}
 
-    <a href="{% url 'visualisationpage' %}">Nie</a>
+    <a href="{% url 'vispage' vispk %}">Nie</a>
     <input type="submit" value="Tak" name="Tak" />
 
 </form>
