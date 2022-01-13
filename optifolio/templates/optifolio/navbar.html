@@ -22,30 +22,41 @@
 
 <nav class="sidebar">
     <div class="sidebar-header">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="lightgrey" class="bi bi-graph-up-arrow" viewBox="0 0 16 16">
+      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#A4A6B3" class="bi bi-graph-up-arrow" viewBox="0 0 16 16" style="margin-top:-6px;">
         <path fill-rule="evenodd" d="M0 0h1v15h15v1H0V0Zm10 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4.9l-3.613 4.417a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61L13.445 4H10.5a.5.5 0 0 1-.5-.5Z"/>
       </svg><span class="opt">Optifolio</span></div>
     <div id="navbarNav">
       <ul class="list-unstyled components">
         {% if request.user.is_authenticated %}
         <li class="active">
-          <a class="nav-link sideprzycisk d-flex align-items-center" href="{% url 'summary' %}">Portfolia</a>
+          <a class="nav-link sideprzycisk d-flex align-items-center" href="{% url 'summary' %}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-stack mr-2" viewBox="0 0 16 16">
+            <path d="m14.12 10.163 1.715.858c.22.11.22.424 0 .534L8.267 15.34a.598.598 0 0 1-.534 0L.165 11.555a.299.299 0 0 1 0-.534l1.716-.858 5.317 2.659c.505.252 1.1.252 1.604 0l5.317-2.66zM7.733.063a.598.598 0 0 1 .534 0l7.568 3.784a.3.3 0 0 1 0 .535L8.267 8.165a.598.598 0 0 1-.534 0L.165 4.382a.299.299 0 0 1 0-.535L7.733.063z"/>
+            <path d="m14.12 6.576 1.715.858c.22.11.22.424 0 .534l-7.568 3.784a.598.598 0 0 1-.534 0L.165 7.968a.299.299 0 0 1 0-.534l1.716-.858 5.317 2.659c.505.252 1.1.252 1.604 0l5.317-2.659z"/>
+          </svg>Portfolia</a>
         </li>
         <li class="active">
-          <a class="nav-link sideprzycisk d-flex align-items-center" href="{% url 'visualisationpage' %}">Wizualizacja</a>
+          <a class="nav-link sideprzycisk d-flex align-items-center" href="{% url 'visualisationpage' %}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pie-chart-fill mr-2" viewBox="0 0 16 16">
+            <path d="M15.985 8.5H8.207l-5.5 5.5a8 8 0 0 0 13.277-5.5zM2 13.292A8 8 0 0 1 7.5.015v7.778l-5.5 5.5zM8.5.015V7.5h7.485A8.001 8.001 0 0 0 8.5.015z"/>
+          </svg>Wizualizacja</a>
         </li>
         <li class="active">
-          <a class="nav-link sideprzycisk d-flex align-items-center" href="{% url 'account' %}">Ustawienia</a>
+          <a class="nav-link sideprzycisk d-flex align-items-center" href="{% url 'account' %}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear-fill mr-2" viewBox="0 0 16 16">
+            <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
+          </svg>Ustawienia</a>
         </li>
         <li class="active">
           <a class="nav-link sideprzycisk d-flex align-items-center" href="{% url 'logout' %}">Wyloguj się</a>
         </li>
         {% else %}
         <li class="active">
-          <a class="nav-link sideprzycisk d-flex align-items-center" href="{% url 'templatevisualisationpage' %}">Przykładowa wizualizacja</a>
+          <a class="nav-link sideprzycisk d-flex align-items-center" href="{% url 'templatevisualisationpage' %}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pie-chart mr-2" viewBox="0 0 16 16">
+            <path d="M7.5 1.018a7 7 0 0 0-4.79 11.566L7.5 7.793V1.018zm1 0V7.5h6.482A7.001 7.001 0 0 0 8.5 1.018zM14.982 8.5H8.207l-4.79 4.79A7 7 0 0 0 14.982 8.5zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
+          </svg>Przykładowa wizualizacja</a>
         </li>
         <li class="active">
-          <a class="nav-link sideprzycisk d-flex align-items-center" href="{% url 'infopage' %}">Info</a>
+          <a class="nav-link sideprzycisk d-flex align-items-center" href="{% url 'infopage' %}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill mr-2" viewBox="0 0 16 16">
+            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+          </svg>Info</a>
         </li>
         <li class="active">
           <a class="nav-link sideprzycisk d-flex align-items-center" href="{% url 'logout' %}">Wyloguj się</a>
