@@ -138,6 +138,20 @@ def visualisationPage(request):
 
     # tutaj trzeba to uzaleznic od nr portfolio
     visdata = request.user.customer.visdata_set.all()
+
+    #tu sobie licze obecna zawartosc portfolio
+    portfolio_current_state = {}
+    for tr in visdata:
+        print(tr.title2)
+        if tr.title2 in portfolio_current_state:
+            print('jest')
+            # wtedy dodaj liczbe akcji do tych co byly wczesniej (lub odejmij jesli sell)
+        else:
+            print('niema')
+            portfolio_current_state[tr.title2] = [tr.shares_number]
+        print(portfolio_current_state)
+
+
     price = []
     for v in visdata:
         #print(v.title2)
@@ -158,7 +172,7 @@ def visualisationPage(request):
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['customer'])
-def addVisData(request):
+def addVisData(request, pk):
     current_user_name = request.user.customer
 
     form = AddSharesForm(request.POST or None)
@@ -169,7 +183,7 @@ def addVisData(request):
             publish = form.save(commit=False)
             publish.user_name = current_user_name #Adding username to form
             publish.save()
-            return redirect('visualisationpage')
+            return redirect('vispage', pk)
     else:
             form = AddSharesForm()
 
@@ -243,6 +257,7 @@ def summaryPage(request):
     return render(request, 'optifolio/summary.html',context)
 
 
+
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['customer'])
 def deletePortfolio(request, pk):
@@ -252,8 +267,7 @@ def deletePortfolio(request, pk):
         return redirect('summary')
     context = {'item': portfolio}
     return render(request, 'optifolio/delete_portfolio.html', context)
-
-
+  
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['customer'])
@@ -321,8 +335,60 @@ def visPage(request, pk):
         to_sell = 0
         to_buy_percentage = 0
         profit_earned = 0
-    
+        
+    context = {'form':form,'comp_number': comp_number, 'shares_num':shares_num_sum,'to_buy_percentage':to_buy_percentage, 'all_user_portfolio':all_user_portfolio,
+     'profit_earned': profit_earned, 'fare_sum':fare_sum,'mod_date':mod_date,'current_user_name':current_user_name}
+    return render(request, 'optifolio/summary.html',context)
 
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['customer'])
+def portfolioState(request, pk):
+    current_user_name = request.user.customer
+    current_portfolio = Portfolio.objects.get(portfolio_id = pk)
+    visdata = current_portfolio.visdata_set.all()
+
+    #tu sobie licze obecna zawartosc portfolio
+    portfolio_current_state = {}
+    for tr in visdata:
+        if tr.title2 in portfolio_current_state:
+            if tr.buy_sell == '+':
+                portfolio_current_state[tr.title2] += tr.shares_number
+            elif tr.buy_sell == '-':
+                portfolio_current_state[tr.title2] -= tr.shares_number
+        else:
+            if tr.buy_sell == '+':
+                portfolio_current_state[tr.title2] = tr.shares_number
+            elif tr.buy_sell == '-':
+                portfolio_current_state[tr.title2] = -1*(tr.shares_number)
+        print(portfolio_current_state)
+
+    #jakbym chciala dorzucic obecny kurs (a chcialabym):
+    #price = []
+    #for v in visdata:
+        #print(v.title2)
+        #price.append(get_live_price(str(v.title2)))
+
+    context = {'portfolio_current_state': portfolio_current_state, 'visdata': visdata, 'current_portfolio': current_portfolio}
+    return render(request, 'optifolio/portfolio_state.html', context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['customer'])
+def visPage(request, pk):
+    current_user_name = request.user.customer
+    current_portfolio = Portfolio.objects.get(portfolio_id = pk)
+    visdata = current_portfolio.visdata_set.all()
+
+    #stary pop-up
+    form = AddSharesForm(request.POST or None)
+    if request.method == 'POST':
+        if form.is_valid():
+            publish = form.save(commit=False)
+            publish.user_name = current_user_name #Adding username to form
+            publish.save()
+            return redirect('summary')
+    else:
+            form = AddSharesForm()
     context = {'current_portfolio':current_portfolio, 'visdata':visdata,'current_user_name':current_user_name,'price':price,}
     return render(request, 'optifolio/vispage.html', context)
 

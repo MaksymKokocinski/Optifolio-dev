@@ -1,0 +1,63 @@
+﻿{% extends 'optifolio/main.html' %}
+{% load static %}
+{% block content %}
+
+<p>yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy TU MAMY OBECNY STAN PORTFOLIO.</p>
+
+<div class="container" style="margin-left:250px;">
+  <table  class="table table-bordered" style="max-width:700px;">
+      <thead>
+          <tr>
+              <th class="text-center">Symbol</th>
+              <th class="text-center">Liczba</th>
+          </tr>
+      </thead>
+      <tbody>
+        {% for key, value in portfolio_current_state.items %}
+          <tr>
+              <th class=" text-center">{{ key }}</th>
+              <th class=" text-center">{{ value }}</th>
+          </tr>
+        {% endfor %}
+      </tbody>
+  </table>
+</div>
+
+<p>yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy a tu listę transakcji żeby se sprawdzić czy wszystko jest liczone po bożemu.</p>
+
+<div class="container" style="margin-left:250px;">
+  <table  class="table table-bordered" style="max-width:700px;">
+      <thead>
+          <tr>
+              <th class="text-center">Nazwa</th>
+              <th class="text-center">Symbol</th>
+              <th class="text-center">Data</th>
+              <th class=" text-center">Godzina</th>
+              <th class=" text-center">Kupno/Sprzedaż</th>
+              <th class=" text-center">Liczba akcji</th>
+              <th class=" text-center">Kwota</th>
+              <th class=" text-center">Opłata</th>
+          </tr>
+      </thead>
+      <tbody>
+        {% for tr in visdata %}
+          <tr>
+              <th class=" text-center">{{ tr.title }}</th>
+              <th class=" text-center">{{ tr.title2 }}</th>
+              <td class=" text-center">{{ tr.date }}</td>
+              <td class=" text-center">{{ tr.hour }}</td>
+              <td class=" text-center">{{ tr.buy_sell }}</td>
+              <td class=" text-center">{{ tr.shares_number }}</td>
+              <td class=" text-center">{{ tr.course }}</td>
+              <td class=" text-center">{{ tr.fare }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+  </table>
+</div>
+
+<div class="container" style="margin-left:250px;">
+    <a class="btn btn-sm btn-info" href="{% url 'vispage' current_portfolio.portfolio_id %}">Wróć do vispage</a>
+</div>
+
+{% endblock %}

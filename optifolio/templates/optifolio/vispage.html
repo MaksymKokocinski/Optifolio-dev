@@ -25,7 +25,11 @@
 </div>
 
 <div class="container" style="margin-left:250px;">
-    <a class="btn btn-sm btn-info" href="{% url 'add_transaction' %}">Dodaj</a>
+    <a class="btn btn-sm btn-info" href="{% url 'portfolio_state' current_portfolio.portfolio_id %}">Obecny stan</a>
+</div>
+
+<div class="container" style="margin-left:250px;">
+    <a class="btn btn-sm btn-info" href="{% url 'add_transaction' current_portfolio.portfolio_id %}">Dodaj</a>
 </div>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
