@@ -464,7 +464,7 @@ def portfolioOptimize(request, pk):
     min_std_dev = min(returns.std())
     max_sharpe_ratio = max(sharpe_ratio['sharpe_ratio'])
 
-    bnds = (0.01,1)
+    bnds = (0.05,1)
     bnds2 = []
     
     for i in spolki:
