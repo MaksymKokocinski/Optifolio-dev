@@ -2,6 +2,13 @@
 margin-left: 230px;
 }
 
+.navadj2{
+  width: 80%;
+  }
+.tabelkakontener{
+  background-color: white;
+  border-radius: 25px;
+}
 .popupsum{
   border-radius: 25px;
   background-color: white;
@@ -25,10 +32,8 @@ select{
   
 
 
-.tekstkafel{
-margin-left: 6px;
-padding-top: 5px;
-}
+
+
 button{
   box-decoration-break: unset;
 }
@@ -159,8 +164,7 @@ button{
 
 .dane{
   color:black;
-  font-size: 28px;
-  padding-top: 10px;
+  font-size: 22px;
 }
 .grafika
 {
@@ -181,10 +185,8 @@ button{
 }
 
 .kaf{
-  min-width: 200px;
-  max-width: 200px;
-  min-height: 80px;
-  max-height: 80px;
+  width: 200px;
+  height: 80px;
   border-radius: 10px;
   background-color: white;
 }
@@ -491,7 +493,9 @@ a{
     margin-top: 50px;
  }
 
- .wykres{
+ 
+.wykres1
+{
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
     border-bottom-left-radius: 30px;
@@ -505,10 +509,11 @@ a{
     font-weight: bold;
     font-size: 16px;
     margin-left: 10px;
-    margin-top: 50px;
- }
- 
-
+    margin-top:20px;
+}
+.wykres1:hover{
+  color:lightgray;
+}
  .inp {
      margin-top: 50px;
  }
@@ -622,9 +627,9 @@ a{
 
   }
 
-  .my-custom-scrollbar {
+  .scrollbar {
     position: relative;
-    max-height: 400px;
+    max-height: 300px;
     overflow: auto;
     }
     .table-wrapper-scroll-y {
@@ -640,7 +645,6 @@ a{
 
 th, td {
   text-align: left;
-  padding: 16px;
 }
 
   /*

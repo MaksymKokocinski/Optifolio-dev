@@ -1,0 +1,47 @@
+{% extends 'optifolio/main.html' %} 
+
+{% load static %}
+{% block content %}
+<br>
+<div class="d-flex align-items-center justify-content-center ml-4" style="width:100%;">
+<div class="container navadj2 tabelkakontener border">
+    <h3>
+        Do czego służy Optifolio?
+    </h3>
+    <p>
+        Optifilio pozwoli Ci na śledzenie swoich inwestycji na giełdzie w wygodny sposób. Wszystkie dane, jakie nam udostępnisz pokażemy w formie przejrzystych wykresów i wskaźników. Zaproponujemy też dywersyfikację Twojego portfela inwestycyjnego w oparciu o uznaną teorię ekonomiczną - Modern Portfolio Theory - tak aby ryzyko Twoich inwestycji było jak najmniejsze, a zysk jak największy.
+    </p>
+    <h3>
+        Poznaj nas
+    </h3>
+    <p>
+        Zuzanna Kosobucka - Product Owner, Backend Developer
+    </p>
+    <p>
+        Maksym Kokociński - Team Leader, Backend Developer
+    </p>
+    <p>
+        Mateusz Dąbrowski - Frontend Developer
+    </p>
+    <p>
+        Magdalena Biadała - Backend Developer
+    </p>
+    <p>
+        Jesteśmy grupą studentów z Uniwersytetu Adama Mickiewicza w Poznaniu. Optifolio to projekt, który stworzyliśmy wspólnie w ramach pracy inżynierskiej i który chcemy utrzymywać w przyszłości. W razie pytań zachęcamy do kontaktu na makstestowymail@gmail.com.
+    </p>
+    <h3>
+        Jak działa Optymalizacja?
+    </h3>
+    <p>
+        Nasz moduł optymalizacji sugeruje zmiany, jakie warto wprowadzić w swoim portfolio w oparciu o Modern Portfolio Theory i dane historyczne z notowań na giełdzie. Dla wszystkich spółek obecnych w indeksie NASDAQ100 liczy on średni zysk z ostatnich <em>n</em> miesięcy oraz tworzy macierz wariancji i kowariancji. W następnym kroku wykorzystywana jest funkcja, która ustala jaką część portfolio powinny stanowić akcje każdej ze spółek tak, aby oczekiwany zysk był jak największy, ryzyko jak najmniejsze bądź stosunek zysku do ryzyka jak najbardziej korzystny. Oczekiwany zwrot z portfolio liczony jest jako <em> równanie 1 </em> gdzie <em>w</em> to wektor z procentowym udziałem akcji każdej ze spółek w portfolio, a <em>u</em> to wektor średnich zysków z akcji każdej ze spółek. Ryzyko określane jest w oparciu o odchylenie standardowe portfolia liczone ze wzoru <em> równanie 2 </em>, gdzie <em>C</em> to macierz wariancji i kowariancji dla wszystkich spółek.
+    </p>
+    <h3>
+        Ostrzeżenie
+    </h3>
+    <p>
+        Optifolio nie zapewnia doradztwa inwestycyjnego i nie bierze odpowiedzialności za straty poniesione w wyniku nieudanych inwestycji. Indywidualni inwestorzy powinni być świadomi ryzyka wiążącego się z samodzielnym inwestowaniem oraz powinni podejmować decyzje samodzielnie bądź korzystając z pomocy profesjonalisty. Nie ma żadnej gwarancji, że dane historyczne okażą się adekwatne do podejmowania decyzji finansowych w chwili obecnej.
+    </p>
+    
+</div>
+</div>
+{% endblock %}
