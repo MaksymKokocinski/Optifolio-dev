@@ -3,12 +3,12 @@
 {% load static %}
 
 {% block content %}
-<div class="container" style="margin-left:230px;">
+<div class="container">
     <div class="container-fluid">
         <p class="text-md-left" style="font-size:36px;font-weight:bold;">Wizualizacja portfolio</p>
     </div>
 </div>
-<div class="container" style="margin-left:230px;">
+<div class="container">
     
         <nav class="navbar navbar-expand-sm">
             <div class="container-fluid">
@@ -25,11 +25,11 @@
     
 </div>
 
-<div class="container" style="margin-left:250px;">
+<div class="container">
     <a class="btn btn-sm btn-info" href="{% url 'portfolio_state' current_portfolio.portfolio_id %}">Obecny stan</a>
 </div>
 
-<div class="container" style="margin-left:250px;">
+<div class="container">
     <a class="btn btn-sm btn-info" href="{% url 'add_transaction' current_portfolio.portfolio_id %}">Dodaj</a>
 </div>
 
@@ -98,10 +98,10 @@
   </div>
 </div>
 
-<div class="container" style="margin-left:250px;">
+<div class="container navadj">
   <div class="table-wrapper-scroll-y my-custom-scrollbar">
   <div class ="column">
-  <table  class="table table-bordered" ">
+  <table  class="table table-bordered">
       <thead>
           <tr>
               <th class="text-center">Nazwa</th>
