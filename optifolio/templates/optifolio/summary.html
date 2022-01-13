@@ -82,7 +82,7 @@
         </table>
         </div>
         <div class="d-flex justify-content-center align-items-center mt-3">
-            <div class="navbutthead mr-4 d-flex justify-content-center align-items-center">Optymalizuj</div>
+            <a class="navbutthead mr-4 d-flex justify-content-center align-items-center" href="{% url 'optimize' temp.portfolio_id %}">Optymalizuj</a>
             <a class="navbutt mr-4 d-flex justify-content-center align-items-center" href="{% url 'vispage' temp.portfolio_id %}">Edytuj</a>
             <a class="navbutt d-flex justify-content-center align-items-center" href="{% url 'delete_portfolio' temp.portfolio_id %}">Usuń</a>
         </div>
