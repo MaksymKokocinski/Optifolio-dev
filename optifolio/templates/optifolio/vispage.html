@@ -28,94 +28,28 @@
   </nav>
 </div>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Dodaj transakcję</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-              </button>
-          </div>
-          <div class="modal-body">
-
-              <form action="/visualisationpage/#" method="POST">
-                  {% csrf_token %}
-                  {{ form.non_field_errors }}
-                  <div class="form-group">
-                      <label for="{{ form.title.id_for_label }}">Nazwa spółki</label>
-                      <input type="text" name="title" class="form-control" placeholder="Podaj nazwę spółki">
-                      {{ form.title.errors }}
-                  </div>
-                  <div class="form-group">
-                      <label for="{{ form.buy_sell.id_for_label }}"></label>
-                      <label for="buy">Kupno</label><br>
-                      <input type="radio" id="buy" name="buy_sell" class="form-control" value="+">
-                      <label for="sell">Sprzedaz</label><br>
-                      <input type="radio" id="sell" name="buy_sell" class="form-control" value="-">
-                      {{ form.buy_sell.errors }}
-                  </div>
-                  <div class="form-group">
-                      <label for="{{ form.shares_number.id_for_label }}">Liczba akcji</label>
-                      <input type="text" name="shares_number" class="form-control">
-                      {{ form.shares_number.errors }}
-                  </div>
-                  <div class="form-group">
-                      <label for="{{ form.course.id_for_label }}">Kurs</label>
-                      <input type="text" name="course" class="form-control">
-                      {{ form.course.errors }}
-                  </div>
-                  <div class="form-group">
-                      <label for="{{ form.fare.id_for_label }}">Opłata transakcyjna</label>
-                      <input type="text" name="fare" class="form-control">
-                      {{ form.fare.errors }}
-                  </div>
-                  <div class="form-group">
-                      <label for="{{ form.date.id_for_label }}">Data</label>
-                      <input type="date" name="date" class="form-control">
-                      {{ form.date.errors }}
-                  </div>
-                  <div class="form-group">
-                      <label for="{{ form.hour.id_for_label }}">Godzina</label>
-                      <input type="time" name="hour" class="form-control">
-                      {{ form.hour.errors }}
-                  </div>
-                  <button type="submit" value="Zapisz zmiany" href="{% url 'visualisationpage' %}" class="btn btn-primary">Zapisz zmiany</button>
-              </form>
-          </div>
-          <!--Wcześniejszy wygląd przycisków
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
-                <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
-            </div>-->
-
-      </div>
-  </div>
-</div>
-
-<div class="container navadj">
-  <div class="table-wrapper-scroll-y my-custom-scrollbar">
-  <div class ="column">
-  <table class="table table-bordered">
-      <thead>
+<div class="container navadj mt-4">
+  <div class=" tabelkakontener p-3 ml-3" style="width:1010px;">
+    <div class="table-wrapper-scroll-y scrollbar">
+      <div class ="column ml-3">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+                <th class="text-center">Nazwa</th>
+                <th class="text-center">Symbol</th>
+                <th class="text-center">Data</th>
+                <th class=" text-center">Godzina</th>
+                <th class="text-center">Rodzaj</th>
+                <th class=" text-center">Liczba akcji</th>
+                <th class=" text-center">Kwota</th>
+                <th class=" text-center">Opłata</th>
+                <th class=" text-center">Edytuj</th>
+                <th class=" text-center">Usuń</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for temp in visdata %}  
           <tr>
-              <th class="text-center">Nazwa</th>
-              <th class="text-center">Symbol</th>
-              <th class="text-center">Data</th>
-              <th class=" text-center">Godzina</th>
-              <th class="text-center">Rodzaj</th>
-              <th class=" text-center">Liczba akcji</th>
-              <th class=" text-center">Kwota</th>
-              <th class=" text-center">Opłata</th>
-              <th class=" text-center">Edytuj</th>
-              <th class=" text-center">Usuń</th>
-          </tr>
-      </thead>
-      <tbody>
-            {% for temp in visdata %}
-            
-          <tr>
-
               <th class=" text-center">{{ temp.title }}</th>
               <th class=" text-center">{{ temp.title2 }}</th>
               <td class=" text-center">{{ temp.date }}</td>
@@ -128,46 +62,47 @@
               <td><a href="{% url 'delete_transaction' temp.visdata_id %}">Usuń</a></td>
           </tr>
          {% endfor %}
-      </tbody>
-    </table>
-  </div>
-  <div class="column">
-    <table class="table table-bordered">
-      <thead>
-        <th class=" text-center">Aktualna cena</th>
-      </thead>
-      <tbody>
-      {% for temp in price %}  
-        
-        <td class=" text-center">{{ temp }}</td>
-       </tr>
-       {% endfor %}
-      </tr>
-    </tbody>
-    </table>
-
-  </div>
-  </div>
+          </tbody>
+        </table>
+      </div>
+      <div class="column">
+        <table class="table table-bordered">
+          <thead>
+            <th class=" text-center">Aktualna cena</th>
+          </thead>
+          <tbody>
+            {% for temp in price %}
+            <tr>
+            <td class=" text-center">{{ temp }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+         </table>
+      </div>
+    </div>
   </div>
 </div>
 
-    <div class="container" style="margin-left:250px;">
-      <left>
-      <button class="wykres szarak" onclick="chartType('bar')">Bar</button>
-      <button class="wykres szarak" onclick="chartType('line')">Line</button>
-      <button class="wykres szarak" onclick="chartType('doughnut')">Doughnut</button>
-      <button class="wykres szarak" onclick="chartType('pie')">Pie</button>
-      <button class="wykres szarak" onclick="chartType('polarArea')">PolarArea</button>
-    
-    </div>
 
-    <div class="chartCard"style="margin-left:250px;">
-      <div class="chartBox" style="max-width:800px">
+<div class="container navadj mt-4">
+  <div class=" tabelkakontener ml-3" style="width:1010px;">
+    <div class ="d-flex justify-content-center align-items-center">
+      <button class="wykres1" onclick="chartType('bar')">Bar</button>
+      <button class="wykres1" onclick="chartType('line')">Line</button>
+      <button class="wykres1" onclick="chartType('doughnut')">Doughnut</button>
+      <button class="wykres1" onclick="chartType('pie')">Pie</button>
+      <button class="wykres1" onclick="chartType('polarArea')">PolarArea</button>
+    </div>
+  <div>
+    <div class="chartCard">
+      <div class="chartBox" style="max-width:950px;margin-left:30px;">
         <canvas id="myChart" width="50" height="20"></canvas>
       </div>
     </div>
+  </div>
+</div>
 
-    <script>
+<script>
 
     const data = {
 
@@ -295,7 +230,8 @@
         );
       }
     }
-    </script>
-    </div>
+</script>
 
+<br>
+<br>
   {% endblock %}
