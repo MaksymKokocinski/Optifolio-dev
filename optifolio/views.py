@@ -1,3 +1,6 @@
+import pandas as pd
+import numpy as np
+import scipy.optimize as opt
 from decimal import Context
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
@@ -15,6 +18,8 @@ from .decorators import unauthenticated_user,allowed_users,admin_only
 
 from django.db.models import Count, Sum, F
 
+from datetime import *
+from dateutil.relativedelta import relativedelta
 from yahoo_fin.stock_info import get_analysts_info, get_data, get_live_price
 #from . import csv_reader
 
@@ -459,6 +464,87 @@ def portfolioOptimize(request, pk):
 
     # odbieram portfolio current state z podstronki z obecnym stanem portfolio
     portfolio_current_state = request.session.get('portfolio_current_state')
+    portfolio = pd.DataFrame.from_dict(portfolio_current_state, orient='index',columns=['ilosc akcji'])
+    price = []
+    for index,row in portfolio.iterrows():
+        price.append(get_live_price(str(index)))
+    portfolio['live price'] = price
+    print(portfolio)
+
+    three_yrs_ago = date.today() - relativedelta(years=3)
+    returns = pd.DataFrame()
+    exc_returns = pd.DataFrame()
+    sharpe_ratio = pd.DataFrame()
+
+    portfolio['wartość'] = portfolio['ilosc akcji'] * portfolio['live price']
+    portfolio_value=portfolio['wartość'].sum() #aktualna wartość portfolio
+    
+    portfolio['procent wartosci'] = portfolio['wartość']/portfolio_value
+    wagi = portfolio['procent wartosci'].to_numpy()
+    print(portfolio)
+    print(wagi)
+
+
+    def monthly_returns(companies_list):
+        for i in companies_list:
+            price = get_data(ticker=i,start_date=three_yrs_ago,interval="1mo",index_as_date=False)
+            price = price[['close','date']]
+            new_df = price.diff(axis=0)
+            price['diff'] = new_df['close']
+            price['shifted'] = price['close'].shift(periods=1)
+            price['return'] = price['diff']/price['shifted']
+            price.iloc[[-1],[4]] = np.nan
+            price.drop([0],inplace=True)
+            price.drop(price.tail(1).index,inplace=True)
+
+            returns[i] = price['return']
+        return returns 
+
+    spolki = portfolio_current_state.keys()
+    returns = monthly_returns(spolki)
+    sharpe_ratio["sharpe_ratio"] = returns.mean()/returns.std()
+    
+    #funkcja licząca macierz kowariancji
+    def variance_covariance_matrix(mean_returns_dataframe):
+        mean_return_series = mean_returns_dataframe.mean().squeeze()
+        exc_returns = mean_returns_dataframe.sub(mean_return_series, axis=1)
+        exc_returns = exc_returns.to_numpy()
+        exc_returns_trans = exc_returns.transpose()
+        var_cov = np.matmul(exc_returns_trans,exc_returns)
+        var_cov = np.divide(var_cov,exc_returns.shape[0])
+        return var_cov
+
+    #funkcja która liczy odchylenie standardowe w zależności od wag
+    def get_portfolio_std_deviation(weights):
+        portfolio_standard_deviation = np.sqrt(np.matmul(np.matmul(weights,variance_covariance_matrix(returns)), weights))
+        return portfolio_standard_deviation     
+
+    #funkcja która liczy oczekiwany zwrot portfolio w zależności od wag
+    def get_portfolio_exp_return(weights):
+        portfolio_exp_return = np.matmul(returns.mean(), weights)
+        return portfolio_exp_return
+
+    #funkcja która oblicza sharpe ratio portfolia w zależności od wag
+    def get_portfolio_sharpe_ratio(weights):
+        portfolio_sharpe_ratio = get_portfolio_exp_return(weights)/get_portfolio_std_deviation(weights)
+        return portfolio_sharpe_ratio
+
+    max_expected_return = max(returns.mean())
+    min_std_dev = min(returns.std())
+    max_sharpe_ratio = max(sharpe_ratio['sharpe_ratio'])
+
+    bnds = (0.01,1)
+    bnds2 = []
+    
+    for i in spolki:
+        bnds2.append(bnds)
+    
+    bnds2 = tuple(bnds2)
+    
+    cons = ({'type': 'eq', 'fun': lambda x:  sum(x) - 1},
+        {'type': 'ineq', 'fun': lambda x: min_std_dev - get_portfolio_std_deviation(x)})
+    result = opt.minimize(get_portfolio_exp_return, wagi, bounds=bnds2, constraints=cons)
+    print(result)
 
     context = {'portfolio_current_state': portfolio_current_state, 'visdata': visdata, 'current_portfolio': current_portfolio}
     return render(request, 'optifolio/optimize.html', context)
