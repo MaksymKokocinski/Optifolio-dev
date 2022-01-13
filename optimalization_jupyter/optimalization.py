@@ -45,8 +45,8 @@ returns = monthly_returns(spolki)
 sharpe_ratio["sharpe_ratio"] = returns.mean()/returns.std()
 #funkcja licząca macierz kowariancji
 def variance_covariance_matrix(mean_returns_dataframe):
-    mean_return_series = mean_returns_dataframe.squeeze()
-    exc_returns = returns.sub(mean_return_series, axis=1)
+    mean_return_series = mean_returns_dataframe.mean().squeeze()
+    exc_returns = mean_returns_dataframe.sub(mean_return_series, axis=1)
     exc_returns = exc_returns.to_numpy()
     exc_returns_trans = exc_returns.transpose()
     var_cov = np.matmul(exc_returns_trans,exc_returns)
@@ -56,7 +56,7 @@ def variance_covariance_matrix(mean_returns_dataframe):
 
 #funkcja która liczy odchylenie standardowe w zależności od wag
 def get_portfolio_std_deviation(weights):
-    portfolio_standard_deviation = np.sqrt(np.matmul(np.matmul(weights,variance_covariance_matrix(returns.mean())), weights))
+    portfolio_standard_deviation = np.sqrt(np.matmul(np.matmul(weights,variance_covariance_matrix(returns)), weights))
     return portfolio_standard_deviation     
 
 #funkcja która liczy oczekiwany zwrot portfolio w zależności od wag
@@ -86,9 +86,9 @@ result = opt.minimize(get_portfolio_exp_return, wagi, bounds=bnds, constraints=c
 
 
 
-print(result.x)
-print(result.fun)
-print(sum(result.x))
+# print(result.x)
+# print(result.fun)
+# print(sum(result.x))
 print(result)
-print(wagi)
-print(returns.mean())
+# print(wagi)
+# print(returns.mean())

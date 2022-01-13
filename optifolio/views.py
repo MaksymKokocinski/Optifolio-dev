@@ -533,7 +533,7 @@ def portfolioOptimize(request, pk):
     min_std_dev = min(returns.std())
     max_sharpe_ratio = max(sharpe_ratio['sharpe_ratio'])
 
-    bnds = (0.05,1)
+    bnds = (0.01,1)
     bnds2 = []
     
     for i in spolki:
@@ -544,14 +544,15 @@ def portfolioOptimize(request, pk):
     cons = ({'type': 'eq', 'fun': lambda x:  sum(x) - 1},
         {'type': 'ineq', 'fun': lambda x: min_std_dev - get_portfolio_std_deviation(x)})
     result = opt.minimize(get_portfolio_exp_return, wagi, bounds=bnds2, constraints=cons)
-    print(result)
+    print(result.x)
 
     #ta daje mniej fajne wyniki
     cons2 = ({'type': 'eq', 'fun': lambda x:  sum(x) - 1},
         {'type': 'ineq', 'fun': lambda x: get_portfolio_exp_return(x) - max_expected_return})
 
     result2 = opt.minimize(get_portfolio_std_deviation, wagi, constraints=cons2,bounds=bnds2)
-    print(result2)
+    print('pierwotne wagi',wagi)
+    print(result2.x)
 
     context = {'portfolio_current_state': portfolio_current_state, 'visdata': visdata, 'current_portfolio': current_portfolio}
     return render(request, 'optifolio/optimize.html', context)
