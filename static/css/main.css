@@ -16,9 +16,17 @@ select{
   border-radius: 5px;
 }
 
+.inputsum{
+    width: 150px;
+    height: 40px;
+    border:solid 1px lightgray;
+    border-radius: 5px;
+  }
+  
+
 
 .tekstkafel{
-margin-left: 5px;
+margin-left: 6px;
 padding-top: 5px;
 }
 button{
@@ -51,6 +59,35 @@ button{
 }
 
 .navbutthead:hover{
+  color:lightgray;
+}
+
+.summodalbut{
+  width: 180px;
+  height: 40px;
+  background-color: #394141;
+  color:white;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 20px;
+}
+
+.summodalbut:hover{
+  color:lightgray;
+}
+
+.summodalbut2{
+  height: 40px;
+  width: 180px;
+  background-color: white;
+  color:#394141;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 20px;
+  border:solid 1px lightgray;
+}
+
+.summodalbut2:hover{
   color:lightgray;
 }
 
@@ -598,8 +635,6 @@ a{
       
     .column {
       float: left;
-      position: static;
-
     }
 
 

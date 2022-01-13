@@ -3,22 +3,23 @@
 {% load static %}
 
 {% block content %}
+<br>
 <div class="container navadj">
   <div class="container-fluid">
       <p class="text-md-left ml-1" style="font-size:36px;font-weight:bold;">Wizualizacja portfolio</p>
   </div>
 </div>
 <div class="container navadj">
-  <nav class="navbar navbar-expand">
+  <nav class="navbar navbar-expand mt-3">
       <div class="container-fluid">
           <div id="navbarResponsive">
               <ul class="navbar-nav ml-auto">
 
                   <li class="nav-item">
-                      <a class="nav-link przyciskportf1 d-flex justify-content-center align-items-center" href="{% url 'portfolio_state' current_portfolio.portfolio_id %}">Obecny stan</a>
+                      <a class="nav-link przyciskportf1 d-flex justify-content-center align-items-center" href="{% url 'portfolio_state' current_portfolio.portfolio_id %}">Obecny stan portfolio</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link przyciskportf1 d-flex justify-content-center align-items-center ml-4" href="{% url 'add_transaction' current_portfolio.portfolio_id %}"><div class="">Dodaj</div></a>
+                      <a class="nav-link przyciskportf1 d-flex justify-content-center align-items-center ml-4" href="{% url 'add_transaction' current_portfolio.portfolio_id %}"><div class="">Dodaj transakcję</div></a>
                   </li>              
               </ul>
 
@@ -95,7 +96,7 @@
 <div class="container navadj">
   <div class="table-wrapper-scroll-y my-custom-scrollbar">
   <div class ="column">
-  <table  class="table table-bordered">
+  <table class="table table-bordered">
       <thead>
           <tr>
               <th class="text-center">Nazwa</th>

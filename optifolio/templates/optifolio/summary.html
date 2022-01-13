@@ -23,7 +23,7 @@
                         <a class="nav-link" href="#"><div class="przyciskportf1 d-flex justify-content-center align-items-center">Przykładowe</div></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><button class="przyciskportf1" data-toggle="modal" data-target="#exampleModal"><div class="d-flex justify-content-center align-items-center">Dodaj portfolio</div></button></a>
+                        <a class="nav-link" href="#"><button class="przyciskportf1" data-toggle="modal" data-target="#sumModal"><div class="d-flex justify-content-center align-items-center">Dodaj portfolio</div></button></a>
                     </li>                
                 </ul>
 
@@ -31,34 +31,31 @@
         </div>
     </nav>
 </div>
-<div class="modal fade popsum" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="sumModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Dodaj portfolio</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
+    <div class="modal-content d-flex justify-content-center align-items-center" style=" border-radius: 25px;
+    background-color: white;
+    height: 250px;
+    width: 500px;">
+
+      <div>
             
           <form action="/summary/#" method="POST">
               {% csrf_token %}
-              {{ form.portfolio_title }}
+              <div style="width:100%;" class="d-flex justify-content-center align-items-center"><span class ="mr-2" style="font-size:24px;">Nazwa portfolio:</span>{{ form.portfolio_title }}</div>
               {{ form.p_shares_num_sum.as_hidden }}
               {{ form.p_last_mod_date.as_hidden }}
               {{ form.p_comp_num_sum.as_hidden }}
               {{ form.p_to_buy_percentage.as_hidden }}
               {{ form.p_profit_earned.as_hidden }}
-
-              <button type="submit" value="Zapisz zmiany" href="{% url 'summary' %}" class="btn btn-primary">Zapisz zmiany</button>
-              <h0>Info: Mozna mieć maksymalnie 3 portfolia</h0>
+              
+              <div class="d-flex justify-content-center align-items-center mt-3">
+                <button type="button" class="summodalbut2 mr-4 d-flex justify-content-center align-items-center" data-dismiss="modal">Zamknij</button>
+                <button type="submit" class="summodalbut mr-4 d-flex justify-content-center align-items-center" value="Zapisz zmiany" href="{% url 'summary' %}" class="btn btn-primary">Zapisz zmiany</button>
+            </div>
+                <div class="summfoot d-flex justify-content-center align-items-center p-4">Info: Mozna mieć maksymalnie 3 portfolia</div>
           </form>
 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
-        <button type="button" class="btn btn-primary">Zapisz zmiany</button>
       </div>
     </div>
   </div>
