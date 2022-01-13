@@ -29,13 +29,13 @@
 </div>
 
 <div class="container navadj mt-4">
-  <div class=" tabelkakontener p-3 ml-3" style="width:1010px;">
+  <div class=" tabelkakontener p-3 ml-3" container-fluid style="width:1110px;">
     <div class="table-wrapper-scroll-y scrollbar">
       <div class ="column ml-3">
         <table class="table table-bordered">
           <thead>
             <tr>
-                <th class="text-center">Nazwa</th>
+                <th class="text-center nazwa">Nazwa</th>
                 <th class="text-center">Symbol</th>
                 <th class="text-center">Data</th>
                 <th class=" text-center">Godzina</th>
@@ -50,7 +50,7 @@
           <tbody>
             {% for temp in visdata %}  
           <tr>
-              <th class=" text-center">{{ temp.title }}</th>
+              <th class=" text-center nazwa">{{ temp.title }}</th>
               <th class=" text-center">{{ temp.title2 }}</th>
               <td class=" text-center">{{ temp.date }}</td>
               <td class=" text-center">{{ temp.hour }}</td>
@@ -85,7 +85,7 @@
 
 
 <div class="container navadj mt-4">
-  <div class=" tabelkakontener ml-3" style="width:1010px;">
+  <div class=" tabelkakontener ml-3" style="width:1110px;">
     <div class ="d-flex justify-content-center align-items-center">
       <button class="wykres1" onclick="chartType('bar')">Bar</button>
       <button class="wykres1" onclick="chartType('line')">Line</button>

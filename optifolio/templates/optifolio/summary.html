@@ -51,7 +51,7 @@
               
               <div class="d-flex justify-content-center align-items-center mt-3">
                 <button type="button" class="summodalbut2 d-flex justify-content-center align-items-center mr-4" data-dismiss="modal">Zamknij</button>
-                <button type="submit" class="summodalbut d-flex justify-content-center align-items-center" value="Zapisz zmiany" href="{% url 'summary' %}" class="btn btn-primary">Zapisz zmiany</button>
+                <button type="submit" class="summodalbut d-flex justify-content-center align-items-center" value="Zapisz zmiany" href="{% url 'summary' %}">Zapisz zmiany</button>
             </div>
                 <div class="summfoot d-flex justify-content-center align-items-center p-4">Info: Mozna mieć maksymalnie 3 portfolia</div>
           </form>
@@ -147,11 +147,33 @@
         </table>
         </div>
         <div class="d-flex justify-content-center align-items-center mt-3">
-            <a class="navbutthead mr-4 d-flex justify-content-center align-items-center" href="{% url 'optimize' temp.portfolio_id %}">Optymalizuj</a>
-            <a class="navbutt mr-4 d-flex justify-content-center align-items-center" href="{% url 'vispage' temp.portfolio_id %}">Wyświetl</a>
-            <a class="navbutt d-flex justify-content-center align-items-center" href="{% url 'delete_portfolio' temp.portfolio_id %}">Usuń</a>
+            <a class="navbutthead mr-4 d-flex justify-content-center align-items-center" href="{% url 'optimize' temp.portfolio_id %}" style="text-decoration:none;">Optymalizuj</a>
+            <a class="navbutt mr-4 d-flex justify-content-center align-items-center" href="{% url 'vispage' temp.portfolio_id %}" style="text-decoration:none;">Wyświetl</a>
+            <button class="navbutt" data-toggle="modal" data-target="#usunModal"><div class="d-flex justify-content-center align-items-center">Usuń</div></button>
+            
         </div>
         <div class="summfoot d-flex justify-content-center align-items-center p-4">Ostatnia aktualizacja {{temp.p_last_mod_date}}</div>
+    </div>
+    <div class="modal fade" id="usunModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content d-flex justify-content-center align-items-center" style=" border-radius: 25px;
+          background-color: white;
+          height: 200px;
+          width: 500px;">
+            <div>
+                <p>Czy na pewno chcesz usunąć portfolio "{{item}}"?</p>
+
+                <form action="/summary/#" method="POST">
+                    {% csrf_token %}
+                
+                    <a href="{% url 'summary' %}">Nie</a>
+                    <input type="submit" value="Tak" name="Tak" />
+                
+                </form>
+      
+            </div>
+          </div>
+        </div>
     </div>
 
 {% endfor %}
