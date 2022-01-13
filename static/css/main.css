@@ -1,3 +1,14 @@
+.navadj{
+margin-left: 230px;
+}
+
+.popupsum{
+  border-radius: 25px;
+  background-color: white;
+  height: 500px;
+  width: 500px;
+}
+
 select{
   width: 150px;
   height: 40px;
@@ -5,6 +16,11 @@ select{
   border-radius: 5px;
 }
 
+
+.tekstkafel{
+margin-left: 5px;
+padding-top: 5px;
+}
 button{
   box-decoration-break: unset;
 }
@@ -20,7 +36,6 @@ button{
   left:50%;
   transform:translate(-50%,-50%);
   border: 1px solid black;
-  border-radius: 10px;
 }
 
 .navbutthead{
@@ -96,17 +111,19 @@ button{
 }
 
 .kafelek{
-  min-width: 480px;
+  min-width: 400px;
   max-width: 480px;
-  min-height: 700px;
+  min-height: 600px;
   max-height: 700px;
   border-radius: 15px;
   background-color: white;
+  float:left;
 }
 
 .dane{
   color:black;
   font-size: 28px;
+  padding-top: 10px;
 }
 .grafika
 {

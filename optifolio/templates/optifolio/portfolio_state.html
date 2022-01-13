@@ -1,10 +1,10 @@
 ﻿{% extends 'optifolio/main.html' %}
 {% load static %}
 {% block content %}
-
+<div class="container navadj">
 <p>yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy TU MAMY OBECNY STAN PORTFOLIO.</p>
 
-<div class="container" style="margin-left:250px;">
+<div class="container">
   <table  class="table table-bordered" style="max-width:700px;">
       <thead>
           <tr>
@@ -25,7 +25,7 @@
 
 <p>yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy a tu listę transakcji żeby se sprawdzić czy wszystko jest liczone po bożemu.</p>
 
-<div class="container" style="margin-left:250px;">
+<div class="container">
   <table  class="table table-bordered" style="max-width:700px;">
       <thead>
           <tr>
@@ -56,8 +56,8 @@
   </table>
 </div>
 
-<div class="container" style="margin-left:250px;">
+<div class="container">
     <a class="btn btn-sm btn-info" href="{% url 'vispage' current_portfolio.portfolio_id %}">Wróć do vispage</a>
 </div>
-
+</div>
 {% endblock %}

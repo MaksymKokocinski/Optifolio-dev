@@ -3,14 +3,13 @@
 {% load static %}
 {% block content  %}
 <br>
-
-<div class="container" style="margin-left:230px;">
+<div class="container navadj">
     <div class="container-fluid">
-        <p class="text-md-left" style="font-size:36px;font-weight:bold;">Twoje portfolia</p>
+        <p class="text-md-left ml-1" style="font-size:36px;font-weight:bold;">Twoje portfolia</p>
     </div>
 </div>
-<div class="container" style="margin-left:230px;">
-    <nav class="navbar navbar-expand-sm">
+<div class="container navadj">
+    <nav class="navbar navbar-expand">
         <div class="container-fluid">
             <div id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
@@ -32,7 +31,7 @@
         </div>
     </nav>
 </div>
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade popsum" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -64,37 +63,32 @@
     </div>
   </div>
 </div>
-<!--Roboczy przycisk przechodzenia do wizualizacji-->
-<div class="container" style="margin-left:250px;">
-    <a class="btn btn-sm btn-info" href="{% url 'visualisationpage' %}">Podgląd</a>
-</div>
+<div class="container navadj">
 {% for temp in all_user_portfolio %}
-<div class="container px-3" style="margin-left:230px;">
-    <div class="kafelek justify-content-center align-items-center float-left m-3">
+
+    <div class="kafelek justify-content-center align-items-center ml-4 mt-3">
         <div class="grafika"> </div>
         <div class="sumnapis d-flex justify-content-center align-items-center mt-3">{{ temp.portfolio_title }}</div>
         <div class="cztery containfer-fluid mt-3">
         <table class="d-flex justify-content-center align-items-center">
             <tr>
-               <td class="p-3"> <div class="shadow"><div class="kaf d-flex justify-content-center align-items-center"><p class="dane">{{temp.p_shares_num_sum}}</p> <p>Liczba akcji</p> </div></div></td>
-               <td class="p-3"> <div class="shadow"><div class="kaf d-flex justify-content-center align-items-center"><p class="dane">{{temp.p_profit_earned}}</p><p> Zysk</p> </div></td>
+               <td class="p-3"> <div class="shadow"><div class="kaf d-flex justify-content-center align-items-center"><p class="dane">{{temp.p_shares_num_sum}}</p> <p class="tekstkafel">Liczba akcji</p> </div></div></td>
+               <td class="p-3"> <div class="shadow"><div class="kaf d-flex justify-content-center align-items-center"><p class="dane">{{temp.p_profit_earned}}</p><p class="tekstkafel">Zysk</p> </div></td>
             </tr>
             <tr>
-               <td class="p-3"> <div class="shadow"><div class="kaf d-flex justify-content-center align-items-center"><p class="dane">{{temp.p_comp_num_sum}}</p> <p>Liczba firm</p> </div></div></td>
-               <td class="p-3"> <div class="shadow"><div class="kaf d-flex justify-content-center align-items-center"><p class="dane">{{temp.p_to_buy_percentage}}</p><p>Na buy</p> </div></div></td>
+               <td class="p-3"> <div class="shadow"><div class="kaf d-flex justify-content-center align-items-center"><p class="dane">{{temp.p_comp_num_sum}}</p> <p class="tekstkafel">Liczba firm</p> </div></div></td>
+               <td class="p-3"> <div class="shadow"><div class="kaf d-flex justify-content-center align-items-center"><p class="dane">{{temp.p_to_buy_percentage}}</p> <p class="tekstkafel"> Na buy</p> </div></div></td>
             </tr>
         </table>
         </div>
         <div class="d-flex justify-content-center align-items-center mt-3">
             <div class="navbutthead mr-4 d-flex justify-content-center align-items-center">Optymalizuj</div>
-            <div class="navbutt mr-4 d-flex justify-content-center align-items-center">Edytuj</div>
-            <a class="btn btn-sm btn-info" href="{% url 'vispage' temp.portfolio_id %}">Podgląd</a>
-            <a href="{% url 'delete_portfolio' temp.portfolio_id %}">Usuń</a>
-            <div class="navbutt d-flex justify-content-center align-items-center">Usuń</div>
+            <a class="navbutt mr-4 d-flex justify-content-center align-items-center" href="{% url 'vispage' temp.portfolio_id %}">Edytuj</a>
+            <a class="navbutt d-flex justify-content-center align-items-center" href="{% url 'delete_portfolio' temp.portfolio_id %}">Usuń</a>
         </div>
         <div class="summfoot d-flex justify-content-center align-items-center p-4">Ostatnia aktualizacja {{temp.p_last_mod_date}}</div>
     </div>
-</div>
-{% endfor %}
 
+{% endfor %}
+</div>
 {% endblock %}
