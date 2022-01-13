@@ -179,14 +179,18 @@ def visualisationPage(request):
 @allowed_users(allowed_roles=['customer'])
 def addVisData(request, pk):
     current_user_name = request.user.customer
+    current_portfolio = Portfolio.objects.get(portfolio_id = pk)
+    visdata = current_portfolio.visdata_set.all()
 
     form = AddSharesForm(request.POST or None)
     if request.method == 'POST':
-        print(form.data)
+        #print(form.data)
         if form.is_valid():
-            print(form.cleaned_data)
+            #print(form.cleaned_data)
             publish = form.save(commit=False)
-            publish.user_name = current_user_name #Adding username to form
+            publish.user_name = current_user_name
+            
+            publish.portfolio_name = current_portfolio
             publish.save()
             return redirect('vispage', pk)
     else:
@@ -274,79 +278,6 @@ def deletePortfolio(request, pk):
     context = {'item': portfolio}
     return render(request, 'optifolio/delete_portfolio.html', context)
   
-'''
-@login_required(login_url='login')
-@allowed_users(allowed_roles=['customer'])
-def visPage(request, pk):
-    current_user_name = request.user.customer
-    current_portfolio = Portfolio.objects.get(portfolio_id = pk)
-    visdata = current_portfolio.visdata_set.all()
-
-    form = AddSharesForm(request.POST or None)
-    if request.method == 'POST':
-        if form.is_valid():
-            publish = form.save(commit=False)
-            publish.user_name = current_user_name #Adding username to form
-            publish.save()
-            return redirect('visualisationpage')
-    else:
-            form = AddSharesForm()
-
-    price = []
-    for v in visdata:
-        price.append(get_live_price(str(v.title2)))
-
-    comp_number = visdata.count()
-    if comp_number > 0:
-        
-        shares_num = visdata.aggregate(Sum(('shares_number')))
-        shares_num_sum = (shares_num['shares_number__sum'])
-        shares_num_sum = format(shares_num_sum, ".0f")
-        fare_paid = visdata.aggregate(Sum(('fare')))
-        fare_sum = (fare_paid['fare__sum'])
-        mod_date = visdata.order_by('-date').first().date
-        to_buy = visdata.filter(buy_sell='+').count()
-        to_sell = visdata.filter(buy_sell='-').count()
-        to_buy_percentage = 0
-        to_buy_percentage = to_buy / comp_number
-        to_buy_percentage = (to_buy_percentage) * 100
-        to_buy_percentage = format(to_buy_percentage, ".0f")
-        to_buy_percentage = str(to_buy_percentage) + '%'
-        
-        aggregated_data = visdata.annotate(
-        intermid_result=F('course') - F('fare') 
-        ).annotate(
-        record_total=F('shares_number') * F('intermid_result')
-        ).aggregate(
-        total=Sum('record_total')
-        )
-        profit_earned = aggregated_data['total']
-        profit_earned = format(profit_earned, ".2f")
-        
-        current_portfolio = Portfolio.objects.get(portfolio_id = pk)
-        current_portfolio.p_shares_num_sum = shares_num_sum
-        current_portfolio.p_comp_num_sum = comp_number
-        current_portfolio.p_last_mod_date = mod_date
-        current_portfolio.p_profit_earned = profit_earned
-        current_portfolio.p_to_buy_percentage = to_buy_percentage
-        current_portfolio.save()
-
-        print('smthSssssss',current_portfolio.p_shares_num_sum,current_portfolio.p_to_buy_percentage,current_portfolio.p_comp_num_sum ,current_portfolio.p_last_mod_date,current_portfolio.p_profit_earned)
-
-    else:
-        shares_num_sum = 0
-        fare_sum = 0
-        mod_date = 'brak'
-        to_buy = 0
-        to_sell = 0
-        to_buy_percentage = 0
-        profit_earned = 0
-        
-    context = {'form':form,'comp_number': comp_number, 'shares_num':shares_num_sum,'to_buy_percentage':to_buy_percentage, 'all_user_portfolio':all_user_portfolio,
-     'profit_earned': profit_earned, 'fare_sum':fare_sum,'mod_date':mod_date,'current_user_name':current_user_name}
-    return render(request, 'optifolio/summary.html',context)
-
-'''
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['customer'])
 def visPage(request, pk):
