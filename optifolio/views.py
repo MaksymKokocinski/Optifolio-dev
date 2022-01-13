@@ -503,6 +503,12 @@ def infoPage(request):
     context = {}
     return render(request, 'optifolio/infopage.html',context)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['customer'])
+def og_infoPage(request):
+    context = {}
+    return render(request, 'optifolio/og_infopage.html',context)
+
 @unauthenticated_user
 def templatevisualisationPage(request):
     visdata = VisData.objects.all()
