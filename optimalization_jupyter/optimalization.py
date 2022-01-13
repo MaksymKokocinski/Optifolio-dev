@@ -9,9 +9,9 @@ from yahoo_fin.stock_info import *
 
 
 
-spolki = ['AMZN','MSFT','AAPL']
+spolki = ['AMZN','MSFT','AAPL','A','CB','J','STZ','MRNA','NOC','FLT']
 
-portfolio = pd.read_csv('test.txt', sep=';')
+portfolio = pd.read_csv('optimalization_jupyter/test.txt', sep=';')
 print(portfolio)
 three_yrs_ago = date.today() - relativedelta(years=3)
 returns = pd.DataFrame()
@@ -38,6 +38,8 @@ def monthly_returns(companies_list):
 
         returns[i] = price['return']
     return returns 
+
+
 
 returns = monthly_returns(spolki)
 sharpe_ratio["sharpe_ratio"] = returns.mean()/returns.std()
@@ -71,17 +73,22 @@ max_expected_return = max(returns.mean())
 min_std_dev = min(returns.std())
 max_sharpe_ratio = max(sharpe_ratio['sharpe_ratio'])
 
-# bnds = ((0, None), (0, None), (0, None), (0, None), (0, None), (0, None), (0, None), (0, None))
-# cons = ({'type': 'eq', 'fun': lambda x:  sum(x) - 1},
-#         {'type': 'ineq', 'fun': lambda x: min_std_dev - get_portfolio_std_deviation(x)})
+#optymalizacka minimalizująca standard deviation przy utrzymaniu największego expected return
+bnds = ((0.01, 1), (0.01, 1), (0.01, 1), (0.01, 1), (0.01, 1), (0.01, 1), (0.01, 1), (0.01, 1), (0.01, 1), (0.01, 1))
+#cons = ({'type': 'eq', 'fun': lambda x:  sum(x) - 1},
+#        {'type': 'ineq', 'fun': lambda x: get_portfolio_exp_return(x) - max_expected_return})
+#result = opt.minimize(get_portfolio_std_deviation, wagi, constraints=cons,bounds=bnds)
 
-# result = opt.minimize(get_portfolio_exp_return, wagi, bounds=bnds, constraints=cons)
-# print(result)
+#optymalizacja maksymalizująca expected return przy utrzymaniu najniżesgi standard deviation
 cons = ({'type': 'eq', 'fun': lambda x:  sum(x) - 1},
-        {'type': 'ineq', 'fun': lambda x: get_portfolio_exp_return(x) - max_expected_return})
+        {'type': 'ineq', 'fun': lambda x: min_std_dev - get_portfolio_std_deviation(x)})
+result = opt.minimize(get_portfolio_exp_return, wagi, bounds=bnds, constraints=cons)
 
-result = opt.minimize(get_portfolio_std_deviation, wagi, constraints=cons)
+
+
 print(result.x)
 print(result.fun)
 print(sum(result.x))
-
+print(result)
+print(wagi)
+print(returns.mean())
