@@ -2,6 +2,9 @@
 margin-left: 230px;
 }
 
+.nazwa{
+  width:180px;
+}
 .navadj2{
   width: 80%;
   }
@@ -61,6 +64,7 @@ button{
   font-size: 18px;
   font-weight: bold;
   border-radius: 20px;
+ 
 }
 
 .navbutthead:hover{
@@ -125,6 +129,7 @@ button{
   font-weight: bold;
   border-radius: 20px;
   border:solid 1px lightgray;
+ 
 }
 
 .navbutt:hover{
