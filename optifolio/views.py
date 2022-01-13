@@ -196,6 +196,7 @@ def addVisData(request, pk):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['customer'])
 def updateVisData(request, vispk):
+    vispk = vispk
     transaction = VisData.objects.get(visdata_id=vispk)
     form = AddSharesForm(instance=transaction)
 
@@ -203,9 +204,9 @@ def updateVisData(request, vispk):
         form = AddSharesForm(request.POST, instance=transaction)
         if form.is_valid():
             form.save()
-            return redirect('visualisationpage')
+            return redirect('vispage', vispk)
 
-    context = {'form': form}
+    context = {'form': form, 'vispk': vispk}
     return render(request, 'optifolio/update_transaction.html', context)
 
 
@@ -215,8 +216,8 @@ def deleteVisData(request, vispk):
     transaction = VisData.objects.get(visdata_id=vispk)
     if request.method == "POST":
         transaction.delete()
-        return redirect('visualisationpage')
-    context = {'item': transaction}
+        return redirect('vispage', vispk)
+    context = {'item': transaction, 'vispk': vispk}
     return render(request, 'optifolio/delete_transaction.html', context)
 
 
