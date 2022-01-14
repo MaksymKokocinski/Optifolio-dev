@@ -221,11 +221,11 @@ def updateVisData(request, pk, vispk):
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['customer'])
-def deleteVisData(request, vispk):
+def deleteVisData(request, pk, vispk):
     transaction = VisData.objects.get(visdata_id=vispk)
     if request.method == "POST":
         transaction.delete()
-        return redirect('vispage', vispk)
+        return redirect('vispage', pk)
     context = {'item': transaction, 'vispk': vispk, 'pk':pk}
     return render(request, 'optifolio/delete_transaction.html', context)
 
