@@ -53,6 +53,32 @@
                     {% endfor %}
                 </tbody>
             </table>
+            <div class="column">
+              <table class="table table-bordered" style="position:static;">
+                <thead>
+                  <th class=" text-center">Aktualna cena</th>
+                </thead>
+                <tbody>
+                  {% for temp in price %}
+                  <tr>
+                  <td class=" text-center">{{ temp }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+               </table>
+               <table class="table table-bordered" style="position:static;">
+                <thead>
+                  <th class=" text-center">Wartość</th>
+                </thead>
+                <tbody>
+                  {% for temp in value %}
+                  <tr>
+                  <td class=" text-center">{{ temp }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+               </table>
+            </div>
         </div>
     </div>
 </div>
