@@ -358,8 +358,51 @@ def portfolioState(request, pk):
     current_portfolio = Portfolio.objects.get(portfolio_id = pk)
     visdata = current_portfolio.visdata_set.all()
 
+    #testowa lista
+    #test_list = [['symbol0', 10], ['symbol1', 15], ['symbol2', 20]]
+
+    def get_index_of_sublist(nested_list, element):
+        for idx in range(len(nested_list)):
+            if nested_list[idx][0] == element:
+                return idx
+            else:
+                idx += 1
+        return False
+
+    #nowy kod z obecna zawartoscia portfolio w postaci listy list
+    portfolio_current_state = []
+    for tr in visdata:
+        quantity = tr.shares_number
+        #zamieniam dane tak żeby zawsze były floatem
+        if quantity is None:
+            quantity = 0.0
+        else:
+            quantity = float(quantity)
+        #podliczam liczbę akcji dla kolejnych firm
+        if tr.title2 in (item for sublist in portfolio_current_state for item in sublist):
+            if tr.buy_sell == '+':
+                print('in list and buy')
+                idx = get_index_of_sublist(portfolio_current_state, tr.title2)
+                if idx:
+                    portfolio_current_state[idx][1] += quantity
+            elif tr.buy_sell == '-':
+                print('in list and sell')
+                idx = get_index_of_sublist(portfolio_current_state, tr.title2)
+                if idx:
+                    portfolio_current_state[idx][1] -= quantity
+        else:
+            if tr.buy_sell == '+':
+                portfolio_current_state.append([tr.title2, quantity])
+            elif tr.buy_sell == '-':
+                portfolio_current_state.append([tr.title2, -1.0 * quantity])
+    #sprawdzam czy liczba akcji dla jakiejś firmy wynosi 0 (i wtedy się jej pozbywam)
+    for sub_list in portfolio_current_state:
+        if sub_list[1] == 0:
+            portfolio_current_state.remove(sub_list)
+
+    #stary kod ze słownikiem
     #tu sobie licze obecna zawartosc portfolio
-    portfolio_current_state = {}
+    '''portfolio_current_state = {}
     for tr in visdata:
         quantity = tr.shares_number
         #zamieniam dane tak żeby zawsze były floatem
@@ -383,7 +426,7 @@ def portfolioState(request, pk):
         if portfolio_current_state[k] == 0:
             del portfolio_current_state[k]
 
-        #print(portfolio_current_state)
+        #print(portfolio_current_state)'''
 
     #jakbym chciala dorzucic obecny kurs (a chcialabym):
     #price = []
