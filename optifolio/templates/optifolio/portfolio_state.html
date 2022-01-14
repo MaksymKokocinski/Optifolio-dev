@@ -89,8 +89,6 @@
       <div class ="d-flex justify-content-center align-items-center">
         <button class="wykres1" onclick="chartType('bar')">Bar</button>
         <button class="wykres1" onclick="chartType('line')">Line</button>
-        <button class="wykres1" onclick="chartType('doughnut')">Doughnut</button>
-        <button class="wykres1" onclick="chartType('pie')">Pie</button>
         <button class="wykres1" onclick="chartType('polarArea')">PolarArea</button>
       </div>
     <div>
@@ -106,10 +104,10 @@
   
       const data = {
   
-            labels: [{% for item in visdata %}'{{item.title}}',{%endfor%}],
+            labels: [{% for item in visdata %}'{{item.title2}}',{%endfor%}],
             datasets: [{
               label: 'Shares number',
-              data: [{% for item in visdata %}'{{item.shares_number}}',{%endfor%}],
+              data: [{% for item in value %}'{{item}}',{%endfor%}],
               backgroundColor: [
                 'rgba(255, 26, 104, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -156,24 +154,7 @@
           }
         }
       };
-          // config 
-          const config3 = {
-        type: 'pie',
-        data,
-        options: {}
-      };
-          const config4 = {
-        type: 'doughnut',
-        data: data,
-        options: {
-          responsive: true,
-          plugins: {
-            legend: {
-              position: 'top',
-            },
-          }
-        },
-      };
+
           const config5 = {
         type: 'polarArea',
         data: data,
