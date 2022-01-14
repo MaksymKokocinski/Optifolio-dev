@@ -460,47 +460,51 @@ def portfolioOptimize(request, pk):
     def get_portfolio_sharpe_ratio(weights):
         portfolio_sharpe_ratio = get_portfolio_exp_return(weights)/get_portfolio_std_deviation(weights)
         return portfolio_sharpe_ratio
-
-    max_expected_return = max(returns.mean())
-    min_std_dev = min(returns.std())
-    max_sharpe_ratio = max(sharpe_ratio['sharpe_ratio'])
-    min_weight = min(wagi)
-    print(min_weight)
     
-    bnds = (0.05,1)
-    bnds2 = []
-    print('pierwotne wagi',wagi)
+    comp_number = visdata.count()
+    if comp_number > 0:
+        max_expected_return = max(returns.mean())
+        min_std_dev = min(returns.std())
+        max_sharpe_ratio = max(sharpe_ratio['sharpe_ratio'])
+        min_weight = min(wagi)
+        print(min_weight)
+        
+        bnds = (0.05,1)
+        bnds2 = []
+        print('pierwotne wagi',wagi)
 
-    for i in spolki:
-        bnds2.append(bnds)
-    
-    bnds2 = tuple(bnds2)
-    
-    cons = ({'type': 'eq', 'fun': lambda x:  sum(x) - 1},
-        {'type': 'ineq', 'fun': lambda x: min_std_dev - get_portfolio_std_deviation(x)})
-    result = opt.minimize(get_portfolio_exp_return, wagi, bounds=bnds2, constraints=cons)
-    print('wagi optymalizacja 1',result.x)
+        for i in spolki:
+            bnds2.append(bnds)
+        
+        bnds2 = tuple(bnds2)
+        
+        cons = ({'type': 'eq', 'fun': lambda x:  sum(x) - 1},
+            {'type': 'ineq', 'fun': lambda x: min_std_dev - get_portfolio_std_deviation(x)})
+        result = opt.minimize(get_portfolio_exp_return, wagi, bounds=bnds2, constraints=cons)
+        print('wagi optymalizacja 1',result.x)
 
-    #ta daje mniej fajne wyniki
-    cons2 = ({'type': 'eq', 'fun': lambda x:  sum(x) - 1},
-        {'type': 'ineq', 'fun': lambda x: get_portfolio_exp_return(x) - max_expected_return})
+        #ta daje mniej fajne wyniki
+        cons2 = ({'type': 'eq', 'fun': lambda x:  sum(x) - 1},
+            {'type': 'ineq', 'fun': lambda x: get_portfolio_exp_return(x) - max_expected_return})
 
-    result2 = opt.minimize(get_portfolio_std_deviation, wagi, constraints=cons2,bounds=bnds2)
-    
-    print('wagi optymalizacja 2',result2.x)
+        result2 = opt.minimize(get_portfolio_std_deviation, wagi, constraints=cons2,bounds=bnds2)
+        
+        print('wagi optymalizacja 2',result2.x)
 
-    
-    #nowe_wagi*wartość_portfela=ile bedą warte te nowe
-    new_values = result.x*portfolio_value
-    print(new_values)
-    new_amount = new_values/portfolio['live price']
-    print(new_amount)
-    delta_amount = new_amount-portfolio['ilosc akcji']
-    print(delta_amount)
-    #ile sztuk nowych akcji = te nowe/cena aktualna
-    #stare_akcje-nowe_akcje = ile dokupic/sprzedać
+        
+        #nowe_wagi*wartość_portfela=ile bedą warte te nowe
+        new_values = result.x*portfolio_value
+        print(new_values)
+        new_amount = new_values/portfolio['live price']
+        print(new_amount)
+        delta_amount = new_amount-portfolio['ilosc akcji']
+        print(delta_amount)
+        #ile sztuk nowych akcji = te nowe/cena aktualna
+        #stare_akcje-nowe_akcje = ile dokupic/sprzedać
+    else:
+        print('Portfolio jest puste')
 
-    context = {'portfolio_current_state': portfolio_current_state, 'visdata': visdata, 'current_portfolio': current_portfolio}
+        context = {'portfolio_current_state': portfolio_current_state, 'visdata': visdata, 'current_portfolio': current_portfolio}
     return render(request, 'optifolio/optimize.html', context)
 
 
