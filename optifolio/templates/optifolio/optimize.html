@@ -35,16 +35,27 @@
         <thead>
             <tr>
                 <th class="text-center">Ilość akcji po zmianie</th>
-                <th class="text-center">Jak zmienić</th>
             </tr>
         </thead>
         <tbody>
           {% for value in new_amount.items %}
             <tr>
-                <th class=" text-center">{{ value }}</th>
+                <th class=" text-center">{{ value.1 }}</th>
             </tr>
           {% endfor %}
         </tbody>
+        <thead>
+          <tr>
+              <th class="text-center">Zmiana</th>
+          </tr>
+      </thead>
+      <tbody>
+        {% for value in delta_amount.items %}
+          <tr>
+              <th class=" text-center">{{ value.1 }}</th>
+          </tr>
+        {% endfor %}
+      </tbody>
     </table>
   </div>
   </div>
