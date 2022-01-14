@@ -1,30 +1,34 @@
 {% extends 'optifolio/main.html' %}
 {% load static %}
 {% block content %}
-<div class="navadj">
-<p>yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy OBECNY STAN PORTFOLIO.</p>
-
-<div class="container">
-    <table class="table table-bordered" style="max-width:700px;">
-        <thead>
-            <tr>
-                <th class="text-center">Symbol</th>
-                <th class="text-center">Liczba</th>
-            </tr>
-        </thead>
-        <tbody>
+<div class="container navadj">
+    <div class="container-fluid">
+      <p class="text-md-left ml-1" style="font-size:36px;font-weight:bold;">Obecny stan portfolio</p>
+    </div>
+  </div> 
+<div class="container navadj">
+    <div class="tabelkakontener p-3 mt-3 ml-4" style="max-width:800px;">
+      <table  class="table table-bordered" style="max-width:800px;">
+          <thead>
+              <tr>
+                  <th class="text-center">Symbol</th>
+                  <th class="text-center">Liczba</th>
+              </tr>
+          </thead>
+          <tbody>
             {% for key, value in portfolio_current_state.items %}
-            <tr>
-                <th class=" text-center">{{ key }}</th>
-                <th class=" text-center">{{ value }}</th>
-            </tr>
+              <tr>
+                  <th class=" text-center">{{ key }}</th>
+                  <th class=" text-center">{{ value }}</th>
+              </tr>
             {% endfor %}
-        </tbody>
-    </table>
+          </tbody>
+      </table>
+    </div>
 </div>
-
-<div class="container">
-    <a class="btn btn-sm btn-info" href="{% url 'portfolio_state' current_portfolio.portfolio_id %}">Wroc</a>
-</div>
-</div>
+<div class="container navadj mt-3">
+    <div class="d-flex items-align-center justify-content-center" style="width:800px;">
+      <a class="anultrans d-flex justify-content-center align-items-center" href="{% url 'portfolio_state' current_portfolio.portfolio_id %}" style="text-decoration:none;">Wróć</a>
+    </div>
+  </div>
 {% endblock %}

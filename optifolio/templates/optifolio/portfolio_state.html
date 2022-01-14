@@ -2,66 +2,72 @@
 {% load static %}
 {% block content %}
 <div class="container navadj">
-<p>yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy TU MAMY OBECNY STAN PORTFOLIO.</p>
-
-<div class="container">
-  <table  class="table table-bordered" style="max-width:700px;">
-      <thead>
-          <tr>
-              <th class="text-center">Symbol</th>
-              <th class="text-center">Liczba</th>
-          </tr>
-      </thead>
-      <tbody>
-        {% for key, value in portfolio_current_state.items %}
-          <tr>
-              <th class=" text-center">{{ key }}</th>
-              <th class=" text-center">{{ value }}</th>
-          </tr>
-        {% endfor %}
-      </tbody>
-  </table>
+  <div class="container-fluid">
+    <p class="text-md-left ml-1" style="font-size:36px;font-weight:bold;">Obecny stan portfolio</p>
+  </div>
+</div> 
+<div class="container navadj">
+  <div class="tabelkakontener p-3 mt-3 ml-4" style="max-width:800px;">
+    <table  class="table table-bordered" style="max-width:800px;">
+        <thead>
+            <tr>
+                <th class="text-center">Symbol</th>
+                <th class="text-center">Liczba</th>
+            </tr>
+        </thead>
+        <tbody>
+          {% for key, value in portfolio_current_state.items %}
+            <tr>
+                <th class=" text-center">{{ key }}</th>
+                <th class=" text-center">{{ value }}</th>
+            </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+  </div>
 </div>
-
-<p>yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy a tu listę transakcji żeby se sprawdzić czy wszystko jest liczone po bożemu.</p>
-
-<div class="container">
-  <table  class="table table-bordered" style="max-width:700px;">
-      <thead>
-          <tr>
-              <th class="text-center">Nazwa</th>
-              <th class="text-center">Symbol</th>
-              <th class="text-center">Data</th>
-              <th class=" text-center">Godzina</th>
-              <th class=" text-center">Kupno/Sprzedaż</th>
-              <th class=" text-center">Liczba akcji</th>
-              <th class=" text-center">Kwota</th>
-              <th class=" text-center">Opłata</th>
-          </tr>
-      </thead>
-      <tbody>
-        {% for tr in visdata %}
-          <tr>
-              <th class=" text-center">{{ tr.title }}</th>
-              <th class=" text-center">{{ tr.title2 }}</th>
-              <td class=" text-center">{{ tr.date }}</td>
-              <td class=" text-center">{{ tr.hour }}</td>
-              <td class=" text-center">{{ tr.buy_sell }}</td>
-              <td class=" text-center">{{ tr.shares_number }}</td>
-              <td class=" text-center">{{ tr.course }}</td>
-              <td class=" text-center">{{ tr.fare }}</td>
-          </tr>
-        {% endfor %}
-      </tbody>
-  </table>
+<div class="container navadj mt-3">
+  <div class="container-fluid">
+    <p class="text-md-left ml-1" style="font-size:36px;font-weight:bold;">Lista transakcji</p>
+  </div>
 </div>
-
-<div class="container">
-    <a class="btn btn-sm btn-info" href="{% url 'vispage' current_portfolio.portfolio_id %}">Wróć do vispage</a>
+<div class="container navadj">
+  <div class="tabelkakontener p-3 mt-3 ml-4" style="max-width:800px;max-height:600px;">
+    <table  class="table table-bordered" style="max-width:800px;max-height:600px;">
+        <thead>
+            <tr>
+                <th class="text-center">Nazwa</th>
+                <th class="text-center">Symbol</th>
+                <th class="text-center">Data</th>
+                <th class=" text-center">Godzina</th>
+                <th class=" text-center">Kupno/Sprzedaż</th>
+                <th class=" text-center">Liczba akcji</th>
+                <th class=" text-center">Kwota</th>
+                <th class=" text-center">Opłata</th>
+            </tr>
+        </thead>
+        <tbody>
+          {% for tr in visdata %}
+            <tr>
+                <th class=" text-center">{{ tr.title }}</th>
+                <th class=" text-center">{{ tr.title2 }}</th>
+                <td class=" text-center">{{ tr.date }}</td>
+                <td class=" text-center">{{ tr.hour }}</td>
+                <td class=" text-center">{{ tr.buy_sell }}</td>
+                <td class=" text-center">{{ tr.shares_number }}</td>
+                <td class=" text-center">{{ tr.course }}</td>
+                <td class=" text-center">{{ tr.fare }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+  </div>
 </div>
-
-<div class="container" style="margin-left:250px;">
-    <a class="btn btn-sm btn-info" href="{% url 'optimize' current_portfolio.portfolio_id %}">Optymalizuj</a>
+<div class="container navadj mt-3">
+  <div class="d-flex items-align-center justify-content-center" style="width:800px;">
+    <a class="anultrans d-flex justify-content-center align-items-center" href="{% url 'vispage' current_portfolio.portfolio_id %}" style="text-decoration:none;">Wróć do vispage</a>
+    <a class="savetransaction d-flex justify-content-center align-items-center ml-5" href="{% url 'optimize' current_portfolio.portfolio_id %}" style="text-decoration:none;">Optymalizuj</a>
+  </div>
 </div>
 
 {% endblock %}

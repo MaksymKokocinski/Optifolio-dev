@@ -102,7 +102,7 @@ button{
 
 .savetransaction{
   height: 50px;
-  width: 180px;
+  width: 160px;
   background-color: #394141;
   color:white;
   font-size: 18px;
@@ -139,7 +139,7 @@ button{
 
 .anultrans{
   height: 50px;
-  width: 180px;
+  width: 160px;
   background-color: white;
   color:#394141;
   font-size: 18px;
@@ -417,7 +417,7 @@ a{
  
   background-color: white;
   height: 650px;
-  width: 750px;
+  width: 550px;
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
   border-bottom-left-radius: 30px;
