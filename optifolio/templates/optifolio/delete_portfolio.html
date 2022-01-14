@@ -2,19 +2,20 @@
 {% load static %}
 {% block content %}
 <div class="d-flex justify-content-center align-items-center" style="height:100%;">
-    <div class="kontener d-flex justify-content-center align-items-center">
-        <div class="container navadj">
-            <div class="container-fluid">
-                <p style="font-size:36px;font-weight:bold;">Czy na pewno chcesz usunąć portfolio "{{item}}"?</p>
-            </div>
+    <div class="kontener d-flex justify-content-center">
+        <div class="d-flex justify-content-center align-items-center">
+            <p style="font-size:36px;font-weight:bold;">Czy na pewno chcesz usunąć portfolio "{{item}}"?</p>
         </div>
-        <div>   
-         <form action="{% url 'delete_portfolio' item.portfolio_id %}" method="POST">
-            {% csrf_token %}
-        
-            <a href="{% url 'summary' %}">Nie</a>
-            <input type="submit" value="Tak" name="Tak" />
-            </form>
+        <div>
+            <div class="d-flex justify-content-center align-items-center">
+                <form action="{% url 'delete_portfolio' item.portfolio_id %}" method="POST">
+                    {% csrf_token %}
+                    <div class="d-flex justify-content-center align-items-center">
+                        <a class="anultrans mr-4 d-flex justify-content-center align-items-center" href="{% url 'summary' %}" style="text-decoration:none;">Nie</a>
+                        <input class="savetransaction mr-4 d-flex justify-content-center align-items-center" type="submit" value="Tak" name="Tak"/>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
