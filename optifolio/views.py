@@ -451,7 +451,13 @@ def portfolioOptimize(request, pk):
 
     # odbieram portfolio current state z podstronki z obecnym stanem portfolio
     portfolio_current_state = request.session.get('portfolio_current_state')
-    portfolio = pd.DataFrame.from_dict(portfolio_current_state, orient='index',columns=['ilosc akcji'])
+
+    def Extract(lst):
+        return [item[0] for item in lst]
+
+    spolki = Extract(portfolio_current_state)
+    portfolio = pd.DataFrame(portfolio_current_state,index=spolki, columns=['spolki','ilosc akcji'])
+    #portfolio = pd.DataFrame.from_dict(portfolio_current_state, orient='index',columns=['ilosc akcji'])
     price = []
     for index,row in portfolio.iterrows():
         price.append(get_live_price(str(index)))
@@ -487,7 +493,7 @@ def portfolioOptimize(request, pk):
             returns[i] = price['return']
         return returns 
 
-    spolki = portfolio_current_state.keys()
+    #spolki = portfolio_current_state.keys()
     returns = monthly_returns(spolki)
     sharpe_ratio["sharpe_ratio"] = returns.mean()/returns.std()
     

@@ -6,26 +6,26 @@
       <p class="text-md-left ml-1" style="font-size:36px;font-weight:bold;">Obecny stan portfolio</p>
     </div>
   </div> 
-<div class="container navadj">
-    <div class="tabelkakontener p-3 mt-3 ml-4" style="max-width:800px;">
-      <div class="table-wrapper-scroll-y scrollbar">
-      <table  class="table table-bordered" style="max-width:800px;">
-          <thead>
-              <tr>
-                  <th class="text-center">Symbol</th>
-                  <th class="text-center">Liczba</th>
-              </tr>
-          </thead>
-          <tbody>
-            {% for key, value in portfolio_current_state.items %}
-              <tr>
-                  <th class=" text-center">{{ key }}</th>
-                  <th class=" text-center">{{ value }}</th>
-              </tr>
-            {% endfor %}
-          </tbody>
-      </table>
-    </div>
+  <div class="container navadj">
+    <div class="tabelkakontener p-3 mt-3 ml-4" style="max-width:1000px;">
+        <div class="table-wrapper-scroll-y scrollbar">
+            <table class="table table-bordered" style="max-width:1000px;">
+                <thead>
+                    <tr>
+                        <th class="text-center">Symbol</th>
+                        <th class="text-center">Liczba</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entry in portfolio_current_state %}
+                    <tr>
+                        <th class=" text-center">{{ entry.0 }}</th>
+                        <th class=" text-center">{{ entry.1 }}</th>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 <div class="container navadj mt-3">
