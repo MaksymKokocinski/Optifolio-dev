@@ -3,7 +3,7 @@ margin-left: 230px;
 }
 
 .nazwa{
-  width:180px;
+  width:160px;
 }
 .navadj2{
   width: 80%;
@@ -354,7 +354,28 @@ a{
   margin-top: 30px;
   position: absolute;
 }
+.przeslij1:hover{
+  color:lightgray;
+}
 
+.przeslij2{
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  background-color: #394141;
+  width: 200px;
+  height: 52px;
+  border-style: none;
+  color:white;
+  font-family: Mulish;
+  font-weight: bold;
+  font-size: 24px;
+  margin-top: 30px;
+}
+.przeslij2:hover{
+  color:lightgray;
+}
  .szarak
  {
      font-size: 18px;
@@ -382,6 +403,15 @@ a{
     border-bottom-right-radius: 30px;
  }
 
+ .kontenerreset{
+  background-color: white;
+  height: 350px;
+ width: 660px;
+ border-top-left-radius: 30px;
+ border-top-right-radius: 30px;
+ border-bottom-left-radius: 30px;
+ border-bottom-right-radius: 30px;
+}
  .inputy{
      margin-top: 40px;
     
