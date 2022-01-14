@@ -1,15 +1,16 @@
 {% extends 'optifolio/main.html' %}
 {% load static %}
 {% block content %}
+<br>
 <div class="container navadj">
     <div class="container-fluid">
-      <p class="text-md-left ml-1" style="font-size:36px;font-weight:bold;">Obecny stan portfolio</p>
+      <p class="text-md-left ml-1" style="font-size:36px;font-weight:bold;">Stan przed optymalizacją</p>
     </div>
-  </div> 
+</div> 
   <div class="container navadj">
-    <div class="tabelkakontener p-3 mt-3 ml-4" style="max-width:1000px;">
+    <div class="tabelkakontener p-3 mt-3 ml-4" style="max-width:800px;">
         <div class="table-wrapper-scroll-y scrollbar">
-            <table class="table table-bordered" style="max-width:1000px;">
+            <table class="table table-bordered" style="max-width:800px;">
                 <thead>
                     <tr>
                         <th class="text-center">Symbol</th>
@@ -27,43 +28,71 @@
             </table>
         </div>
       </div>
-
+    </div>
+<div class="container navadj mt-3">
+  <div class="container-fluid">
+    <p class="text-md-left ml-1" style="font-size:36px;font-weight:bold;">Optymalizacja</p>
+  </div>
+</div> 
 <div class="container navadj">
   <div class="tabelkakontener p-3 mt-3 ml-4" style="max-width:800px;">
     <div class="table-wrapper-scroll-y scrollbar">
-    <table  class="table table-bordered" style="max-width:800px;">
-        <thead>
-            <tr>
-                <th class="text-center">Ilość akcji po zmianie</th>
-            </tr>
-        </thead>
-        <tbody>
-          {% for value in new_amount.items %}
-            <tr>
-                <th class=" text-center">{{ value.1 }}</th>
-            </tr>
-          {% endfor %}
-        </tbody>
-        <thead>
-          <tr>
-              <th class="text-center">Zmiana</th>
-          </tr>
-      </thead>
-      <tbody>
-        {% for value in delta_amount.items %}
-          <tr>
-              <th class=" text-center">{{ value.1 }}</th>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+      <div class="column">
+        <table class="table table-bordered" style="width:100px;">
+          <thead>
+              <tr>
+                  <th class="text-center">Symbol</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for entry in portfolio_current_state %}
+              <tr>
+                  <th class=" text-center">{{ entry.0 }}</th>
+              </tr>
+              {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="column">
+        <table  class="table table-bordered" style="width:335px;">
+            <thead>
+                <tr>
+                    <th class="text-center">Ilość akcji po zmianie</th>
+                </tr>
+            </thead>
+            <tbody>
+              {% for value in new_amount.items %}
+                <tr>
+                    <th class=" text-center">{{ value.1 }}</th>
+                </tr>
+              {% endfor %}
+            </tbody>
+        </table>
+      </div>
+      <div class="column">
+        <table  class="table table-bordered" style="width:335px;">
+          <thead>
+              <tr>
+                  <th class="text-center">Zmiana</th>
+              </tr>
+          </thead>
+          <tbody>
+            {% for value in delta_amount.items %}
+              <tr>
+                  <th class=" text-center">{{ value.1 }}</th>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
   </div>
   </div>
 </div>
 
 <div class="container navadj mt-3">
     <div class="d-flex items-align-center justify-content-center" style="width:800px;">
-      <a class="anultrans d-flex justify-content-center align-items-center" href="{% url 'portfolio_state' current_portfolio.portfolio_id %}" style="text-decoration:none;">Wróć</a>
+      <a class="anultrans d-flex justify-content-center align-items-center" href="{% url 'portfolio_state' current_portfolio.portfolio_id %}" style="text-decoration:none;">Wizualizacja</a>
+      <a class="anultrans d-flex justify-content-center align-items-center ml-4" href="{% url 'vispage' current_portfolio.portfolio_id %}" style="text-decoration:none;">Lista transakcji</a>
     </div>
   </div>
 {% endblock %}

@@ -6,20 +6,23 @@
 <br>
 <div class="container navadj">
   <div class="container-fluid">
-      <p class="text-md-left ml-1" style="font-size:36px;font-weight:bold;">Wizualizacja portfolio</p>
+      <p class="text-md-left ml-1" style="font-size:36px;font-weight:bold;">Lista transakcji</p>
   </div>
 </div>
 <div class="container navadj">
-  <nav class="navbar navbar-expand mt-3">
+  <nav class="navbar navbar-expand">
       <div class="container-fluid">
           <div id="navbarResponsive">
               <ul class="navbar-nav ml-auto">
 
                   <li class="nav-item">
-                      <a class="nav-link przyciskportf1 d-flex justify-content-center align-items-center" href="{% url 'portfolio_state' current_portfolio.portfolio_id %}">Obecny stan portfolio</a>
+                      <a class="nav-link przyciskportf1 d-flex justify-content-center align-items-center" href="{% url 'portfolio_state' current_portfolio.portfolio_id %}">Wizualizacja</a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link przyciskportf1 d-flex justify-content-center align-items-center ml-4" href="{% url 'add_transaction' current_portfolio.portfolio_id %}"><div class="">Dodaj transakcję</div></a>
+                  </li>  
+                  <li class="nav-item">
+                    <a class="przyciskportf d-flex justify-content-center align-items-center ml-4" href="{% url 'optimize' current_portfolio.portfolio_id %}" style="text-decoration:none;">Optymalizuj</a>
                   </li>              
               </ul>
 
