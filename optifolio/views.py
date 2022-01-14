@@ -198,15 +198,14 @@ def addVisData(request, pk):
             form = AddSharesForm()
 
 
-    context = {'form': form, 'current_user_name':current_user_name}
+    context = {'form': form, 'current_user_name':current_user_name, 'portfolio_pk': pk}
     return render(request, 'optifolio/add_transaction.html', context)
 
 
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['customer'])
-def updateVisData(request, vispk):
-    vispk = vispk
+def updateVisData(request, pk, vispk):
     transaction = VisData.objects.get(visdata_id=vispk)
     form = AddSharesForm(instance=transaction)
 
@@ -214,20 +213,20 @@ def updateVisData(request, vispk):
         form = AddSharesForm(request.POST, instance=transaction)
         if form.is_valid():
             form.save()
-            return redirect('vispage', vispk)
+            return redirect('vispage', pk)
 
-    context = {'form': form, 'vispk': vispk}
+    context = {'form': form, 'vispk': vispk, 'pk':pk}
     return render(request, 'optifolio/update_transaction.html', context)
 
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['customer'])
-def deleteVisData(request, vispk):
+def deleteVisData(request, pk, vispk):
     transaction = VisData.objects.get(visdata_id=vispk)
     if request.method == "POST":
         transaction.delete()
-        return redirect('vispage', vispk)
-    context = {'item': transaction, 'vispk': vispk}
+        return redirect('vispage', pk)
+    context = {'item': transaction, 'vispk': vispk, 'pk':pk}
     return render(request, 'optifolio/delete_transaction.html', context)
 
 
@@ -286,15 +285,16 @@ def visPage(request, pk):
     current_portfolio = Portfolio.objects.get(portfolio_id = pk)
     visdata = current_portfolio.visdata_set.all()
 
-    form = AddSharesForm(request.POST or None)
+    # Popup z formularzem pozwalającym usunąć transakcję
+    '''form = DeletePortfolioForm(request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
             publish = form.save(commit=False)
             publish.user_name = current_user_name #Adding username to form
             publish.save()
-            return redirect('visualisationpage')
+            return redirect('summary')
     else:
-            form = AddSharesForm()
+        form = AddPortfolioForm()'''
 
 
     price = []
@@ -348,7 +348,7 @@ def visPage(request, pk):
         profit_earned = 0
     
 
-    context = {'current_portfolio':current_portfolio, 'visdata':visdata,'current_user_name':current_user_name,'price':price,}
+    context = {'current_portfolio':current_portfolio, 'visdata':visdata,'current_user_name':current_user_name,'price':price}
     return render(request, 'optifolio/vispage.html', context)
 
 @login_required(login_url='login')

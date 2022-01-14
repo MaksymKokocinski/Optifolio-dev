@@ -51,8 +51,8 @@
     {{ form.user_name.as_hidden }}
     {{ form.title2.as_hidden }}
     {{ form.portfolio_name.as_hidden }}
-    <a href="{% url 'vispage' vispk %}">Anuluj</a>
-    <button type="submit" value="Zapisz zmiany" href="{% url 'vispage' vispk %}" class="btn btn-primary">Zapisz zmiany</button>
+    <a href="{% url 'vispage' pk %}">Anuluj</a>
+    <button type="submit" value="Zapisz zmiany" href="{% url 'vispage' pk %}" class="btn btn-primary">Zapisz zmiany</button>
 </form>
 </div>
 
