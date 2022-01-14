@@ -9,13 +9,13 @@
     <div class="kontener d-flex justify-content-center align-items-center">
         <p>Czy na pewno chcesz usunąć transakcję akcji "{{item}}"?</p>
 
-        <form action="{% url 'delete_transaction' item.visdata_id %}" method="POST">
-            {% csrf_token %}
-        
-            <a href="{% url 'vispage' vispk %}">Nie</a>
-            <input type="submit" value="Tak" name="Tak" />
-        
-        </form>
+        <!--<form action="{% url 'delete_transaction' pk item.visdata_id %}" method="POST">
+        {% csrf_token %}
+
+        <a href="{% url 'vispage' pk %}">Nie</a>
+        <input type="submit" value="Tak" name="Tak" />
+
+    </form>-->
     </div>
 </div>
 {% endblock %}

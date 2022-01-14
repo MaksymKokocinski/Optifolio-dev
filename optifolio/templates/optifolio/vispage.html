@@ -58,7 +58,7 @@
               <td class=" text-center nazwa">{{ temp.shares_number }}</td>
               <td class=" text-center">{{ temp.course }}</td>
               <td class=" text-center">{{ temp.fare }}</td>
-              <td><a href="{% url 'update_transaction' temp.visdata_id %}">Edytuj</a></td>
+              <td><a href="{% url 'update_transaction' current_portfolio.portfolio_id temp.visdata_id %}">Edytuj</a></td>
               <td><a href="{% url 'delete_transaction' temp.visdata_id %}">Usuń</a></td>
           </tr>
          {% endfor %}

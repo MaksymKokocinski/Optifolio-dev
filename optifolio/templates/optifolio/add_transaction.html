@@ -94,8 +94,8 @@
     {{ form.user_name.as_hidden }}
     {{ form.portfolio_name.as_hidden }}
     <div class="d-flex justify-content-center align-items-center mt-3">
-        <a class="anultrans mr-4 d-flex justify-content-center align-items-center" href="{% url 'visualisationpage' %}" style="text-decoration:none;">Anuluj</a>
-        <button type="submit" value="Zapisz zmiany" href="{% url 'visualisationpage' %}" class="savetransaction mr-4 d-flex justify-content-center align-items-center">Zapisz zmiany</button>
+        <a class="anultrans mr-4 d-flex justify-content-center align-items-center" href="{% url 'vispage' portfolio_pk %}" style="text-decoration:none;">Anuluj</a>
+        <button type="submit" value="Zapisz zmiany" href="{% url 'vispage' portfolio_pk %}" class="savetransaction mr-4 d-flex justify-content-center align-items-center">Zapisz zmiany</button>
     </div>
         </form>
 </div>
