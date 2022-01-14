@@ -361,17 +361,29 @@ def portfolioState(request, pk):
     #tu sobie licze obecna zawartosc portfolio
     portfolio_current_state = {}
     for tr in visdata:
+        quantity = tr.shares_number
+        #zamieniam dane tak żeby zawsze były floatem
+        if quantity is None:
+            quantity = 0.0
+        else:
+            quantity = float(quantity)
+        #podliczam liczbę akcji dla kolejnych firm
         if tr.title2 in portfolio_current_state:
             if tr.buy_sell == '+':
-                portfolio_current_state[tr.title2] += float(tr.shares_number)
+                portfolio_current_state[tr.title2] += quantity
             elif tr.buy_sell == '-':
-                portfolio_current_state[tr.title2] -= float(tr.shares_number)
+                portfolio_current_state[tr.title2] -= quantity
         else:
             if tr.buy_sell == '+':
-                portfolio_current_state[tr.title2] = float(tr.shares_number)
+                portfolio_current_state[tr.title2] = quantity
             elif tr.buy_sell == '-':
-                portfolio_current_state[tr.title2] = -1.0 * float(tr.shares_number)
-        print(portfolio_current_state)
+                portfolio_current_state[tr.title2] = -1.0 * quantity
+    #sprawdzam czy liczba akcji dla jakiejś firmy wynosi 0 (i wtedy się jej pozbywam)
+    for k in list(portfolio_current_state.keys()):
+        if portfolio_current_state[k] == 0:
+            del portfolio_current_state[k]
+
+        #print(portfolio_current_state)
 
     #jakbym chciala dorzucic obecny kurs (a chcialabym):
     #price = []
