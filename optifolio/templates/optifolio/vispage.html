@@ -29,28 +29,28 @@
 </div>
 
 <div class="container navadj mt-4">
-  <div class=" tabelkakontener p-3 ml-3" container-fluid style="width:1110px;">
+  <div class=" tabelkakontener p-3 ml-3" container-fluid style="width:1230px;">
     <div class="table-wrapper-scroll-y scrollbar">
       <div class ="column ml-3">
-        <table class="table table-bordered">
+        <table class="table table-bordered" style="position:static;">
           <thead>
             <tr>
-                <th class="text-center nazwa">Nazwa</th>
-                <th class="text-center">Symbol</th>
+                <th class="text-center" style="width:180px;">Nazwa</th>
+                <th class="text-center" style="width:50px;">Symbol</th>
                 <th class="text-center">Data</th>
-                <th class=" text-center">Godzina</th>
+                <th class="text-center">Godzina</th>
                 <th class="text-center">Rodzaj</th>
-                <th class=" text-center">Liczba akcji</th>
-                <th class=" text-center">Kwota</th>
-                <th class=" text-center">Opłata</th>
-                <th class=" text-center">Edytuj</th>
-                <th class=" text-center">Usuń</th>
+                <th class="text-center" style="width:140px;">Liczba akcji</th>
+                <th class="text-center" style="width:120px;">Kwota</th>
+                <th class="text-center" style="width:100px;">Opłata</th>
+                <th class="text-center">Edytuj</th>
+                <th class="text-center">Usuń</th>
             </tr>
           </thead>
           <tbody>
             {% for temp in visdata %}  
           <tr>
-              <th class=" text-center nazwa">{{ temp.title }}</th>
+              <th class=" text-center">{{ temp.title }}</th>
               <th class=" text-center">{{ temp.title2 }}</th>
               <td class=" text-center">{{ temp.date }}</td>
               <td class=" text-center">{{ temp.hour }}</td>
@@ -58,15 +58,15 @@
               <td class=" text-center">{{ temp.shares_number }}</td>
               <td class=" text-center">{{ temp.course }}</td>
               <td class=" text-center">{{ temp.fare }}</td>
-              <td><a href="{% url 'update_transaction' temp.visdata_id %}">Edytuj</a></td>
-              <td><a href="{% url 'delete_transaction' temp.visdata_id %}">Usuń</a></td>
+              <td><a href="{% url 'update_transaction' current_portfolio.portfolio_id temp.visdata_id %}">Edytuj</a></td>
+              <td><a href="{% url 'delete_transaction' current_portfolio.portfolio_id temp.visdata_id %}">Usuń</a></td>
           </tr>
          {% endfor %}
           </tbody>
         </table>
       </div>
       <div class="column">
-        <table class="table table-bordered">
+        <table class="table table-bordered" style="position:static;">
           <thead>
             <th class=" text-center">Aktualna cena</th>
           </thead>
@@ -85,7 +85,7 @@
 
 
 <div class="container navadj mt-4">
-  <div class=" tabelkakontener ml-3" style="width:1110px;">
+  <div class=" tabelkakontener ml-3" style="width:1230px;">
     <div class ="d-flex justify-content-center align-items-center">
       <button class="wykres1" onclick="chartType('bar')">Bar</button>
       <button class="wykres1" onclick="chartType('line')">Line</button>
@@ -95,7 +95,7 @@
     </div>
   <div>
     <div class="chartCard">
-      <div class="chartBox" style="max-width:950px;margin-left:65px;">
+      <div class="chartBox" style="max-width:950px;margin-left:170px;">
         <canvas id="myChart" width="50" height="20"></canvas>
       </div>
     </div>

@@ -148,8 +148,8 @@
         </div>
         <div class="d-flex justify-content-center align-items-center mt-3">
             <a class="navbutthead mr-4 d-flex justify-content-center align-items-center" href="{% url 'optimize' temp.portfolio_id %}" style="text-decoration:none;">Optymalizuj</a>
-            <a class="navbutt mr-4 d-flex justify-content-center align-items-center" href="{% url 'vispage' temp.portfolio_id %}" style="text-decoration:none;">Wyświetl</a>
-            <a class="navbutt d-flex justify-content-center align-items-center" href="{% url 'delete_portfolio' temp.portfolio_id %}">Usuń</a>
+            <a class="navbutt mr-4 d-flex justify-content-center align-items-center" href="{% url 'portfolio_state' temp.portfolio_id %}" style="text-decoration:none;">Wyświetl</a>
+            <a class="navbutt d-flex justify-content-center align-items-center" href="{% url 'delete_portfolio' temp.portfolio_id %}" style="text-decoration:none;">Usuń</a>
             
         </div>
         <div class="summfoot d-flex justify-content-center align-items-center p-4">Ostatnia aktualizacja {{temp.p_last_mod_date}}</div>

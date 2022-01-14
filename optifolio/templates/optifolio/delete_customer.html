@@ -1,15 +1,20 @@
 {% extends 'optifolio/main.html' %}
 {% load static %}
 {% block content %}
-<div class="container navadj">
-<p>Czy na pewno chcesz usunąć konto "{{item}}"?</p>
-
-<form action="{% url 'delete_customer' item.id %}" method="POST">
-    {% csrf_token %}
-
-    <a href="{% url 'summary' %}">Nie</a>
-    <input type="submit" value="Tak" name="Tak" />
-
-</form>
+<div class="d-flex justify-content-center align-items-center" style="height:100%;">
+    <div class="kontener d-flex justify-content-center align-items-center">
+        <div class="container navadj">
+            <div class="container-fluid">
+                <p class="text-md-left ml-1" style="font-size:36px;font-weight:bold;">Czy na pewno chcesz usunąć konto "{{item}}"?</p>
+            </div>
+        </div>
+        <form action="{% url 'delete_customer' item.id %}" method="POST">
+            {% csrf_token %}
+        
+            <a href="{% url 'summary' %}">Nie</a>
+            <input type="submit" value="Tak" name="Tak" />
+        
+        </form>
+    </div>
 </div>
 {% endblock %}

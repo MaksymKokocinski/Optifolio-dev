@@ -2,14 +2,20 @@
 {% load static %}
 {% block content %}
 <div class="container navadj">
-<p>Czy na pewno chcesz usunąć transakcję akcji "{{item}}"?</p>
 
-<form action="{% url 'delete_transaction' item.visdata_id %}" method="POST">
-    {% csrf_token %}
+</div>
 
-    <a href="{% url 'vispage' vispk %}">Nie</a>
-    <input type="submit" value="Tak" name="Tak" />
+<div class="d-flex justify-content-center align-items-center" style="height:100%;">
+    <div class="kontener d-flex justify-content-center align-items-center">
+        <p>Czy na pewno chcesz usunąć transakcję akcji "{{item}}"?</p>
 
-</form>
+        <form action="{% url 'delete_transaction' pk item.visdata_id %}" method="POST">
+            {% csrf_token %}
+
+            <a href="{% url 'vispage' pk %}">Nie</a>
+            <input type="submit" value="Tak" name="Tak" />
+
+        </form>
+    </div>
 </div>
 {% endblock %}
