@@ -2,19 +2,21 @@
 {% load static %}
 {% block content %}
 <div class="d-flex justify-content-center align-items-center" style="height:100%;">
-    <div class="kontener d-flex justify-content-center align-items-center">
-        <div class="container navadj">
-            <div class="container-fluid">
-                <p class="text-md-left ml-1" style="font-size:36px;font-weight:bold;">Czy na pewno chcesz usunąć konto "{{item}}"?</p>
+    <div class="kontenerusun" style="border: 3px solid lightgray;">
+        <article class="card-body mx-auto" style="max-width: 680px;">
+            <div class="d-flex justify-content-center align-items-center" style="margin-top:40px;">
+                <p class ="text-center" style="font-size:36px;font-weight:bold;">Czy na pewno chcesz usunąć konto "{{item}}"?</p>
             </div>
-        </div>
-        <form action="{% url 'delete_customer' item.id %}" method="POST">
-            {% csrf_token %}
-        
-            <a href="{% url 'summary' %}">Nie</a>
-            <input type="submit" value="Tak" name="Tak" />
-        
-        </form>
+            <div class="d-flex justify-content-center align-items-center" style="margin-top:60px;">
+                <form action="{% url 'delete_customer' item.id %}" method="POST">
+                 {% csrf_token %}
+                 <div class="d-flex justify-content-center align-items-center">
+                    <a class="anultrans mr-4 d-flex justify-content-center align-items-center" href="{% url 'summary' %}">Nie</a>
+                    <input class="savetransaction mr-4 d-flex justify-content-center align-items-center ml-5" type="submit" value="Tak" name="Tak"/>
+                </div>
+                </form>
+            </div>
+        </article>
     </div>
 </div>
 {% endblock %}

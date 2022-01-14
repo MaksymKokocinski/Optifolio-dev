@@ -403,6 +403,26 @@ a{
     border-bottom-right-radius: 30px;
  }
 
+ .kontenerusun{
+  background-color: white;
+  height: 350px;
+ width: 760px;
+ border-top-left-radius: 30px;
+ border-top-right-radius: 30px;
+ border-bottom-left-radius: 30px;
+ border-bottom-right-radius: 30px;
+}
+
+.kontenertrans{
+  background-color: white;
+  height: 350px;
+ width: 650px;
+ border-top-left-radius: 30px;
+ border-top-right-radius: 30px;
+ border-bottom-left-radius: 30px;
+ border-bottom-right-radius: 30px;
+}
+
  .kontenerreset{
   background-color: white;
   height: 350px;

@@ -7,8 +7,9 @@
   </div>
 </div> 
 <div class="container navadj">
-  <div class="tabelkakontener p-3 mt-3 ml-4" style="max-width:800px;">
-    <table  class="table table-bordered" style="max-width:800px;">
+  <div class="tabelkakontener p-3 mt-3 ml-4" style="max-width:1000px;">
+    <div class="table-wrapper-scroll-y scrollbar">
+    <table  class="table table-bordered" style="max-width:1000px;">
         <thead>
             <tr>
                 <th class="text-center">Symbol</th>
@@ -26,14 +27,16 @@
     </table>
   </div>
 </div>
+</div>
 <div class="container navadj mt-3">
   <div class="container-fluid">
     <p class="text-md-left ml-1" style="font-size:36px;font-weight:bold;">Lista transakcji</p>
   </div>
 </div>
 <div class="container navadj">
-  <div class="tabelkakontener p-3 mt-3 ml-4" style="max-width:800px;max-height:600px;">
-    <table  class="table table-bordered" style="max-width:800px;max-height:600px;">
+  <div class="tabelkakontener p-3 mt-3 ml-4" style="max-width:1000px;max-height:600px;">
+    <div class="table-wrapper-scroll-y scrollbar">
+    <table  class="table table-bordered" style="max-width:1000px;max-height:600px;">
         <thead>
             <tr>
                 <th class="text-center">Nazwa</th>
@@ -62,9 +65,10 @@
         </tbody>
     </table>
   </div>
+  </div>
 </div>
 <div class="container navadj mt-3">
-  <div class="d-flex items-align-center justify-content-center" style="width:800px;">
+  <div class="d-flex items-align-center justify-content-center" style="width:1000px;">
     <a class="anultrans d-flex justify-content-center align-items-center" href="{% url 'vispage' current_portfolio.portfolio_id %}" style="text-decoration:none;">Lista transakcji</a>
     <a class="savetransaction d-flex justify-content-center align-items-center ml-5" href="{% url 'optimize' current_portfolio.portfolio_id %}" style="text-decoration:none;">Optymalizuj</a>
   </div>
