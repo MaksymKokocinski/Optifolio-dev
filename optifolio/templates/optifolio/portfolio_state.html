@@ -49,6 +49,32 @@
                     {% endfor %}
                 </tbody>
             </table>
+            <div class="column">
+              <table class="table table-bordered" style="position:static;">
+                <thead>
+                  <th class=" text-center">Aktualna cena</th>
+                </thead>
+                <tbody>
+                  {% for temp in price %}
+                  <tr>
+                  <td class=" text-center">{{ temp }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+               </table>
+               <table class="table table-bordered" style="position:static;">
+                <thead>
+                  <th class=" text-center">Wartość</th>
+                </thead>
+                <tbody>
+                  {% for temp in value %}
+                  <tr>
+                  <td class=" text-center">{{ temp }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+               </table>
+            </div>
         </div>
     </div>
 </div>
@@ -94,6 +120,7 @@
 </div>
 <div class="container navadj mt-3">
     <div class="d-flex items-align-center justify-content-center" style="width:1000px;">
+        <a class="anultrans d-flex justify-content-center align-items-center" href="{% url 'add_transaction' current_portfolio.portfolio_id %}" style="text-decoration:none;">Dodaj transakcje</a>
         <a class="anultrans d-flex justify-content-center align-items-center" href="{% url 'vispage' current_portfolio.portfolio_id %}" style="text-decoration:none;">Lista transakcji</a>
         <a class="savetransaction d-flex justify-content-center align-items-center ml-5" href="{% url 'optimize' current_portfolio.portfolio_id %}" style="text-decoration:none;">Optymalizuj</a>
     </div>
