@@ -26,8 +26,30 @@
                 </tbody>
             </table>
         </div>
-    </div>
+      </div>
+
+<div class="container navadj">
+  <div class="tabelkakontener p-3 mt-3 ml-4" style="max-width:800px;">
+    <div class="table-wrapper-scroll-y scrollbar">
+    <table  class="table table-bordered" style="max-width:800px;">
+        <thead>
+            <tr>
+                <th class="text-center">Ilość akcji po zmianie</th>
+                <th class="text-center">Jak zmienić</th>
+            </tr>
+        </thead>
+        <tbody>
+          {% for value in new_amount.items %}
+            <tr>
+                <th class=" text-center">{{ value }}</th>
+            </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+  </div>
+  </div>
 </div>
+
 <div class="container navadj mt-3">
     <div class="d-flex items-align-center justify-content-center" style="width:800px;">
       <a class="anultrans d-flex justify-content-center align-items-center" href="{% url 'portfolio_state' current_portfolio.portfolio_id %}" style="text-decoration:none;">Wróć</a>

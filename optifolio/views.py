@@ -575,7 +575,7 @@ def portfolioOptimize(request, pk):
     else:
         print('Portfolio jest puste')
 
-    context = {'portfolio_current_state': portfolio_current_state, 'visdata': visdata, 'current_portfolio': current_portfolio}
+    context = {'portfolio_current_state': portfolio_current_state, 'visdata': visdata, 'current_portfolio': current_portfolio,'delta_amount':delta_amount,'new_amount':new_amount}
     return render(request, 'optifolio/optimize.html', context)
 
 
