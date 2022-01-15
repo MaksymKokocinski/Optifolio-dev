@@ -32,7 +32,7 @@
                 </div>
             </td>
             <td>
-                <div class="form-group formdiv">
+                <div class="form-group formdiv ml-3">
                     <label for="{{ form.title.id_for_label }}">Nazwa spółki</label>
                     {{ form.title }}
                     {{ form.title.errors }}
@@ -48,7 +48,7 @@
             </td>
         
             <td>
-                <div class="form-group formdiv">
+                <div class="form-group formdiv ml-3">
                     <label for="{{ form.shares_number.id_for_label }}">Liczba akcji</label>
                     {{ form.shares_number }}
                     {{ form.shares_number.errors }}
@@ -64,7 +64,7 @@
                 </div>
             </td>
             <td>
-                <div class="form-group formdiv">
+                <div class="form-group formdiv ml-3">
                     <label for="{{ form.fare.id_for_label }}">Opłata transakcyjna</label>
                     {{ form.fare }}
                     {{ form.fare.errors }}
@@ -80,22 +80,20 @@
                 </div>
             </td>
             <td>
-                <div class="form-group formdiv">
+                <div class="form-group formdiv ml-3">
                     <label for="{{ form.hour.id_for_label }}">Godzina</label>
                     {{ form.hour }}
                     {{ form.hour.errors }}
                 </div>
             </td>
-            <td>
-            </td>
         </tr>
     </table>
-</div>
+    </div>
     {{ form.user_name.as_hidden }}
     {{ form.portfolio_name.as_hidden }}
     <div class="d-flex justify-content-center align-items-center mt-3">
-        <a class="anultrans mr-4 d-flex justify-content-center align-items-center" href="{% url 'vispage' portfolio_pk %}" style="text-decoration:none;">Anuluj</a>
-        <button type="submit" value="Zapisz zmiany" href="{% url 'vispage' portfolio_pk %}" class="savetransaction mr-4 d-flex justify-content-center align-items-center">Zapisz zmiany</button>
+        <a class="anultrans d-flex justify-content-center align-items-center" href="{% url 'vispage' portfolio_pk %}" style="text-decoration:none;">Anuluj</a>
+        <button type="submit" value="Zapisz zmiany" href="{% url 'vispage' portfolio_pk %}" class="savetransaction ml-4 d-flex justify-content-center align-items-center">Zapisz zmiany</button>
     </div>
         </form>
 </div>

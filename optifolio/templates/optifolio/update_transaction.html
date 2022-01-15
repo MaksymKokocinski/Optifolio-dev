@@ -1,59 +1,103 @@
-﻿{% extends 'optifolio/main.html' %}
+﻿<html>
+    <head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>  
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Mulish&display=swap" rel="stylesheet" />
+    
+    </head>
+   
 {% load static %}
 {% block content %}
-<div class="container navadj">
-<form action="" method="POST">
-    {% csrf_token %}
+<body class="log">
+<div class="d-flex justify-content-center align-items-center" style="height:100%;">
+    <div class="kontener4 d-flex justify-content-center align-items-center">
+        <form action="" method="POST" >
+            <div class="d-flex justify-content-center align-items-center">
+                <h5 class="sumnapis" id="exampleModalLabel">Edytuj transakcję</h5>
+            </div>
+            <div class="d-flex justify-content-center align-items-center">
+            {% csrf_token %}
 
-    {{ form.non_field_errors }}
-    <div class="form-group">
-        <label for="{{ form.title.id_for_label }}">Nazwa spółki</label>
-        {{ form.title }}
-        {{ form.title.errors }}
+            {{ form.non_field_errors }}
+            <table>
+                <tr>
+                    <td>
+                        <div class="form-group formdiv">
+                            <label for="{{ form.title.id_for_label }}">Nazwa spółki</label>
+                            {{ form.title }}
+                            {{ form.title.errors }}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group formdiv ml-3">
+                            <label for="{{ form.title2.id_for_label }}">Symbol spółki</label>
+                            {{ form.title2 }}
+                            {{ form.title2.errors }}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group formdiv">
+                            <label for="{{ form.buy_sell.id_for_label }}">Kupno/sprzedaż</label>
+                            {{ form.buy_sell }}
+                            {{ form.buy_sell.errors }}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group formdiv ml-3" style="width:150px;">
+                            <label for="{{ form.shares_number.id_for_label }}">Liczba akcji</label>
+                            {{ form.shares_number }}
+                            {{ form.shares_number.errors }}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group formdiv ">
+                            <label for="{{ form.course.id_for_label }}">Kurs</label>
+                            {{ form.course }}
+                            {{ form.course.errors }}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group formdiv ml-3">
+                            <label for="{{ form.fare.id_for_label }}">Opłata transakcyjna</label>
+                            {{ form.fare }}
+                            {{ form.fare.errors }}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group formdiv ">
+                            <label for="{{ form.date.id_for_label }}">Data</label>
+                            {{ form.date }}
+                            {{ form.date.errors }}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group formdiv ml-3">
+                            <label for="{{ form.hour.id_for_label }}">Godzina</label>
+                            {{ form.hour }}
+                            {{ form.hour.errors }}
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+            {{ form.user_name.as_hidden }}
+            {{ form.title2.as_hidden }}
+            {{ form.portfolio_name.as_hidden }}
+            <div class="d-flex justify-content-center align-items-center mt-3" style="width:550px;">
+            <a class="anultrans d-flex justify-content-center align-items-center" href="{% url 'vispage' pk %}" style="text-decoration:none;">Anuluj</a>
+            <button type="submit" value="Zapisz zmiany" href="{% url 'vispage' pk %}" class="ml-4 savetransaction d-flex justify-content-center align-items-center">Zapisz zmiany</button>
+        </div>
+        </form>
     </div>
-    <div class="form-group">
-        <label for="{{ form.title2.id_for_label }}">Symbol spółki</label>
-        {{ form.title2 }}
-        {{ form.title2.errors }}
-    </div>
-    <div class="form-group">
-        <label for="{{ form.buy_sell.id_for_label }}"></label>
-        {{ form.buy_sell }}
-        {{ form.buy_sell.errors }}
-    </div>
-    <div class="form-group">
-        <label for="{{ form.shares_number.id_for_label }}">Liczba akcji</label>
-        {{ form.shares_number }}
-        {{ form.shares_number.errors }}
-    </div>
-    <div class="form-group">
-        <label for="{{ form.course.id_for_label }}">Kurs</label>
-        {{ form.course }}
-        {{ form.course.errors }}
-    </div>
-    <div class="form-group">
-        <label for="{{ form.fare.id_for_label }}">Opłata transakcyjna</label>
-        {{ form.fare }}
-        {{ form.fare.errors }}
-    </div>
-    <div class="form-group">
-        <label for="{{ form.date.id_for_label }}">Data</label>
-        {{ form.date }}
-        {{ form.date.errors }}
-    </div>
-    <div class="form-group">
-        <label for="{{ form.hour.id_for_label }}">Godzina</label>
-        {{ form.hour }}
-        {{ form.hour.errors }}
-    </div>
-    <!--Wstawiłam tu pozostałe pola bo bez nich edycja nie działa poprawnie,
-        ale jako ukryte, tak aby użytkownik nie mógł ich edytować.-->
-    {{ form.user_name.as_hidden }}
-    {{ form.title2.as_hidden }}
-    {{ form.portfolio_name.as_hidden }}
-    <a href="{% url 'vispage' pk %}">Anuluj</a>
-    <button type="submit" value="Zapisz zmiany" href="{% url 'vispage' pk %}" class="btn btn-primary">Zapisz zmiany</button>
-</form>
 </div>
 
 {% endblock %}

@@ -33,7 +33,12 @@ select{
     border-radius: 5px;
   }
   
-
+.formdiv input{
+  width: 150px;
+  height: 40px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+}
 
 
 
