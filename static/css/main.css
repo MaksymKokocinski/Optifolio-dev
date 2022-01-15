@@ -163,13 +163,12 @@ button{
 }
 
 .kafelek{
-  min-width: 400px;
-  max-width: 480px;
-  min-height: 600px;
-  max-height: 700px;
+
+  width: 480px;
+  height: 700px;
   border-radius: 15px;
   background-color: white;
-  float:left;
+
 }
 
 .dane{
@@ -178,8 +177,8 @@ button{
 }
 .grafika
 {
-  min-width: 480px;
-  max-width: 480px;
+  width: 480px;
+
   background: rgb(57,65,65);
   background: linear-gradient(90deg, rgba(57,65,65,1) 0%, rgba(55,60,60,1) 30%, rgba(76,164,86,1) 77%);
   border-top-left-radius: 15px;

@@ -44,7 +44,7 @@
               
               <div class="d-flex justify-content-center align-items-center mt-3">
                 <button type="button" class="summodalbut2 d-flex justify-content-center align-items-center mr-4" data-dismiss="modal">Zamknij</button>
-                <button type="submit" class="summodalbut d-flex justify-content-center align-items-center" value="Zapisz zmiany" href="{% url 'summary' %}">Zapisz zmiany</button>
+                <button type="submit" class="summodalbut d-flex justify-content-center align-items-center" value="Zapisz zmiany" href="{% url 'summary' %}">Dodaj</button>
             </div>
                 <div class="summfoot d-flex justify-content-center align-items-center p-4">Info: Mozna mieć maksymalnie 3 portfolia</div>
           </form>
@@ -53,10 +53,10 @@
     </div>
   </div>
 </div>
-<div class="container navadj">
+<div class="container navadj width:100%;">
 {% for temp in all_user_portfolio %}
-
-    <div class="kafelek justify-content-center align-items-center ml-4 mt-3">
+<div class="column">
+    <div class="kafelek ml-4 mt-3">
         <div class="grafika"> </div>
         <div class="sumnapis d-flex justify-content-center align-items-center mt-3">{{ temp.portfolio_title }}</div>
         <div class="cztery containfer-fluid mt-3">
@@ -147,6 +147,7 @@
         </div>
         <div class="summfoot d-flex justify-content-center align-items-center p-4">Ostatnia aktualizacja {{temp.p_last_mod_date}}</div>
     </div>
+</div>
     <div class="modal fade" id="usunModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content d-flex justify-content-center align-items-center" style=" border-radius: 25px;
