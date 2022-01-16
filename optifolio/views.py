@@ -525,6 +525,16 @@ def portfolioOptimize(request, pk):
     def get_portfolio_sharpe_ratio(weights):
         portfolio_sharpe_ratio = get_portfolio_exp_return(weights)/get_portfolio_std_deviation(weights)
         return portfolio_sharpe_ratio
+
+    def get_portfolio_exp_return_reversed(weights):
+        return 1/get_portfolio_exp_return(weights)
+
+    
+
+    def get_sharpe_ratio_reversed(weights):
+        return 1/get_portfolio_sharpe_ratio(weights)
+
+
     
     comp_number = visdata.count()
     if comp_number > 0:
@@ -543,12 +553,13 @@ def portfolioOptimize(request, pk):
         
         bnds2 = tuple(bnds2)
         
+        #OPTYMALIZACJA 1
         cons = ({'type': 'eq', 'fun': lambda x:  sum(x) - 1},
             {'type': 'ineq', 'fun': lambda x: min_std_dev - get_portfolio_std_deviation(x)})
-        result = opt.minimize(get_portfolio_exp_return, wagi, bounds=bnds2, constraints=cons)
+        result = opt.minimize(get_portfolio_exp_return_reversed, wagi, bounds=bnds2, constraints=cons)
         print('wagi optymalizacja 1',result.x)
 
-        #ta daje mniej fajne wyniki
+        #OPTYMALIZACJA 2
         cons2 = ({'type': 'eq', 'fun': lambda x:  sum(x) - 1},
             {'type': 'ineq', 'fun': lambda x: get_portfolio_exp_return(x) - max_expected_return})
 
@@ -556,14 +567,28 @@ def portfolioOptimize(request, pk):
         
         print('wagi optymalizacja 2',result2.x)
 
+        #OPTYMALIZACJA 3
+        cons3 = ({'type': 'eq', 'fun': lambda x:  sum(x) - 1})
         
+
+        result3 = opt.minimize(get_sharpe_ratio_reversed, wagi, bounds=bnds2, constraints=cons3)
+        print('wagi optymalizacja 3',result3.x)
+
+
+
         #nowe_wagi*wartość_portfela=ile bedą warte te nowe
-        new_values = result.x*portfolio_value
+        new_values = result3.x*portfolio_value
         print(new_values)
         new_amount = new_values/portfolio['live price']
         print(new_amount)
         delta_amount = new_amount-portfolio['ilosc akcji']
         print(delta_amount)
+        new_frame = {'new amount': new_amount, 'zmiana': delta_amount}
+        new_portfolio = pd.DataFrame(new_frame)
+        
+        new_portfolio.loc[new_portfolio.zmiana > 0, 'akcja'] = "Dokup" 
+        
+        print(new_portfolio)
         #ile sztuk nowych akcji = te nowe/cena aktualna
         #stare_akcje-nowe_akcje = ile dokupic/sprzedać
     else:
