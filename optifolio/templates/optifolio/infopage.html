@@ -33,7 +33,8 @@
         Jak działa Optymalizacja?
     </h3>
     <p class="text-justify">
-        Nasz moduł optymalizacji sugeruje zmiany, jakie warto wprowadzić w swoim portfolio w oparciu o Modern Portfolio Theory i dane historyczne z notowań na giełdzie. Dla wszystkich spółek obecnych w indeksie NASDAQ100 liczy on średni zysk z ostatnich <em>n</em> miesięcy oraz tworzy macierz wariancji i kowariancji. W następnym kroku wykorzystywana jest funkcja, która ustala jaką część portfolio powinny stanowić akcje każdej ze spółek tak, aby oczekiwany zysk był jak największy, ryzyko jak najmniejsze bądź stosunek zysku do ryzyka jak najbardziej korzystny. Oczekiwany zwrot z portfolio liczony jest jako <em> równanie 1 </em> gdzie <em>w</em> to wektor z procentowym udziałem akcji każdej ze spółek w portfolio, a <em>u</em> to wektor średnich zysków z akcji każdej ze spółek. Ryzyko określane jest w oparciu o odchylenie standardowe portfolia liczone ze wzoru <em> równanie 2 </em>, gdzie <em>C</em> to macierz wariancji i kowariancji dla wszystkich spółek.
+        Nasz moduł optymalizacji sugeruje zmiany, jakie warto wprowadzić w swoim portfolio, w oparciu o Modern Portfolio Theory i dane historyczne z notowań na giełdzie. Proponowane inwestycje charakteryzują się wysokim oczekiwanym zyskiem w stosunku do podejmowanego ryzyka.
+        Dla wszystkich spółek obecnych w indeksie NASDAQ500 pobiera on dane o średnim miesięcznym zwrotcie z ostatnich 3 lat. Jako miarę ryzyka wykorzystuje odchylenie standardowe. Dodoatkowo, korzysta on z informacji o korelacjach występujących pomiędzy notowaniami poszczególnych spółek. Dzięki temu pozwala uniknąć inwestowania w podobne spółki i minimalizuje ryzyko poniesienia dużych strat.
     </p>
     <h3 class="text-justify">
         Ostrzeżenie

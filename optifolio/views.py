@@ -404,8 +404,8 @@ def portfolioState(request, pk):
     price = []
     value = []
 
-    for v in visdata:
-        price.append(get_live_price(str(v.title2)))
+    for sub_list in portfolio_current_state:
+        price.append(get_live_price(str(sub_list[0])))
         
     for temp in range(len(portfolio_current_state)):
         value.append(portfolio_current_state[temp][1] * price[temp])
@@ -437,12 +437,6 @@ def portfolioState(request, pk):
             del portfolio_current_state[k]
 
         #print(portfolio_current_state)'''
-
-    #jakbym chciala dorzucic obecny kurs (a chcialabym):
-    #price = []
-    #for v in visdata:
-        #print(v.title2)
-        #price.append(get_live_price(str(v.title2)))
 
     #przesylam portfolio current state do podstronki z optymalizacja
     request.session['portfolio_current_state'] = portfolio_current_state

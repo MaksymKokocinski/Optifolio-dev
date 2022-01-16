@@ -4,7 +4,7 @@
 <br>
 <div class="container navadj">
     <div class="container-fluid">
-        <p class="text-md-left ml-1" style="font-size:36px;font-weight:bold;">Wizualizacja</p>
+        <p class="text-md-left ml-1" style="font-size:36px;font-weight:bold;">Twoje portfolio {{current_portfolio.portfolio_title}}</p>
     </div>
 </div>
 
@@ -37,8 +37,8 @@
           <table class="table table-bordered" style="position:static;width:360px;">
             <thead>
               <tr>
-                <th class="text-center">Symbol</th>
-                <th class="text-center">Liczba</th>
+                <th class="text-center">Symbol spółki</th>
+                <th class="text-center">Liczba akcji</th>
               </tr>
             </thead>
             <tbody>
@@ -54,7 +54,7 @@
         <div class="column">
           <table class="table table-bordered" style="position:static;width:240px;">
             <thead>
-              <th class=" text-center">Aktualna cena</th>
+              <th class=" text-center">Aktualny kurs</th>
             </thead>
             <tbody>
               {% for temp in price %}
@@ -68,7 +68,7 @@
         <div class="column">
             <table class="table table-bordered" style="position:static;width:240px;">
                 <thead>
-                    <th class=" text-center">Wartość</th>
+                    <th class=" text-center">Wartość posiadanych akcji</th>
                 </thead>
                 <tbody>
                     {% for temp in value %}

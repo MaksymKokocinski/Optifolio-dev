@@ -4,7 +4,7 @@
 <br>
 <div class="container navadj">
     <div class="container-fluid">
-      <p class="text-md-left ml-1" style="font-size:36px;font-weight:bold;">Stan przed optymalizacją</p>
+        <p class="text-md-left ml-1" style="font-size:36px;font-weight:bold;">Portfolio {{current_portfolio.portfolio_title}} przed optymalizacją</p>
     </div>
 </div> 
   <div class="container navadj">
@@ -13,8 +13,8 @@
             <table class="table table-bordered" style="max-width:800px;">
                 <thead>
                     <tr>
-                        <th class="text-center">Symbol</th>
-                        <th class="text-center">Liczba</th>
+                        <th class="text-center">Symbol spółki</th>
+                        <th class="text-center">Liczba posiadanych akcji</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -57,7 +57,7 @@
         <table  class="table table-bordered" style="width:335px;">
             <thead>
                 <tr>
-                    <th class="text-center">Ilość akcji po zmianie</th>
+                    <th class="text-center">Liczba akcji po optymalizacji</th>
                 </tr>
             </thead>
             <tbody>
@@ -91,7 +91,7 @@
 
 <div class="container navadj mt-3">
     <div class="d-flex items-align-center justify-content-center" style="width:800px;">
-      <a class="anultrans d-flex justify-content-center align-items-center" href="{% url 'portfolio_state' current_portfolio.portfolio_id %}" style="text-decoration:none;">Wizualizacja</a>
+      <a class="anultrans d-flex justify-content-center align-items-center" href="{% url 'portfolio_state' current_portfolio.portfolio_id %}" style="text-decoration:none;">Twoje portfolio</a>
       <a class="anultrans d-flex justify-content-center align-items-center ml-4" href="{% url 'vispage' current_portfolio.portfolio_id %}" style="text-decoration:none;">Lista transakcji</a>
     </div>
   </div>
