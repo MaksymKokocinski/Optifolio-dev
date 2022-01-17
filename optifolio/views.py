@@ -586,9 +586,23 @@ def portfolioOptimize(request, pk):
         new_frame = {'new amount': new_amount, 'zmiana': delta_amount}
         new_portfolio = pd.DataFrame(new_frame)
         
-        new_portfolio.loc[new_portfolio.zmiana > 0, 'akcja'] = "Dokup" 
-        
+        #funkcja pomocnicza
+        def check_action(delta_amount, axis):
+            if delta_amount > 0:
+                return 'Dokup'
+            else:
+                return 'Sprzedaj'
+
+        #tworzę dane do nowej kolumny
+        action = new_portfolio['zmiana'].apply(check_action, axis=1)
+        print('akcja', action)
+        #dodaję kolumnę z akcją
+        new_portfolio['akcja'] = action
+        #zamieniam wartość w kolumnie na nieujemne
+        new_portfolio['zmiana'] = new_portfolio['zmiana'].apply(np.abs, axis=1)
         print(new_portfolio)
+        
+        
         #ile sztuk nowych akcji = te nowe/cena aktualna
         #stare_akcje-nowe_akcje = ile dokupic/sprzedać
     else:
