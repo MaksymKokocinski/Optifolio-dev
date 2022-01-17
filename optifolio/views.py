@@ -1,3 +1,4 @@
+from distutils.ccompiler import new_compiler
 from xml.dom import NoDataAllowedErr
 import pandas as pd
 import numpy as np
@@ -601,14 +602,14 @@ def portfolioOptimize(request, pk):
         #zamieniam wartość w kolumnie na nieujemne
         new_portfolio['zmiana'] = new_portfolio['zmiana'].apply(np.abs, axis=1)
         print(new_portfolio)
-        
-        
-        #ile sztuk nowych akcji = te nowe/cena aktualna
-        #stare_akcje-nowe_akcje = ile dokupic/sprzedać
+        new_portfolio_list = new_portfolio.values.tolist()
+        print(new_portfolio_list)
+        context = {'portfolio_current_state': portfolio_current_state, 'visdata': visdata, 'current_portfolio': current_portfolio,'delta_amount':delta_amount,'new_amount':new_amount, 'new_portfolio_list': new_portfolio_list  }
+    
     else:
         print('Portfolio jest puste')
-
-    context = {'portfolio_current_state': portfolio_current_state, 'visdata': visdata, 'current_portfolio': current_portfolio,'delta_amount':delta_amount,'new_amount':new_amount}
+        context = {'portfolio_current_state':portfolio_current_state,'visdata':visdata,'current_portfolio':current_portfolio}
+    
     return render(request, 'optifolio/optimize.html', context)
 
 

@@ -77,9 +77,9 @@
               </tr>
           </thead>
           <tbody>
-            {% for value in delta_amount.items %}
+            {% for entry in new_portfolio_list %}
               <tr>
-                  <th class=" text-center">{{ value.1 }}</th>
+                  <th class=" text-center">{{ entry.2 }}{{" "}}{{entry.1}}</th>
               </tr>
             {% endfor %}
           </tbody>
