@@ -586,7 +586,10 @@ def portfolioOptimize(request, pk):
         print(delta_amount)
         new_frame = {'new amount': new_amount, 'zmiana': delta_amount}
         new_portfolio = pd.DataFrame(new_frame)
+        new_sharpe_ratio = get_portfolio_sharpe_ratio(result3.x)
         
+        print('stare sharpe ratio',get_portfolio_sharpe_ratio(wagi),'nowe sharpe ratio',new_sharpe_ratio)
+        print("stary oczekiwany zwrot",get_portfolio_exp_return(wagi),"nowy oczekiwany zwrot",get_portfolio_exp_return(result3.x))
         #funkcja pomocnicza
         def check_action(delta_amount, axis):
             if delta_amount > 0:
@@ -602,9 +605,11 @@ def portfolioOptimize(request, pk):
         #zamieniam wartość w kolumnie na nieujemne
         new_portfolio['zmiana'] = new_portfolio['zmiana'].apply(np.abs, axis=1)
         print(new_portfolio)
+        new_portfolio = new_portfolio.round({'new amount':2, 'zmiana':2 })
+        print(new_portfolio)
         new_portfolio_list = new_portfolio.values.tolist()
         print(new_portfolio_list)
-        context = {'portfolio_current_state': portfolio_current_state, 'visdata': visdata, 'current_portfolio': current_portfolio,'delta_amount':delta_amount,'new_amount':new_amount, 'new_portfolio_list': new_portfolio_list  }
+        context = {'portfolio_current_state': portfolio_current_state, 'visdata': visdata, 'current_portfolio': current_portfolio,'delta_amount':delta_amount,'new_portfolio_list': new_portfolio_list  }
     
     else:
         print('Portfolio jest puste')
