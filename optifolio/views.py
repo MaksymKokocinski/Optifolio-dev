@@ -407,7 +407,7 @@ def portfolioState(request, pk):
     value = []
 
     for sub_list in portfolio_current_state:
-        price.append(get_live_price(str(sub_list[0])))
+        price.append(round(get_live_price(str(sub_list[0])),2))
         
     for temp in range(len(portfolio_current_state)):
         value.append(portfolio_current_state[temp][1] * price[temp])
