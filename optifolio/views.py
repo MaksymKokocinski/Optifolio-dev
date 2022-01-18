@@ -329,6 +329,7 @@ def visPage(request, pk):
         profit_earned = aggregated_data['total']
         profit_earned = format(profit_earned, ".2f")
         
+
         current_portfolio = Portfolio.objects.get(portfolio_id = pk)
         current_portfolio.p_shares_num_sum = shares_num_sum
         current_portfolio.p_comp_num_sum = comp_number
@@ -609,7 +610,12 @@ def portfolioOptimize(request, pk):
         print(new_portfolio)
         new_portfolio_list = new_portfolio.values.tolist()
         print(new_portfolio_list)
-        context = {'portfolio_current_state': portfolio_current_state, 'visdata': visdata, 'current_portfolio': current_portfolio,'delta_amount':delta_amount,'new_portfolio_list': new_portfolio_list  }
+        expected_return = ['Oczekiwany zwrot',str(round(get_portfolio_exp_return(wagi)*100,2))+"%",str(round(get_portfolio_exp_return(result3.x)*100,2))+"%"]
+        standard_deviation = ['Odchylenie standardowe',str(round(get_portfolio_std_deviation(wagi),4)*100)+"%",str(round(get_portfolio_std_deviation(result3.x),4)*100)+"%"]
+        sharpe_ratio_wskazniki = ['Sharpe ratio',round(get_portfolio_sharpe_ratio(wagi),2),round(get_portfolio_sharpe_ratio(result3.x),2)]
+        wskazniki = [expected_return,standard_deviation,sharpe_ratio_wskazniki]
+        print(wskazniki)
+        context = {'portfolio_current_state': portfolio_current_state, 'visdata': visdata, 'current_portfolio': current_portfolio,'delta_amount':delta_amount,'new_portfolio_list': new_portfolio_list,'wskazniki':wskazniki  }
     
     else:
         print('Portfolio jest puste')

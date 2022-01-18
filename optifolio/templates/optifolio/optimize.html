@@ -109,15 +109,17 @@
         <table class="table table-bordered" style="max-width:600px;">
             <thead>
                 <tr>
-                    <th class="text-center">Symbol spółki</th>
-                    <th class="text-center">Liczba posiadanych akcji</th>
+                  <th class="text-center">Wskaźnik</th>
+                    <th class="text-center">Przed optymalizacją</th>
+                    <th class="text-center">Po optymalizacji</th>
                 </tr>
             </thead>
             <tbody>
-                {% for entry in portfolio_current_state %}
+                {% for entry in wskazniki %}
                 <tr>
                     <th class=" text-center">{{ entry.0 }}</th>
                     <th class=" text-center">{{ entry.1 }}</th>
+                    <th class=" text-center">{{ entry.2 }}</th>
                 </tr>
                 {% endfor %}
             </tbody>
