@@ -2,21 +2,22 @@
 {% load static %}
 {% block content %}
 <br>
+<div class="navadj">
 <div class="column">
-<div class="container navadj">
+<div class="container">
   <div class="container-fluid">
       <p class="text-md-left ml-1" style="font-size:36px;font-weight:bold;">Optymalizacja</p>
   </div>
 </div> 
-<div class="container navadj mt-3">
+<div class="container  mt-3">
     <div class="container-fluid">
         <p class="text-md-left ml-1" style="font-size:26px;font-weight:bold;">Portfolio {{current_portfolio.portfolio_title}} przed optymalizacją</p>
     </div>
 </div> 
-  <div class="container navadj">
-    <div class="tabelkakontener p-3 mt-3 ml-4" style="max-width:800px;">
+  <div class="container ">
+    <div class="tabelkakontener p-3 mt-3 ml-4" style="width:710px;">
         <div class="table-wrapper-scroll-y scrollbar">
-            <table class="table table-bordered" style="max-width:800px;">
+            <table class="table table-bordered" style="width:710px;">
                 <thead>
                     <tr>
                         <th class="text-center">Symbol spółki</th>
@@ -35,16 +36,16 @@
         </div>
       </div>
     </div>
-<div class="container navadj mt-3">
+<div class="container  mt-3">
   <div class="container-fluid">
     <p class="text-md-left ml-1" style="font-size:26px;font-weight:bold;">Optymalizacja - sugerowane zmiany</p>
   </div>
 </div> 
-<div class="container navadj">
-  <div class="tabelkakontener p-3 mt-3 ml-4" style="width:800px;">
+<div class="container ">
+  <div class="tabelkakontener p-3 mt-3 ml-4" style="width:710px;">
     <div class="table-wrapper-scroll-y scrollbar">
       <div class="column">
-        <table class="table table-bordered" style="width:100px;">
+        <table class="table table-bordered" style="width:80px;">
           <thead>
               <tr>
                   <th class="text-center">Symbol</th>
@@ -60,7 +61,7 @@
         </table>
       </div>
       <div class="column">
-        <table  class="table table-bordered" style="width:335px;">
+        <table  class="table table-bordered" style="width:300px;">
             <thead>
                 <tr>
                     <th class="text-center">Liczba akcji po optymalizacji</th>
@@ -76,7 +77,7 @@
         </table>
       </div>
       <div class="column">
-        <table  class="table table-bordered" style="width:335px;">
+        <table  class="table table-bordered" style="width:300px;">
           <thead>
               <tr>
                   <th class="text-center">Zmiana</th>
@@ -95,7 +96,7 @@
   </div>
 </div>
 
-<div class="container navadj mt-3">
+<div class="container mt-3">
     <div class="d-flex items-align-center justify-content-center" style="width:800px;">
       <a class="anultrans d-flex justify-content-center align-items-center" href="{% url 'portfolio_state' current_portfolio.portfolio_id %}" style="text-decoration:none;">Twoje portfolio</a>
       <a class="anultrans d-flex justify-content-center align-items-center ml-4" href="{% url 'vispage' current_portfolio.portfolio_id %}" style="text-decoration:none;">Lista transakcji</a>
@@ -126,5 +127,6 @@
         </table>
     </div>
   </div>
+</div>
 </div>
 {% endblock %}
