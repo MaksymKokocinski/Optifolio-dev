@@ -3,21 +3,22 @@
 {% block content %}
 <br>
 <div class="navadj">
-<div class="column" style="width:660px">
-<div class="container">
+
   <div class="container-fluid">
       <p class="text-md-left ml-1" style="font-size:36px;font-weight:bold;">Optymalizacja</p>
   </div>
-</div> 
-<div class="container  mt-3">
+
+<div class="mt-3">
     <div class="container-fluid">
         <p class="text-md-left ml-1" style="font-size:26px;font-weight:bold;">Portfolio {{current_portfolio.portfolio_title}} przed optymalizacją</p>
     </div>
 </div> 
-  <div class="container ">
-    <div class="tabelkakontener p-3 mt-3 ml-4" style="width:620px;">
+<table>
+  <tr>
+    <td>
+    <div class="tabelkakontener p-3 mt-3 ml-4" style="width:660px;">
         <div class="table-wrapper-scroll-y scrollbar">
-            <table class="table table-bordered" style="width:620px;">
+            <table class="table table-bordered" style="width:660px;">
                 <thead>
                     <tr>
                         <th class="text-center">Symbol spółki</th>
@@ -35,14 +36,41 @@
             </table>
         </div>
       </div>
-    </div>
-<div class="container  mt-3">
+    </td>
+    <td>
+      <div class="tabelkakontener p-3 mt-3 ml-5" style="max-width:600px;">
+        <div class="table-wrapper-scroll-y scrollbar">
+            <table class="table table-bordered" style="max-width:600px;">
+                <thead>
+                    <tr>
+                      <th class="text-center">Wskaźnik</th>
+                        <th class="text-center">Przed optymalizacją</th>
+                        <th class="text-center">Po optymalizacji</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entry in wskazniki %}
+                    <tr>
+                        <th class=" text-center">{{ entry.0 }}</th>
+                        <th class=" text-center">{{ entry.1 }}</th>
+                        <th class=" text-center">{{ entry.2 }}</th>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+      </div>
+    </td>
+  </tr>
+</table>
+    
+<div class="mt-3">
   <div class="container-fluid">
     <p class="text-md-left ml-1" style="font-size:26px;font-weight:bold;">Optymalizacja - sugerowane zmiany</p>
   </div>
 </div> 
-<div class="container ">
-  <div class="tabelkakontener p-3 mt-3 ml-4" style="width:620px;">
+
+  <div class="tabelkakontener p-3 mt-3 ml-4" style="width:660px;">
     <div class="table-wrapper-scroll-y scrollbar">
       <div class="column">
         <table class="table table-bordered" style="width:80px;">
@@ -61,7 +89,7 @@
         </table>
       </div>
       <div class="column">
-        <table  class="table table-bordered" style="width:240px;">
+        <table  class="table table-bordered" style="width:260px;">
             <thead>
                 <tr>
                     <th class="text-center">Liczba akcji po optymalizacji</th>
@@ -77,7 +105,7 @@
         </table>
       </div>
       <div class="column">
-        <table  class="table table-bordered" style="width:270px;">
+        <table  class="table table-bordered" style="width:290px;">
           <thead>
               <tr>
                   <th class="text-center">Zmiana</th>
@@ -94,39 +122,15 @@
       </div>
   </div>
   </div>
-</div>
 
-<div class="container mt-3">
-    <div class="d-flex items-align-center justify-content-center" style="width:800px;">
+
+<div class="mt-3">
+    <div class="d-flex items-align-center justify-content-center" style="width:600px;">
       <a class="anultrans d-flex justify-content-center align-items-center" href="{% url 'portfolio_state' current_portfolio.portfolio_id %}" style="text-decoration:none;">Twoje portfolio</a>
       <a class="anultrans d-flex justify-content-center align-items-center ml-4" href="{% url 'vispage' current_portfolio.portfolio_id %}" style="text-decoration:none;">Lista transakcji</a>
     </div>
   </div>
 
-</div>
-<div class="column">
-  <div class="tabelkakontener p-3 ml-5" style="max-width:600px;margin-top:155px;">
-    <div class="table-wrapper-scroll-y scrollbar">
-        <table class="table table-bordered" style="max-width:600px;">
-            <thead>
-                <tr>
-                  <th class="text-center">Wskaźnik</th>
-                    <th class="text-center">Przed optymalizacją</th>
-                    <th class="text-center">Po optymalizacji</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for entry in wskazniki %}
-                <tr>
-                    <th class=" text-center">{{ entry.0 }}</th>
-                    <th class=" text-center">{{ entry.1 }}</th>
-                    <th class=" text-center">{{ entry.2 }}</th>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-  </div>
-</div>
+
 </div>
 {% endblock %}
