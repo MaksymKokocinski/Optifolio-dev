@@ -51,8 +51,10 @@
   </div>
 </div>
 <div class="container navadj width:100%;">
-    <div class="sumdiv">
+<table>
+    <tr>
 {% for temp in all_user_portfolio %}
+<td>
     <div class="kafelek ml-4 mt-3">
         <div class="grafika"> </div>
         <div class="sumnapis d-flex justify-content-center align-items-center mt-3">{{ temp.portfolio_title }}</div>
@@ -144,8 +146,10 @@
         </div>
         <div class="summfoot d-flex justify-content-center align-items-center p-4">Ostatnia aktualizacja {{temp.p_last_mod_date}}</div>
     </div>
+</td>
 {% endfor %}
-</div>
+</tr>
+</table>
     <div class="modal fade" id="usunModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content d-flex justify-content-center align-items-center" style=" border-radius: 25px;
