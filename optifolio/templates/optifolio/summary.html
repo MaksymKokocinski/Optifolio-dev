@@ -13,9 +13,6 @@
             <div id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><div class="przyciskportf d-flex justify-content-center align-items-center">Aktualne</div></a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="#"><button class="przyciskportf1" data-toggle="modal" data-target="#sumModal"><div class="d-flex justify-content-center align-items-center">Dodaj portfolio</div></button></a>
                     </li>                
                 </ul>
@@ -140,7 +137,7 @@
         </table>
         </div>
         <div class="d-flex justify-content-center align-items-center mt-3">
-            <a class="navbutthead mr-4 d-flex justify-content-center align-items-center" href="{% url 'optimize' temp.portfolio_id %}" style="text-decoration:none;">Optymalizuj</a>
+            
             <a class="navbutt mr-4 d-flex justify-content-center align-items-center" href="{% url 'portfolio_state' temp.portfolio_id %}" style="text-decoration:none;">Wyświetl</a>
             <a class="navbutt d-flex justify-content-center align-items-center" href="{% url 'delete_portfolio' temp.portfolio_id %}" style="text-decoration:none;">Usuń</a>
             

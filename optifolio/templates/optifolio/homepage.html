@@ -8,7 +8,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
-<link rel="stylesheet" type="text/css" href="..\static\css\main.css">
+<link rel="stylesheet" type="text/css" href="/static/css/main.css">
 <link href="https://fonts.googleapis.com/css?family=Mulish&display=swap" rel="stylesheet" />
 </head>
 
@@ -31,9 +31,8 @@
 </div>
 </nav>
 
-<div class="container-fluid justify-content-center">
-    <div class="row justify-content-center" style="width:100%;">
-        <div class="col-4 opis justify" style="padding-left:70px;">
+<div class="d-flex justify-content-center align-items-center" style="width:100%;">
+        <div class="float-left" style="max-width:700px;padding-right:150px;">
             <div class="napis d-flex justify-content-center align-items-center">
                 Optifolio
             </div>
@@ -45,13 +44,29 @@
     Grupą docelową projektu są osoby inwestujące na giełdzie, szukające narzędzia pozwalającego, na automatyczne przeprowadzenie obliczeń i wizualizację danych.</p>
         </div>
 
-        <div class="col-8" align="center" style="margin-top:130px;">
+        <div class="d-flex justify-content-center align-items-center float-left">
+            <table>
+                <tr>
+                    <td  style="padding-top:50px;padding-left:50px;">
+                        <img class="tablebord" src="/static/images/example.png" height="300" width="450">
+                    </td>
+                    <td style="padding-top:50px;padding-left:50px;">
+                        <img class="tablebord" src="/static/images/example.png" height="300" width="450">
+                    </td>
+                </tr>
+                <tr class="homepagetable">
+                    <td style="padding-top:50px;padding-left:50px;">
+                        <img class="tablebord" src="/static/images/example.png" height="300" width="450">
+                    </td>
+                    <td style="padding-top:50px;padding-left:50px;">
+                        <img class="tablebord" src="/static/images/example.png" height="300" width="450">
+                    </td>
+                </tr>
+            </table>
 
-            </div>
-           
         </div>
     </div>
- </div>
+</div>
 
 {% endblock content %}
 

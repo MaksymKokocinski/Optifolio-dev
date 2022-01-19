@@ -1,3 +1,16 @@
+.tablebord{
+  border-radius: 25px;
+}
+
+.tytuly{
+  font-size:36px;
+  font-weight:bold;
+}
+
+.infozaw{
+  font-size: 20px;
+}
+
 .navadj{
 margin-left: 230px;
 }
@@ -681,10 +694,6 @@ a{
     background-color: #9FA2B4;
   }
 
-  th,td,tr,thead{
-    background-color: white;
-
-  }
 
   .scrollbar {
     position: relative;
