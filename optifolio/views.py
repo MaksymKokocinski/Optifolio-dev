@@ -562,27 +562,10 @@ def portfolioOptimize(request, pk):
         cons = ({'type': 'eq', 'fun': lambda x:  sum(x) - 1},
             {'type': 'ineq', 'fun': lambda x: min_std_dev - get_portfolio_std_deviation(x)})
         result = opt.minimize(get_portfolio_exp_return_reversed, wagi, bounds=bnds2, constraints=cons)
-        
-
-        #OPTYMALIZACJA 2
-        cons2 = ({'type': 'eq', 'fun': lambda x:  sum(x) - 1},
-            {'type': 'ineq', 'fun': lambda x: get_portfolio_exp_return(x) - max_expected_return})
-
-        result2 = opt.minimize(get_portfolio_std_deviation, wagi, constraints=cons2,bounds=bnds2)
-        
-        
-
-        #OPTYMALIZACJA 3
-        cons3 = ({'type': 'eq', 'fun': lambda x:  sum(x) - 1})
-        
-
-        result3 = opt.minimize(get_sharpe_ratio_reversed, wagi, bounds=bnds2, constraints=cons3)
-        
-
 
 
         #nowe_wagi*wartość_portfela=ile bedą warte te nowe
-        new_values = result3.x*portfolio_value
+        new_values = result.x*portfolio_value
         new_amount = new_values/portfolio['live price']
         delta_amount = new_amount-portfolio['ilosc akcji']
         new_frame = {'new amount': new_amount, 'zmiana': delta_amount}
@@ -605,7 +588,7 @@ def portfolioOptimize(request, pk):
         new_portfolio = new_portfolio.round({'new amount':2, 'zmiana':2 })
         new_portfolio_list = new_portfolio.values.tolist()
         expected_return = ['Oczekiwany zwrot',str(round(get_portfolio_exp_return(wagi)*100,2))+"%",str(round(get_portfolio_exp_return(result.x)*100,2))+"%"]
-        standard_deviation = ['Odchylenie standardowe',str(round(get_portfolio_std_deviation(wagi),4)*100)+"%",str(round(get_portfolio_std_deviation(result.x),4)*100)+"%"]
+        standard_deviation = ['Odchylenie standardowe',str(round(get_portfolio_std_deviation(wagi)*100,2))+"%",str(round(get_portfolio_std_deviation(result.x)*100,2))+"%"]
         sharpe_ratio_wskazniki = ['Sharpe ratio',round(get_portfolio_sharpe_ratio(wagi),2),round(get_portfolio_sharpe_ratio(result.x),2)]
         wskazniki = [expected_return,standard_deviation,sharpe_ratio_wskazniki]
 
@@ -755,7 +738,7 @@ def portfolioOptimize_2(request, pk):
         new_portfolio = new_portfolio.round({'new amount':2, 'zmiana':2 })
         new_portfolio_list = new_portfolio.values.tolist()
         expected_return = ['Oczekiwany zwrot',str(round(get_portfolio_exp_return(wagi)*100,2))+"%",str(round(get_portfolio_exp_return(result2.x)*100,2))+"%"]
-        standard_deviation = ['Odchylenie standardowe',str(round(get_portfolio_std_deviation(wagi),4)*100)+"%",str(round(get_portfolio_std_deviation(result2.x),4)*100)+"%"]
+        standard_deviation = ['Odchylenie standardowe',str(round(get_portfolio_std_deviation(wagi)*100,2))+"%",str(round(get_portfolio_std_deviation(result2.x)*100,2))+"%"]
         sharpe_ratio_wskazniki = ['Sharpe ratio',round(get_portfolio_sharpe_ratio(wagi),2),round(get_portfolio_sharpe_ratio(result2.x),2)]
         wskazniki = [expected_return,standard_deviation,sharpe_ratio_wskazniki]
         
@@ -899,7 +882,7 @@ def portfolioOptimize_3(request, pk):
         new_portfolio = new_portfolio.round({'new amount':2, 'zmiana':2 })
         new_portfolio_list = new_portfolio.values.tolist()
         expected_return = ['Oczekiwany zwrot',str(round(get_portfolio_exp_return(wagi)*100,2))+"%",str(round(get_portfolio_exp_return(result3.x)*100,2))+"%"]
-        standard_deviation = ['Odchylenie standardowe',str(round(get_portfolio_std_deviation(wagi),4)*100)+"%",str(round(get_portfolio_std_deviation(result3.x),4)*100)+"%"]
+        standard_deviation = ['Odchylenie standardowe',str(round(get_portfolio_std_deviation(wagi)*100,2))+"%",str(round(get_portfolio_std_deviation(result3.x)*100,2))+"%"]
         sharpe_ratio_wskazniki = ['Sharpe ratio',round(get_portfolio_sharpe_ratio(wagi),2),round(get_portfolio_sharpe_ratio(result3.x),2)]
         wskazniki = [expected_return,standard_deviation,sharpe_ratio_wskazniki]
         context = {'portfolio_current_state': portfolio_current_state, 'visdata': visdata, 'current_portfolio': current_portfolio,'delta_amount':delta_amount,'new_portfolio_list': new_portfolio_list,'wskazniki':wskazniki  }
