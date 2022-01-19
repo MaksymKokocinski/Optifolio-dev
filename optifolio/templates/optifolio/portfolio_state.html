@@ -18,21 +18,38 @@
                         </li>
                         <li class="nav-item">
                             <a class="przyciskportf1 d-flex justify-content-center align-items-center ml-4" href="{% url 'add_transaction' current_portfolio.portfolio_id %}" style="text-decoration:none;">Dodaj transakcję</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="przyciskportf d-flex justify-content-center align-items-center ml-4" href="{% url 'optimize' current_portfolio.portfolio_id %}" style="text-decoration:none;">Maksymalny zwrot</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="przyciskportf d-flex justify-content-center align-items-center ml-4" href="{% url 'optimize2' current_portfolio.portfolio_id %}" style="text-decoration:none;">Minimalne odchylenie </a>
-                      </li> 
-                      <li class="nav-item">
-                        <a class="przyciskportf d-flex justify-content-center align-items-center ml-4" href="{% url 'optimize3' current_portfolio.portfolio_id %}" style="text-decoration:none;">Maksymalne sharpe ratio</a>
-                    </li>              
+                        </li>          
                     </ul>
     
                 </div>
             </div>
         </nav>
+</div>
+
+<div class="container navadj">
+  <div class="container-fluid">
+      <p class="text-md-left ml-1" style="font-size:36px;font-weight:bold;">Optymalizacja</p>
+  </div>
+</div>
+<div class="container navadj">
+  <nav class="navbar navbar-expand">
+          <div class="container-fluid">
+              <div id="navbarResponsive">
+                  <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                      <a class="przyciskportf d-flex justify-content-center align-items-center" href="{% url 'optimize' current_portfolio.portfolio_id %}" style="text-decoration:none;">Maksymalny zwrot</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="przyciskportf d-flex justify-content-center align-items-center ml-4" href="{% url 'optimize2' current_portfolio.portfolio_id %}" style="text-decoration:none;">Minimalne odchylenie </a>
+                    </li> 
+                    <li class="nav-item">
+                    <a class="przyciskportf d-flex justify-content-center align-items-center ml-4" href="{% url 'optimize3' current_portfolio.portfolio_id %}" style="text-decoration:none;">Maksymalne sharpe ratio</a>
+                    </li>          
+                  </ul>
+  
+              </div>
+          </div>
+      </nav>
 </div>
 
 <div class="container navadj mt-4">
@@ -93,9 +110,9 @@
 <div class="container navadj mt-4">
     <div class=" tabelkakontener ml-3" style="width:900px;">
       <div class ="d-flex justify-content-center align-items-center">
-        <button class="wykres1" onclick="chartType('bar')">Bar</button>
-        <button class="wykres1" onclick="chartType('line')">Line</button>
-        <button class="wykres1" onclick="chartType('polarArea')">PolarArea</button>
+        <button class="wykres1" onclick="chartType('bar')">Słupkowy</button>
+        <button class="wykres1" onclick="chartType('line')">Liniowy</button>
+        <button class="wykres1" onclick="chartType('polarArea')">Kołowy</button>
       </div>
     <div>
       <div class="chartCard">
