@@ -104,7 +104,7 @@
   
       const data = {
   
-            labels: [{% for item in visdata %}'{{item.title2}}',{%endfor%}],
+            labels: [{% for item in value_comp %}'{{item}}',{%endfor%}],
             datasets: [{
               label: 'Shares number',
               data: [{% for item in value %}'{{item}}',{%endfor%}],

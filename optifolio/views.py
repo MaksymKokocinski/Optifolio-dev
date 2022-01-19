@@ -401,15 +401,20 @@ def portfolioState(request, pk):
         if sub_list[1] == 0:
             portfolio_current_state.remove(sub_list)
 
-
+    #print(portfolio_current_state)
     price = []
     value = []
+    value_comp = []
 
     for sub_list in portfolio_current_state:
         price.append(get_live_price(str(sub_list[0])))
         
     for temp in range(len(portfolio_current_state)):
         value.append(portfolio_current_state[temp][1] * price[temp])
+
+    for temp in range(len(portfolio_current_state)):
+        value_comp.append(portfolio_current_state[temp][0])
+    print(value_comp)
 
     #stary kod ze słownikiem
     #tu sobie licze obecna zawartosc portfolio
@@ -442,7 +447,7 @@ def portfolioState(request, pk):
     #przesylam portfolio current state do podstronki z optymalizacja
     request.session['portfolio_current_state'] = portfolio_current_state
 
-    context = {'portfolio_current_state': portfolio_current_state, 'visdata': visdata, 'current_portfolio': current_portfolio,'price':price,'value':value,}
+    context = {'value_comp':value_comp,'portfolio_current_state': portfolio_current_state, 'visdata': visdata, 'current_portfolio': current_portfolio,'price':price,'value':value,}
     return render(request, 'optifolio/portfolio_state.html', context)
 
 
