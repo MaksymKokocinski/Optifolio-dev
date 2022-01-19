@@ -62,68 +62,79 @@
       </div>
     </td>
   </tr>
+<tr>
+    <td>
+      <div class="mt-3">
+        <div class="container-fluid">
+          <p class="text-md-left ml-1" style="font-size:26px;font-weight:bold;">Optymalizacja - sugerowane zmiany</p>
+        </div>
+      </div> 
+
+      <div class="tabelkakontener p-3 mt-3 ml-4" style="width:660px;">
+        <div class="table-wrapper-scroll-y scrollbar">
+          <div class="column">
+            <table class="table table-bordered" style="width:80px;">
+              <thead>
+                  <tr>
+                      <th class="text-center">Symbol</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for entry in portfolio_current_state %}
+                  <tr>
+                      <th class=" text-center">{{ entry.0 }}</th>
+                  </tr>
+                  {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div class="column">
+            <table  class="table table-bordered" style="width:260px;">
+                <thead>
+                    <tr>
+                        <th class="text-center">Liczba akcji po optymalizacji</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  {% for value in new_portfolio_list %}
+                    <tr>
+                        <th class=" text-center">{{ value.0 }}</th>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+            </table>
+          </div>
+          <div class="column">
+            <table  class="table table-bordered" style="width:280px;">
+              <thead>
+                  <tr>
+                      <th class="text-center">Zmiana</th>
+                  </tr>
+              </thead>
+              <tbody>
+                {% for entry in new_portfolio_list %}
+                  <tr>
+                      <th class=" text-center">{{ entry.2 }}{{" "}}{{entry.1}}</th>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+      </div>
+      </div>
+    </td>
+
+    <td>
+      <div class="container">
+        <p class="text-md-left ml-1" style="font-size:26px;font-weight:bold;">Optymalizacja - opis</p>
+      </div>
+      <div class="tabelkakontener p-3 mt-3 ml-4" style="max-width:490px;">
+        <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tincidunt felis vitae congue lobortis. Aliquam iaculis tristique tortor, quis gravida lacus malesuada sodales. Vivamus semper condimentum magna, sed gravida libero tempus sed. Aliquam ac lacus vehicula est fringilla convallis. Donec fermentum et lacus id imperdiet. Maecenas pharetra metus massa, a aliquet ipsum sagittis in. Duis pulvinar odio leo, id egestas libero elementum nec. Mauris a sagittis velit. Vestibulum a orci est. Nulla sed massa vitae urna eleifend cursus commodo at turpis. Nunc sodales ipsum nec sapien consequat dapibus. Vivamus laoreet viverra sapien. Proin hendrerit nisl nisl, sit amet tempus urna rutrum id. Morbi varius sed lectus eget eleifend. Nam ultrices aliquam mi, facilisis consequat mi egestas a.
+        </p>
+      </div>
+    </td> 
+  </tr>
 </table>
-    
-<div class="mt-3">
-  <div class="container-fluid">
-    <p class="text-md-left ml-1" style="font-size:26px;font-weight:bold;">Optymalizacja - sugerowane zmiany</p>
-  </div>
-</div> 
-
-  <div class="tabelkakontener p-3 mt-3 ml-4" style="width:660px;">
-    <div class="table-wrapper-scroll-y scrollbar">
-      <div class="column">
-        <table class="table table-bordered" style="width:80px;">
-          <thead>
-              <tr>
-                  <th class="text-center">Symbol</th>
-              </tr>
-          </thead>
-          <tbody>
-              {% for entry in portfolio_current_state %}
-              <tr>
-                  <th class=" text-center">{{ entry.0 }}</th>
-              </tr>
-              {% endfor %}
-          </tbody>
-        </table>
-      </div>
-      <div class="column">
-        <table  class="table table-bordered" style="width:260px;">
-            <thead>
-                <tr>
-                    <th class="text-center">Liczba akcji po optymalizacji</th>
-                </tr>
-            </thead>
-            <tbody>
-              {% for value in new_portfolio_list %}
-                <tr>
-                    <th class=" text-center">{{ value.0 }}</th>
-                </tr>
-              {% endfor %}
-            </tbody>
-        </table>
-      </div>
-      <div class="column">
-        <table  class="table table-bordered" style="width:280px;">
-          <thead>
-              <tr>
-                  <th class="text-center">Zmiana</th>
-              </tr>
-          </thead>
-          <tbody>
-            {% for entry in new_portfolio_list %}
-              <tr>
-                  <th class=" text-center">{{ entry.2 }}{{" "}}{{entry.1}}</th>
-              </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
-  </div>
-  </div>
-
-
 <div class="mt-3">
     <div class="d-flex items-align-center justify-content-center" style="width:660px;">
       <a class="anultrans d-flex justify-content-center align-items-center" href="{% url 'portfolio_state' current_portfolio.portfolio_id %}" style="text-decoration:none;">Twoje portfolio</a>
