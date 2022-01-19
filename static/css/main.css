@@ -718,6 +718,10 @@ a{
       float: left;
     }
 
+    .columnright {
+      float: right;
+    }
+
 
 th, td {
   text-align: left;
