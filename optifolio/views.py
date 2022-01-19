@@ -587,6 +587,330 @@ def portfolioOptimize(request, pk):
         print(delta_amount)
         new_frame = {'new amount': new_amount, 'zmiana': delta_amount}
         new_portfolio = pd.DataFrame(new_frame)
+        new_sharpe_ratio = get_portfolio_sharpe_ratio(result.x)
+        
+        print('stare sharpe ratio',get_portfolio_sharpe_ratio(wagi),'nowe sharpe ratio',new_sharpe_ratio)
+        print("stary oczekiwany zwrot",get_portfolio_exp_return(wagi),"nowy oczekiwany zwrot",get_portfolio_exp_return(result.x))
+        #funkcja pomocnicza
+        def check_action(delta_amount, axis):
+            if delta_amount > 0:
+                return 'Dokup'
+            else:
+                return 'Sprzedaj'
+
+        #tworzę dane do nowej kolumny
+        action = new_portfolio['zmiana'].apply(check_action, axis=1)
+        print('akcja', action)
+        #dodaję kolumnę z akcją
+        new_portfolio['akcja'] = action
+        #zamieniam wartość w kolumnie na nieujemne
+        new_portfolio['zmiana'] = new_portfolio['zmiana'].apply(np.abs, axis=1)
+        print(new_portfolio)
+        new_portfolio = new_portfolio.round({'new amount':2, 'zmiana':2 })
+        print(new_portfolio)
+        new_portfolio_list = new_portfolio.values.tolist()
+        print(new_portfolio_list)
+        expected_return = ['Oczekiwany zwrot',str(round(get_portfolio_exp_return(wagi)*100,2))+"%",str(round(get_portfolio_exp_return(result.x)*100,2))+"%"]
+        standard_deviation = ['Odchylenie standardowe',str(round(get_portfolio_std_deviation(wagi),4)*100)+"%",str(round(get_portfolio_std_deviation(result.x),4)*100)+"%"]
+        sharpe_ratio_wskazniki = ['Sharpe ratio',round(get_portfolio_sharpe_ratio(wagi),2),round(get_portfolio_sharpe_ratio(result.x),2)]
+        wskazniki = [expected_return,standard_deviation,sharpe_ratio_wskazniki]
+        print(wskazniki)
+        context = {'portfolio_current_state': portfolio_current_state, 'visdata': visdata, 'current_portfolio': current_portfolio,'delta_amount':delta_amount,'new_portfolio_list': new_portfolio_list,'wskazniki':wskazniki  }
+    
+    else:
+        print('Portfolio jest puste')
+        context = {'portfolio_current_state':portfolio_current_state,'visdata':visdata,'current_portfolio':current_portfolio}
+    
+    return render(request, 'optifolio/optimize.html', context)
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['customer'])
+def portfolioOptimize_2(request, pk):
+    current_user_name = request.user.customer
+    current_portfolio = Portfolio.objects.get(portfolio_id = pk)
+    visdata = current_portfolio.visdata_set.all()
+
+    # odbieram portfolio current state z podstronki z obecnym stanem portfolio
+    portfolio_current_state = request.session.get('portfolio_current_state')
+
+    def Extract(lst):
+        return [item[0] for item in lst]
+
+    spolki = Extract(portfolio_current_state)
+    portfolio = pd.DataFrame(portfolio_current_state,index=spolki, columns=['spolki','ilosc akcji'])
+    #portfolio = pd.DataFrame.from_dict(portfolio_current_state, orient='index',columns=['ilosc akcji'])
+    price = []
+    for index,row in portfolio.iterrows():
+        price.append(get_live_price(str(index)))
+    portfolio['live price'] = price
+    print(portfolio)
+
+    three_yrs_ago = date.today() - relativedelta(years=3)
+    returns = pd.DataFrame()
+    exc_returns = pd.DataFrame()
+    sharpe_ratio = pd.DataFrame()
+
+    portfolio['wartość'] = portfolio['ilosc akcji'] * portfolio['live price']
+    portfolio_value=portfolio['wartość'].sum() #aktualna wartość portfolio
+    
+    portfolio['procent wartosci'] = portfolio['wartość']/portfolio_value
+    wagi = portfolio['procent wartosci'].to_numpy()
+    print(portfolio)
+    print(wagi)
+
+
+    def monthly_returns(companies_list):
+        for i in companies_list:
+            price = get_data(ticker=i,start_date=three_yrs_ago,interval="1mo",index_as_date=False)
+            price = price[['close','date']]
+            new_df = price.diff(axis=0)
+            price['diff'] = new_df['close']
+            price['shifted'] = price['close'].shift(periods=1)
+            price['return'] = price['diff']/price['shifted']
+            price.iloc[[-1],[4]] = np.nan
+            price.drop([0],inplace=True)
+            price.drop(price.tail(1).index,inplace=True)
+
+            returns[i] = price['return']
+        return returns 
+
+    #spolki = portfolio_current_state.keys()
+    returns = monthly_returns(spolki)
+    sharpe_ratio["sharpe_ratio"] = returns.mean()/returns.std()
+    
+    #funkcja licząca macierz kowariancji
+    def variance_covariance_matrix(mean_returns_dataframe):
+        mean_return_series = mean_returns_dataframe.mean().squeeze()
+        exc_returns = mean_returns_dataframe.sub(mean_return_series, axis=1)
+        exc_returns = exc_returns.to_numpy()
+        exc_returns_trans = exc_returns.transpose()
+        var_cov = np.matmul(exc_returns_trans,exc_returns)
+        var_cov = np.divide(var_cov,exc_returns.shape[0])
+        return var_cov
+
+    #funkcja która liczy odchylenie standardowe w zależności od wag
+    def get_portfolio_std_deviation(weights):
+        portfolio_standard_deviation = np.sqrt(np.matmul(np.matmul(weights,variance_covariance_matrix(returns)), weights))
+        return portfolio_standard_deviation     
+
+    #funkcja która liczy oczekiwany zwrot portfolio w zależności od wag
+    def get_portfolio_exp_return(weights):
+        portfolio_exp_return = np.matmul(returns.mean(), weights)
+        return portfolio_exp_return
+
+    #funkcja która oblicza sharpe ratio portfolia w zależności od wag
+    def get_portfolio_sharpe_ratio(weights):
+        portfolio_sharpe_ratio = get_portfolio_exp_return(weights)/get_portfolio_std_deviation(weights)
+        return portfolio_sharpe_ratio
+
+    def get_portfolio_exp_return_reversed(weights):
+        return 1/get_portfolio_exp_return(weights)
+
+    
+
+    def get_sharpe_ratio_reversed(weights):
+        return 1/get_portfolio_sharpe_ratio(weights)
+
+
+    
+    comp_number = visdata.count()
+    if comp_number > 0:
+        max_expected_return = max(returns.mean())
+        min_std_dev = min(returns.std())
+        max_sharpe_ratio = max(sharpe_ratio['sharpe_ratio'])
+        min_weight = min(wagi)
+        print(min_weight)
+        
+        bnds = (0.05,1)
+        bnds2 = []
+        print('pierwotne wagi',wagi)
+
+        for i in spolki:
+            bnds2.append(bnds)
+        
+        bnds2 = tuple(bnds2)
+
+        #OPTYMALIZACJA 2
+        cons2 = ({'type': 'eq', 'fun': lambda x:  sum(x) - 1},
+            {'type': 'ineq', 'fun': lambda x: get_portfolio_exp_return(x) - max_expected_return})
+
+        result2 = opt.minimize(get_portfolio_std_deviation, wagi, constraints=cons2,bounds=bnds2)
+        
+        print('wagi optymalizacja 2',result2.x)
+
+        #nowe_wagi*wartość_portfela=ile bedą warte te nowe
+        new_values = result2.x*portfolio_value
+        print(new_values)
+        new_amount = new_values/portfolio['live price']
+        print(new_amount)
+        delta_amount = new_amount-portfolio['ilosc akcji']
+        print(delta_amount)
+        new_frame = {'new amount': new_amount, 'zmiana': delta_amount}
+        new_portfolio = pd.DataFrame(new_frame)
+        new_sharpe_ratio = get_portfolio_sharpe_ratio(result2.x)
+        
+        print('stare sharpe ratio',get_portfolio_sharpe_ratio(wagi),'nowe sharpe ratio',new_sharpe_ratio)
+        print("stary oczekiwany zwrot",get_portfolio_exp_return(wagi),"nowy oczekiwany zwrot",get_portfolio_exp_return(result2.x))
+        #funkcja pomocnicza
+        def check_action(delta_amount, axis):
+            if delta_amount > 0:
+                return 'Dokup'
+            else:
+                return 'Sprzedaj'
+
+        #tworzę dane do nowej kolumny
+        action = new_portfolio['zmiana'].apply(check_action, axis=1)
+        print('akcja', action)
+        #dodaję kolumnę z akcją
+        new_portfolio['akcja'] = action
+        #zamieniam wartość w kolumnie na nieujemne
+        new_portfolio['zmiana'] = new_portfolio['zmiana'].apply(np.abs, axis=1)
+        print(new_portfolio)
+        new_portfolio = new_portfolio.round({'new amount':2, 'zmiana':2 })
+        print(new_portfolio)
+        new_portfolio_list = new_portfolio.values.tolist()
+        print(new_portfolio_list)
+        expected_return = ['Oczekiwany zwrot',str(round(get_portfolio_exp_return(wagi)*100,2))+"%",str(round(get_portfolio_exp_return(result2.x)*100,2))+"%"]
+        standard_deviation = ['Odchylenie standardowe',str(round(get_portfolio_std_deviation(wagi),4)*100)+"%",str(round(get_portfolio_std_deviation(result2.x),4)*100)+"%"]
+        sharpe_ratio_wskazniki = ['Sharpe ratio',round(get_portfolio_sharpe_ratio(wagi),2),round(get_portfolio_sharpe_ratio(result2.x),2)]
+        wskazniki = [expected_return,standard_deviation,sharpe_ratio_wskazniki]
+        print(wskazniki)
+        context = {'portfolio_current_state': portfolio_current_state, 'visdata': visdata, 'current_portfolio': current_portfolio,'delta_amount':delta_amount,'new_portfolio_list': new_portfolio_list,'wskazniki':wskazniki  }
+    
+    else:
+        print('Portfolio jest puste')
+        context = {'portfolio_current_state':portfolio_current_state,'visdata':visdata,'current_portfolio':current_portfolio}
+    
+    return render(request, 'optifolio/optimize2.html', context)
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['customer'])
+def portfolioOptimize_3(request, pk):
+    current_user_name = request.user.customer
+    current_portfolio = Portfolio.objects.get(portfolio_id = pk)
+    visdata = current_portfolio.visdata_set.all()
+
+    # odbieram portfolio current state z podstronki z obecnym stanem portfolio
+    portfolio_current_state = request.session.get('portfolio_current_state')
+
+    def Extract(lst):
+        return [item[0] for item in lst]
+
+    spolki = Extract(portfolio_current_state)
+    portfolio = pd.DataFrame(portfolio_current_state,index=spolki, columns=['spolki','ilosc akcji'])
+    #portfolio = pd.DataFrame.from_dict(portfolio_current_state, orient='index',columns=['ilosc akcji'])
+    price = []
+    for index,row in portfolio.iterrows():
+        price.append(get_live_price(str(index)))
+    portfolio['live price'] = price
+    print(portfolio)
+
+    three_yrs_ago = date.today() - relativedelta(years=3)
+    returns = pd.DataFrame()
+    exc_returns = pd.DataFrame()
+    sharpe_ratio = pd.DataFrame()
+
+    portfolio['wartość'] = portfolio['ilosc akcji'] * portfolio['live price']
+    portfolio_value=portfolio['wartość'].sum() #aktualna wartość portfolio
+    
+    portfolio['procent wartosci'] = portfolio['wartość']/portfolio_value
+    wagi = portfolio['procent wartosci'].to_numpy()
+    print(portfolio)
+    print(wagi)
+
+
+    def monthly_returns(companies_list):
+        for i in companies_list:
+            price = get_data(ticker=i,start_date=three_yrs_ago,interval="1mo",index_as_date=False)
+            price = price[['close','date']]
+            new_df = price.diff(axis=0)
+            price['diff'] = new_df['close']
+            price['shifted'] = price['close'].shift(periods=1)
+            price['return'] = price['diff']/price['shifted']
+            price.iloc[[-1],[4]] = np.nan
+            price.drop([0],inplace=True)
+            price.drop(price.tail(1).index,inplace=True)
+
+            returns[i] = price['return']
+        return returns 
+
+    #spolki = portfolio_current_state.keys()
+    returns = monthly_returns(spolki)
+    sharpe_ratio["sharpe_ratio"] = returns.mean()/returns.std()
+    
+    #funkcja licząca macierz kowariancji
+    def variance_covariance_matrix(mean_returns_dataframe):
+        mean_return_series = mean_returns_dataframe.mean().squeeze()
+        exc_returns = mean_returns_dataframe.sub(mean_return_series, axis=1)
+        exc_returns = exc_returns.to_numpy()
+        exc_returns_trans = exc_returns.transpose()
+        var_cov = np.matmul(exc_returns_trans,exc_returns)
+        var_cov = np.divide(var_cov,exc_returns.shape[0])
+        return var_cov
+
+    #funkcja która liczy odchylenie standardowe w zależności od wag
+    def get_portfolio_std_deviation(weights):
+        portfolio_standard_deviation = np.sqrt(np.matmul(np.matmul(weights,variance_covariance_matrix(returns)), weights))
+        return portfolio_standard_deviation     
+
+    #funkcja która liczy oczekiwany zwrot portfolio w zależności od wag
+    def get_portfolio_exp_return(weights):
+        portfolio_exp_return = np.matmul(returns.mean(), weights)
+        return portfolio_exp_return
+
+    #funkcja która oblicza sharpe ratio portfolia w zależności od wag
+    def get_portfolio_sharpe_ratio(weights):
+        portfolio_sharpe_ratio = get_portfolio_exp_return(weights)/get_portfolio_std_deviation(weights)
+        return portfolio_sharpe_ratio
+
+    def get_portfolio_exp_return_reversed(weights):
+        return 1/get_portfolio_exp_return(weights)
+
+    
+
+    def get_sharpe_ratio_reversed(weights):
+        return 1/get_portfolio_sharpe_ratio(weights)
+
+
+    
+    comp_number = visdata.count()
+    if comp_number > 0:
+        max_expected_return = max(returns.mean())
+        min_std_dev = min(returns.std())
+        max_sharpe_ratio = max(sharpe_ratio['sharpe_ratio'])
+        min_weight = min(wagi)
+        print(min_weight)
+        
+        bnds = (0.05,1)
+        bnds2 = []
+        print('pierwotne wagi',wagi)
+
+        for i in spolki:
+            bnds2.append(bnds)
+        
+        bnds2 = tuple(bnds2)
+
+
+        #OPTYMALIZACJA 3
+        cons3 = ({'type': 'eq', 'fun': lambda x:  sum(x) - 1})
+        
+
+        result3 = opt.minimize(get_sharpe_ratio_reversed, wagi, bounds=bnds2, constraints=cons3)
+        print('wagi optymalizacja 3',result3.x)
+
+
+
+        #nowe_wagi*wartość_portfela=ile bedą warte te nowe
+        new_values = result3.x*portfolio_value
+        print(new_values)
+        new_amount = new_values/portfolio['live price']
+        print(new_amount)
+        delta_amount = new_amount-portfolio['ilosc akcji']
+        print(delta_amount)
+        new_frame = {'new amount': new_amount, 'zmiana': delta_amount}
+        new_portfolio = pd.DataFrame(new_frame)
         new_sharpe_ratio = get_portfolio_sharpe_ratio(result3.x)
         
         print('stare sharpe ratio',get_portfolio_sharpe_ratio(wagi),'nowe sharpe ratio',new_sharpe_ratio)
@@ -621,8 +945,7 @@ def portfolioOptimize(request, pk):
         print('Portfolio jest puste')
         context = {'portfolio_current_state':portfolio_current_state,'visdata':visdata,'current_portfolio':current_portfolio}
     
-    return render(request, 'optifolio/optimize.html', context)
-
+    return render(request, 'optifolio/optimize3.html', context)
 
 @unauthenticated_user
 def yahooPage(request):

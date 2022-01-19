@@ -20,8 +20,14 @@
                             <a class="przyciskportf1 d-flex justify-content-center align-items-center ml-4" href="{% url 'add_transaction' current_portfolio.portfolio_id %}" style="text-decoration:none;">Dodaj transakcję</a>
                         </li>
                         <li class="nav-item">
-                            <a class="przyciskportf d-flex justify-content-center align-items-center ml-4" href="{% url 'optimize' current_portfolio.portfolio_id %}" style="text-decoration:none;">Optymalizuj</a>
-                        </li>             
+                            <a class="przyciskportf d-flex justify-content-center align-items-center ml-4" href="{% url 'optimize' current_portfolio.portfolio_id %}" style="text-decoration:none;">Maksymalny zwrot</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="przyciskportf d-flex justify-content-center align-items-center ml-4" href="{% url 'optimize2' current_portfolio.portfolio_id %}" style="text-decoration:none;">Minimalne odchylenie </a>
+                      </li> 
+                      <li class="nav-item">
+                        <a class="przyciskportf d-flex justify-content-center align-items-center ml-4" href="{% url 'optimize3' current_portfolio.portfolio_id %}" style="text-decoration:none;">Maksymalne sharpe ratio</a>
+                    </li>              
                     </ul>
     
                 </div>

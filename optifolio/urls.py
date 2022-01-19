@@ -31,6 +31,8 @@ urlpatterns = [
     path('delete_portfolio/<str:pk>/', views.deletePortfolio, name="delete_portfolio"),
     path('portfolio_state/<str:pk>/', views.portfolioState, name="portfolio_state"),
     path('optimize/<str:pk>/', views.portfolioOptimize, name="optimize"),
+    path('optimize2/<str:pk>/', views.portfolioOptimize_2, name="optimize2"),
+    path('optimize3/<str:pk>/', views.portfolioOptimize_3, name="optimize3"),
 
     path('visualisationpage/', views.visualisationPage, name="visualisationpage"),
     path('add_transaction/<str:pk>/', views.addVisData, name="add_transaction"),
