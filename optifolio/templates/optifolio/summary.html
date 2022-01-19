@@ -50,11 +50,11 @@
     </div>
   </div>
 </div>
-<div class="container navadj width:100%;">
-<table>
-    <tr>
+<div class="navadj">
+<div class="ml-3">
 {% for temp in all_user_portfolio %}
-<td>
+{% if temp == 0 or 1 %}
+<div style="float:left;">
     <div class="kafelek ml-4 mt-3">
         <div class="grafika"> </div>
         <div class="sumnapis d-flex justify-content-center align-items-center mt-3">{{ temp.portfolio_title }}</div>
@@ -146,10 +146,106 @@
         </div>
         <div class="summfoot d-flex justify-content-center align-items-center p-4">Ostatnia aktualizacja {{temp.p_last_mod_date}}</div>
     </div>
-</td>
+</div>
+{% elif temp == 2 %}
+<div style="float:right;">
+    <div class="kafelek ml-4 mt-3">
+        <div class="grafika"> </div>
+        <div class="sumnapis d-flex justify-content-center align-items-center mt-3">{{ temp.portfolio_title }}</div>
+        <div class="cztery containfer-fluid mt-3">
+        <table class="d-flex justify-content-center align-items-center">
+            <tr>
+               <td class="p-3">
+                   <div class="shadow">
+                       <div class="kaf d-flex justify-content-center align-items-center">
+                       <table>
+                        <tr>
+                            <td class="d-flex justify-content-center align-items-center">
+                                <p class="dane">{{temp.p_shares_num_sum}}</p>
+                            </td>
+                         </tr>
+                         <tr>
+                             <td class="d-flex justify-content-center align-items-center">
+                                 <p>Liczba akcji</p>
+                             </td>
+                         </tr>
+                     </table>
+                        </div>
+                    </div>
+            </td>
+               <td class="p-3">
+                   <div class="shadow">
+                       <div class="kaf d-flex justify-content-center align-items-center">
+                           <table>
+                            <tr>
+                                <td class="d-flex justify-content-center align-items-center">
+                                    <p class="dane">{{temp.p_profit_earned}}</p>
+                                </td>
+                             </tr>
+                             <tr>
+                                 <td class="d-flex justify-content-center align-items-center">
+                                     <p>Zysk</p>
+                                 </td>
+                             </tr>
+                         </table>
+                       </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+               <td class="p-3"> 
+                   <div class="shadow">
+                       <div class="kaf d-flex justify-content-center align-items-center">
+                        <table>
+                            <tr>
+                                <td class="d-flex justify-content-center align-items-center">
+                                    <p class="dane">{{temp.p_comp_num_sum}}</p> 
+                                </td>
+                             </tr>
+                             <tr>
+                                 <td class="d-flex justify-content-center align-items-center">
+                                     <p>Liczba firm</p>
+                                 </td>
+                             </tr>
+                         </table>
+                        </div>
+                    </div>
+                </td>
+               <td class="p-3"> 
+                   <div class="shadow">
+                       <div class="kaf d-flex justify-content-center align-items-center">
+                           <table>
+                               <tr>
+                                   <td class="d-flex justify-content-center align-items-center">
+                                       <p class="dane">{{temp.p_to_buy_percentage}}</p>
+                                   </td>
+                                </tr>
+                                <tr>
+                                    <td class="d-flex justify-content-center align-items-center">
+                                        <p>Na buy</p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        </div>
+        <div class="d-flex justify-content-center align-items-center mt-3">
+            
+            <a class="navbutt mr-4 d-flex justify-content-center align-items-center" href="{% url 'portfolio_state' temp.portfolio_id %}" style="text-decoration:none;">Wyświetl</a>
+            <a class="navbutt d-flex justify-content-center align-items-center" href="{% url 'delete_portfolio' temp.portfolio_id %}" style="text-decoration:none;">Usuń</a>
+            
+        </div>
+        <div class="summfoot d-flex justify-content-center align-items-center p-4">Ostatnia aktualizacja {{temp.p_last_mod_date}}</div>
+    </div>
+</div>
+{%endif%}
 {% endfor %}
-</tr>
-</table>
+</div>
+</div>
+
     <div class="modal fade" id="usunModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content d-flex justify-content-center align-items-center" style=" border-radius: 25px;
@@ -171,7 +267,5 @@
           </div>
         </div>
     </div>
-
-
 </div>
 {% endblock %}
