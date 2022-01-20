@@ -46,7 +46,6 @@
                     <a class="przyciskportf d-flex justify-content-center align-items-center ml-4" href="{% url 'optimize3' current_portfolio.portfolio_id %}" style="text-decoration:none;">Maksymalne sharpe ratio</a>
                     </li>          
                   </ul>
-  
               </div>
           </div>
       </nav>
@@ -112,7 +111,7 @@
       <div class ="d-flex justify-content-center align-items-center">
         <button class="wykres1" onclick="chartType('bar')">Słupkowy</button>
         <button class="wykres1" onclick="chartType('line')">Liniowy</button>
-        <button class="wykres1" onclick="chartType('polarArea')">Kołowy</button>
+        
       </div>
     <div>
       <div class="chartCard">
@@ -127,7 +126,7 @@
   
       const data = {
   
-            labels: [{% for item in value_comp %}'{{item}}',{%endfor%}],
+            labels: [{% for item in visdata %}'{{item.title2}}',{%endfor%}],
             datasets: [{
               label: 'Wartość akcji',
               data: [{% for item in value %}'{{item}}',{%endfor%}],

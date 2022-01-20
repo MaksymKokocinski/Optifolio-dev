@@ -2,6 +2,14 @@
   border-radius: 25px;
 }
 
+.sumdiv{
+  display: flex;
+}
+
+.sumdiv > div {
+  flex: 1;
+}
+
 .tytuly{
   font-size:36px;
   font-weight:bold;
@@ -411,8 +419,8 @@ a{
  
 
  .kontener{
-     background-color: white;
-     height: 487px;
+    background-color: white;
+    height: 487px;
     width: 760px;
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
@@ -708,6 +716,10 @@ a{
       
     .column {
       float: left;
+    }
+
+    .columnright {
+      float: right;
     }
 
 
